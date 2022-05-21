@@ -1,0 +1,14 @@
+^GenomAutomorphism\.Rproj$
+^\.Rproj\.user$
+^data-raw$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^vignettes/
+^CONDUCT\.md$
+^README\.Rmd$
+.Rprofile
+^\.gitignore$
+^\.Rproj\.user$
+^\.git$
+^\.github$

@@ -1,0 +1,315 @@
+---
+title: "Automorphism analysis on COVID-19 data"
+author: 
+    - name: Robersy Sanchez
+      affiliation: Department of Biology.
+                   Pennsylvania State University, University Park, PA 16802
+      email: rus547@psu.edu
+date: "`r format(Sys.time(), '%d %B %Y')`"
+fontsize: 11pt
+fontfamily: "serif"
+output:
+    BiocStyle::html_document:
+        toc: true
+        toc_depth: 3
+        toc_float: 
+                collapsed: false
+                smooth_scroll: true
+        number_sections: true
+        theme: united 
+        geometry: margin=0.8in
+        highlight: tango
+toc_float: true
+toc_depth: 3
+abstract: |
+    Analysis of COVID-19 mutational events in terms of automorphisms.
+vignette: >
+    %\VignetteIndexEntry{Get started-with Methyl-IT}
+    %\VignetteEncoding{UTF-8}
+    %\VignetteEngine{knitr::knitr}
+---
+    
+<style type="text/css">
+
+div.main-container {
+  max-width: 2200px !important;
+  padding: 2px;
+}
+
+.main-container {
+  max-width: 2200px !important;
+  padding: 2px;
+}
+
+.watch-out {
+  max-width: 2200px !important;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #c9feed;
+  font-weight: bold
+  font-size: 100%;
+  padding: 2px;
+}
+
+pre, code {
+  max-width: 2200px !important;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #c9feed;
+  font-weight: bold
+  font-size: 100px;
+  padding: 2px;
+}
+
+code {
+    font-size: 100%;
+    font-family: Consolas,Monaco,"Courier New",monospace;
+    border-radius: 0;
+}
+
+body {
+  max-width: 2200px !important;
+  margin: auto;
+}  
+
+code.r{
+  font-size: 100%;
+}
+</style>
+    
+    ```{r, include = FALSE}
+knitr::opts_chunk$set(
+    class.source = "watch-out",
+    collapse = TRUE,
+    comment = "#>"
+)
+```
+
+
+```{r set-options, echo=FALSE, cache=FALSE}
+options(width = 120)
+```
+
+```{r lib, message=FALSE}
+library(Biostrings)
+library(GenomAutomorphism)
+library(usefr)
+library(latex2exp)
+```
+
+# SARS coronavirus GZ02 vs bat-SL-CoVZC45 
+```{r dat}
+URL <- paste0("https://github.com/genomaths/seqalignments/raw/master/", 
+        "COVID-19/AY390556.1_265-13398_13398-21485_RNA-POL_SARS_COVI_GZ02.fas")
+
+covid_aln2 <- readDNAMultipleAlignment(filepath = URL)
+```
+
+
+```{r aut_1}
+covid_aut <- automorphisms(
+                    seq = covid_aln2,
+                    group = "Z64",
+                    cube = c("ACGT", "TGCA"),
+                    cube_alt = c("CATG", "GTAC"),
+                    verbose = FALSE)
+
+covid_aut
+```
+
+
+```{r barplot, fig.height = 5, fig.width = 6}
+counts <- table(covid_aut$cube[ covid_aut$autm != 1 | is.na(covid_aut$autm) ])
+
+par(family = "serif", cex = 0.9, font = 2, mar=c(4,6,4,4))
+barplot(counts, main="Automorphism distribution",
+        xlab="Genetic-code cube representation",
+        ylab="Fixed mutational events",
+        col=c("darkblue","red", "darkgreen"), 
+        border = NA, axes = FALSE, #ylim = c(0, 2000), 
+        cex.lab = 2, cex.main = 1.5, cex.names = 2)
+axis(2, at = c(0, 500, 1000, 1500, 2000), cex.axis = 1.5)
+mtext(side = 1,line = -1.5, at = c(0.7, 1.9, 3.1, 4.3, 5.5),
+      text = paste0( counts ), cex = 1.4,
+      col = c("white","yellow", "black"))
+
+```
+
+# Analysis of conserved regions
+```{r uniq}
+conserv2 <- conserved_regions(covid_aut)
+conserv2
+```
+
+
+Next, function [fitCDF](https://rdrr.io/github/genomaths/usefr/man/fitCDF.html)
+is applied to find the best fitted probability function to the the sizes of
+conserved regions. 
+```{r dist, fig.height= 8, fig.width=12}
+widths <- width(conserv2)
+dist2 <- fitCDF(widths, distNames = c(2, 3, 7, 10, 11, 19, 20), plot = TRUE, 
+               loss.fun = "cauchy")
+dist2
+```
+
+
+```{r hist, fig.height = 6, fig.width = 7}
+par(lwd = 0.5, cex.axis = 2, cex.lab =1.4,
+    cex.main = 2, mar=c(5,6,4,4), family = "serif")
+hist(widths, 14, freq = FALSE, las = 1, family = "serif",
+col = "cyan1", cex.main = 0.9,
+main = "Histogram and best fitted CDF model for conserved region sizes",
+xlab = "Conserved region size (bp)", yaxt = "n", ylab="", cex.axis = 1.4)
+axis(side = 2, cex.axis = 1.4, las = 2)
+mtext("Density", side = 2, cex = 1.4, line = 3.5)
+
+x1 <- seq(1, 150, by = 1)
+txt <- TeX(r'($\textit{f}(\textit{x}) = \frac{\alpha}{\beta\Gamma(\gamma)}
+  {(\frac{\textit{x}}{\beta})}^{\alpha\delta-1}
+  e^{(-\frac{\textit{x}}{\beta})^\alpha}$)')
+
+lines(x1, dggamma(x1,
+                  alpha = coef(dist2$bestfit)[1],
+                  scale = coef(dist2$bestfit)[2],
+                  psi = coef(dist2$bestfit)[3]
+                  ),
+      col = "red", lwd = 1)
+mtext(txt, side = 3, line = -4, cex = 1.4, adj = 0.7)
+```
+
+
+After apply Bootstrap test for Goodness of fit,  tt seems to be that we have 
+no reasons to reject the hypothesis that the sizes of conserved regions follows 
+Generalized Gamma distribution.
+```{r gof2}
+mcgoftest( 
+          varobj = widths, 
+          model = dist2,
+          stat = "ks")
+
+
+mcgoftest(
+          varobj = widths,
+          model = dist2,
+          stat = "rmse",
+          breaks = 12)
+
+```
+
+## Grouping automorphism by automorphism's coefficients. Types of mutations
+
+```{r autby3}
+autby_coef2 <- automorphism_bycoef(covid_aut)
+autby_coef2 <- autby_coef2[ autby_coef2$autm != 1 & autby_coef2$autm != -1  ]
+```
+
+
+Alignment gaps denoting indel mutations are labeled as “---”. 
+```{r barplot2, fig.height = 14, fig.width = 14}
+counts2 <- table(autby_coef2$mut_type)
+counts2 <- sort(counts2, decreasing = TRUE)
+count. <- counts2[ counts2 > 9 ]
+
+par(family = "serif", cex.axis = 2, font = 2, las = 1, 
+    cex.main = 1.4, mar = c(6,3,4,4))
+barplot(count., main="Automorphism distribution per Mutation type",
+        col = colorRampPalette(c("red", "yellow", "blue"))(36), 
+        border = NA, axes = FALSE,las=2)
+axis(side = 2,  cex.axis = 2, line = -1.8 )
+counts2
+```
+
+
+
+# SARS coronavirus GZ02 vs bat-SL-CoVZC45 and Bat SARS-like coronavirus isolate Rs7327 
+
+```{r dat2}
+data(covid_autm, package = "GenomAutomorphism")
+covid_autm
+```
+
+
+```{r conserved_regions}
+conserv <- conserved_regions(covid_autm)
+conserv
+```
+
+
+```{r consv}
+consvr <- c(conserv, conserv2)
+widths <- width(consvr)
+dist <- fitCDF(widths, distNames = c(2, 3, 7, 10, 11, 19, 20), plot = TRUE, 
+               loss.fun = "cauchy")
+dist
+```
+
+Joining the datasets increases the sample size and improved predictions in 
+respect to the comparison SARS coronavirus GZ02 vs Bat SARS-like coronavirus
+alone.
+```{r hist2, fig.height = 4, fig.width = 6}
+par(lwd = 0.5, cex.axis = 2, cex.lab =1.4,
+    cex.main = 2, mar=c(5,6,4,4), family = "serif")
+hist(widths, 14, freq = FALSE, las = 1, family = "serif",
+col = "cyan1", cex.main = 0.9,
+main = "Histogram and best fitted CDF model for conserved region sizes",
+xlab = "Conserved region size (bp)", yaxt = "n", ylab="", cex.axis = 1.4)
+axis(side = 2, cex.axis = 1.4, las = 2)
+mtext("Density", side = 2, cex = 1.4, line = 3.5)
+
+x1 <- seq(1, 150, by = 1)
+txt <- TeX(r'($\textit{f}(\textit{x}) = \frac{\alpha}{\beta\Gamma(\gamma)}
+  {(\frac{\textit{x}}{\beta})}^{\alpha\delta-1}
+  e^{(-\frac{\textit{x}}{\beta})^\alpha}$)')
+
+lines(x1, dggamma(x1,
+                  alpha = coef(dist$bestfit)[1],
+                  scale = coef(dist$bestfit)[2],
+                  psi = coef(dist$bestfit)[3]
+                  ),
+      col = "red", lwd = 1)
+mtext(txt, side = 3, line = -4, cex = 1.4, adj = 0.7)
+```
+
+
+```{r gof3}
+mcgoftest( 
+          varobj = widths, 
+          model = dist,
+          stat = "ks")
+
+cat("\n===========================\n")
+mcgoftest(
+          varobj = widths,
+          model = dist,
+          stat = "rmse",
+          breaks = 12)
+
+```
+
+## Grouping automorphism by automorphism's coefficients
+
+```{r autby2}
+autby_coef <- automorphism_bycoef(covid_autm)
+autby_coef <- c(autby_coef, autby_coef2)
+autby_coef <- autby_coef[ autby_coef$autm != 1 & autby_coef$autm != -1  ]
+```
+
+
+Alignment gaps denoting indel mutations are labeled as “---”. 
+```{r barplot_3, fig.height = 14, fig.width = 15}
+counts <- table(autby_coef$mut_type)
+counts <- sort(counts, decreasing = TRUE)
+count. <- counts[ counts > 9 ]
+
+par(family = "serif", cex.axis = 2, font = 2, las = 1, 
+    cex.main = 1.4, cex.lab = 2, mar = c(6,4,4,1))
+barplot(count., main="Automorphism distribution per Mutation type",
+        col = colorRampPalette(c("red", "yellow", "blue"))(36), 
+        border = NA, axes = FALSE,las=2)
+axis(side = 2,  cex.axis = 2, line = -1.8 )
+```
+
+
+```{r ct}
+counts
+```

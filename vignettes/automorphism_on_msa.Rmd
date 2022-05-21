@@ -1,0 +1,475 @@
+---
+title: "Analysis of Automorphisms on a DNA Multiple Sequence Alignment"
+author: 
+    - name: Robersy Sanchez
+      affiliation: Department of Biology.
+                   Pennsylvania State University, University Park, PA 16802
+      email: rus547@psu.edu
+date: "`r format(Sys.time(), '%d %B %Y')`"
+fontsize: 11pt
+fontfamily: "serif"
+output:
+    BiocStyle::html_document:
+        toc: true
+        toc_depth: 3
+        toc_float: 
+                collapsed: false
+                smooth_scroll: true
+        number_sections: true
+        theme: united 
+        geometry: margin=0.8in
+        highlight: tango
+toc_float: true
+toc_depth: 3
+abstract: |
+    Analysis of DNA mutational events on DNA Multiple Sequence 
+    Alignment (MSA) by means of automorphisms between pairwise DNA sequences
+    algebraically represented as Abelian finite group. Herein, show a simple
+    example on how the package can be applied.
+vignette: >
+    %\VignetteIndexEntry{Get started-with Methyl-IT}
+    %\VignetteEncoding{UTF-8}
+    %\VignetteEngine{knitr::knitr}
+---
+    
+<style type="text/css">
+
+.watch-out {
+  max-width: 1820px !important;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #c9feed;
+  font-weight: bold
+  font-size: 100%;
+  padding: 2px;
+}
+
+pre, code {
+  max-width: 1820px !important;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #c9feed;
+  font-weight: bold
+  font-size: 100px;
+  padding: 2px;
+}
+
+code {
+    font-size: 100%;
+    font-family: Consolas,Monaco,"Courier New",monospace;
+    border-radius: 0;
+}
+
+code.r{
+  font-size: 100%;
+}
+</style>
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+    class.source = "watch-out",
+    collapse = TRUE,
+    comment = "#>"
+)
+```
+
+
+```{r set-options, echo=FALSE, cache=FALSE}
+options(width = 120)
+```
+
+# Overview
+This is a R package to compute the autimorphisms between pairwise aligned DNA
+sequences represented as elements from a Genomic Abelian group as described in
+reference ([1](#1)). In a general scenario, whole chromosomes or genomic regions
+from a population (from any species or close related species) can be
+algebraically represented as a direct sum of cyclic groups or more specifically
+Abelian *p*-groups. Basically, we propose the representation of multiple
+sequence alignments (MSA) of length _N_ as a finite Abelian group created by the
+direct sum of homocyclic Abelian groups of _prime-power order_:
+
+
+$$
+\qquad G = (\mathbb{Z}_{p^{\alpha_{1}}_1})^{n_1} \oplus (\mathbb{Z}_{p^{\alpha_{2}}_1})^{n_2} \oplus \dots \oplus (\mathbb{Z}_{p^{\alpha_{k}}_k})^{n_k} 
+$$
+
+Where, the $p_i$'s are prime numbers, $\alpha_i \in \mathbb{N}$ and 
+$\mathbb{Z}_{p^{\alpha_{i}}_i}$ is the group of integer modulo 
+$p^{\alpha_{i}}_i$. 
+
+For the purpose of estimating the automorphism between two aligned DNA
+sequences, $p^{\alpha_{i}}_i \in \{5, 2^6, 5^3 \}$.
+
+## Automorphisms
+
+Herein, automorphisms are considered algebraic descriptions of mutational event
+observed in codon sequences represented on different Abelian groups. In
+particular, as described in references ([3-4](#3)), for each representation of
+the codon set on a defined Abelian group there are 24 possible isomorphic
+Abelian groups. These Abelian groups can be labeled based on the DNA base-order
+used to generate them. The set of 24 Abelian groups can be described as a group
+isomorphic to the symmetric group of degree four ($S_4$, see reference
+([4](#4))).
+
+For further support about the symmetric group on the 24 Abelian group of 
+genetic-code cubes, users can also see [Symmetric Group of the Genetic-Code Cubes.](https://github.com/genomaths/GenomeAlgebra_SymmetricGroup), 
+specifically the Mathematica notebook 
+_IntroductionToZ5GeneticCodeVectorSpace.nb_ and interact with it using
+Wolfram Player, freely available (for Windows and Linux OS) at,
+<https://www.wolfram.com/player/>.
+
+
+# Automorphisms on $\mathbb{Z}_{64}$
+
+First, we proceed to load the R package required for our analysis
+```{r library, message=FALSE}
+library(GenomAutomorphism)
+library(Biostrings)
+library(ggseqlogo)
+```
+
+Next, we proceed to check the DNA multiple sequence alignment (MSA) file. This
+ia a FASTA file carrying the MSA of mammals (somatic) Cystocrome c. Notice that
+we are familiar with the _FASTA_ file, then it is better to directly read it
+with function 
+[automorphisms](https://genomaths.github.io/genomautomorphism/reference/automorphism.html).
+
+However, for the current example, this step can be bypassed, since the 
+MSA is provided provided together with _*GenomAutomorphism*_ R package 
+
+```{r fasta, message=FALSE, eval = FALSE}
+## Do not run it. This is included with package
+URL <- paste0("https://github.com/genomaths/seqalignments/raw/master/CYCS/",
+              "primate_cytochrome_c_(CYCS)_18_sequences.fasta")
+
+cyc_aln <- readDNAMultipleAlignment(filepath = URL)
+```
+
+Load MSA available in the package
+```{r dat}
+data("cyc_aln")
+cyc_aln
+```
+
+The sequence names
+```{r names}
+strtrim(rownames(cyc_aln), 100)
+```
+
+The corresponding aminoacid sequence is:
+```{r trans}
+translate(cyc_aln@unmasked)
+```
+
+Next, function [automorphisms](https://genomaths.github.io/genomautomorphism/reference/automorphism.html)
+will be applied to represent the codon sequence in
+the Abelian group $\mathbb{Z}_{64}$ (i.e., the set of integers remainder modulo
+64). The codon coordinates are requested on the cube ACGT. Following reference
+([4](#4))), cubes are labeled based on the order of DNA bases used to define the
+sum operation.
+
+In Z64, automorphisms are described as functions $f(x) = k\,x \quad mod\,64$,
+where $k$ and $x$ are elements from the set of integers modulo 64. Below, in
+function [automorphisms](https://genomaths.github.io/genomautomorphism/reference/automorphism.html)
+three important arguments are given values: _group =
+"Z64"_, _cube = c("ACGT", "TGCA")_, and _cube_alt = c("CATG", "GTAC")_. Setting
+for group specifies on which group the automorphisms will be computed. These
+groups can be: "Z5", "Z64", "Z125", and "Z5^3".
+
+In groups "Z64" and "Z125" not all the mutational events can be described as
+automorphisms from a given cube. So, a character string denoting pairs of "dual"
+the genetic-code cubes, as given in references ([1-4](#2))), is given as
+argument for _cube_. That is, the base pairs from the given cubes must be
+complementary each other. Such a cube pair are call dual cubes and, as shown in
+reference ([4](#4))), each pair integrates group. If automorphisms are not found
+in first set of dual cubes, then the algorithm search for automorphism in a
+alternative set of dual cubes.
+
+
+```{r url, message=FALSE, eval = FALSE}
+## Do not run it. This is included with package
+
+nams <- c("human_1", "human_2", "gorilla", "human_3", "human_4",
+          "human_5", "human_6", "silvery_gibbon", "white_cheeked_gibbon",
+          "françois_langur", "olive_baboon_1", "olive_baboon_2",
+          "golden_monkey", "rhesus_monkeys_1", "rhesus_monkeys_2",
+          "gelada_baboon_1", "gelada_baboon_2", "orangutan_1", "orangutan_2")
+
+cyc_autm <- automorphisms(filepath = URL, 
+                      group = "Z64", 
+                      cube = c("ACGT", "TGCA"),
+                      cube_alt = c("CATG", "GTAC"),
+                      nms = nams,
+                      verbose = FALSE)
+```
+
+Object *autm* is included with package and can be load typing:
+```{r cyc_autm}
+data(cyc_autm, package = "GenomAutomorphism")
+cyc_autm
+```
+
+An AutomorphismList class object is returned. The codon sequences (_seq1_ and
+_seq2_) with their corresponding coordinates (left) are returned, as well as the
+coordinated representation on $\mathbb{Z}_{64}$ (_coord1_ and _coord2_). Observe
+that two new columns were added, the automorphism coefficient $k$ (named as
+_autm_) and the genetic-code cube where the automorphism was found. By
+convention the DNA sequence is given for the positive strand. Since the _dual
+cube_ of **"ACGT"** corresponds to the complementary base order **TGCA**,
+automorphisms described by the cube **TGCA** represent mutational events
+affecting the DNA negative strand (-).
+
+## Bar plot automorphism distribution by cubes
+The automorphism distribution by cubes can be summarized in the bar-plot graphic
+
+```{r barplot, fig.height = 5, fig.width = 4.5}
+counts <- table(unlist(lapply(cyc_autm@DataList, 
+            function(x) {
+              x = data.frame(x)
+              x =  x[ x$autm != 1 | is.na(x$autm), ]
+              return(x$cube)}
+            )
+        ))
+
+par(family = "serif", cex = 0.8, font = 2, mar = c(4,6,4,4))
+barplot(counts, #main="Automorphism distribution",
+        xlab="Genetic-code cube representation",
+        ylab="Fixed mutational events",
+col=c("darkblue","red", "darkgreen", "magenta", "orange"), 
+        border = NA, axes = FALSE, ylim = c(0,300),
+        cex.lab = 2, cex.main = 1.5, cex.names = 2)
+axis(2, at = c(0, 100, 200, 300), cex.axis = 1.5)
+mtext(side = 1,line = -1.5, at = c(0.7, 1.9),
+      text = paste0( counts ), cex = 1.4,
+      col = c("white","yellow"))
+```
+
+## Bar plot automorphism distribution by regions
+
+The last result can be summarized by gene regions as follow:
+```{r range}
+autm_range <- automorphismByRanges(cyc_autm, 
+                                  min.len = 2, 
+                                  verbose = FALSE)
+autm_range
+```
+
+
+That is, function _automorphismByRanges_ permits the classification
+of the pairwise alignment of protein-coding sub-regions based on the
+mutational events observed on it quantitatively represented as automorphisms on 
+genetic-code cubes.
+
+Searching for automorphisms on $\mathbb{Z}_{64}$ permits us a quantitative
+differentiation between mutational events at different codon positions from a
+given DNA protein-encoding region. As shown in reference ([4](#4))) a set of
+different cubes can be applied to describe the best evolutionary aminoacid scale
+highly correlated with aminoacid physicochemical properties describing the
+observed evolutionary process in a given protein.
+
+More information about this subject can be found in the supporting material from
+reference ([4](#4))) at GitHub
+[GenomeAlgebra_SymmetricGroup](https://github.com/genomaths/GenomeAlgebra_SymmetricGroup),
+particularly by interacting with the Mathematica notebook
+[Genetic-Code-Scales_of_Amino-Acids.nb](https://github.com/genomaths/GenomeAlgebra_SymmetricGroup/blob/master/Genetic-Code-Scales_of_Amino-Acids.nb).
+
+
+The automorphism distribution by cubes can be summarized in the bar-plot graphic
+
+```{r barplot1, fig.height = 4, fig.width = 3}
+cts <- unlist(autm_range)
+counts <- table(cts$cube)
+
+par(family = "serif", cex = 0.6, font = 2, las = 1)
+barplot(counts, main="Automorphism distribution",
+        xlab="Genetic-code cube representation",
+        col=c("darkblue","red", "darkgreen"), 
+        border = NA, axes = T)
+mtext(side = 1,line = -6, at = c(0.7, 1.9, 3.1),
+      text = paste0( counts ), cex = 1.4,
+      col = c("white","yellow"))
+
+```
+
+## Grouping automorphism by automorphism's coefficients
+Automorphisms with the same automorphism's coefficients can be grouped.
+
+```{r autby}
+autby_coef <- automorphism_bycoef(cyc_autm, 
+                                 verbose = FALSE)
+autby_coef
+```
+
+
+Every single base mutational event across the MSA was classified according IUPAC
+nomenclature: 1) According to the number of hydrogen bonds (on DNA/RNA
+double helix): strong S={C, G} (three hydrogen bonds) and weak W={A, U} (two
+hydrogen bonds). According to the chemical type: purines R={A, G} and
+pyrimidines Y={C, U}. 3). According to the presence of amino or keto groups on
+the base rings: amino M={C, A} and keto K={G, T}.  Constant (hold) base
+positions were labeled with letter H. So, codon positions labeled as HKH means
+that the first and third bases remains constant and mutational events between
+bases G and T were found in the MSA.
+
+```{r barplot_2, fig.height = 6, fig.width = 6}
+cts <- unlist(autby_coef)
+counts <- table(cts$mut_type[ cts$autm != 1 & cts$autm != -1 ])
+counts <- sort(counts, decreasing = TRUE)
+
+par(family = "serif", cex.axis = 1.4, font = 2, las = 1, 
+    cex.main = 1.4, cex.lab = 2)
+barplot(counts, main="Automorphism distribution per Mutation type",
+        col = c("red", "orange", "yellow", "green", "dodgerblue"), 
+        border = NA, axes = TRUE,las=2)
+mtext(side = 1,line = -2, at = c(0.7, 1.9, 3.1, 4.3, 5.5),
+      text = paste0( counts ), cex = 1.4,
+      col = c("white", "red", "blue", "black", "yellow"))
+```
+
+
+## Bar plot automorphism distribution by cubes
+The automorphism distribution by cubes can be summarized in the bar-plot graphic.
+
+Object *autby_coef* carried all the pairwise comparisons, while it will be
+enough to use data from a single species as reference, e.g., humans.
+
+First the data must be reordered into a \code{\link[base]{data.frame}} object:
+```{r dat1}
+hautby_coef <- autby_coef[ grep("human", names(autby_coef)) ]
+h_autby_coef <- unlist(hautby_coef)
+h_autby_coef <- h_autby_coef[ which(h_autby_coef$autm != 1) ]
+
+nams <- names(h_autby_coef)
+nams <- sub("human[_][1-6][.]", "", nams)
+nams <- sub("[_][1-6]", "", nams)
+
+dt <- data.frame(h_autby_coef, species = nams)
+dt <- dt[, c("start", "autm", "species", "cube")]
+```
+
+
+Nominal variables are transformed into \code{\link[base]{factor}}
+```{r as.factor}
+dt$start <- as.numeric(dt$start)
+dt$autm <- as.numeric(dt$autm)
+dt$cube <- as.factor(dt$cube)
+dt$species <- as.factor(dt$species)
+DataFrame(dt)
+```
+
+
+```{r barplot2, fig.height = 5, fig.width = 4}
+counts <- table(dt$cube)
+
+par(family = "serif", cex = 0.6, font = 2, mar=c(4,6,4,4))
+barplot(counts, #main="Automorphism distribution",
+        xlab="Genetic-code cube representation",
+        ylab="Fixed mutational events",
+        col=c("darkblue","red", "darkgreen", "magenta", "orange"), 
+        border = NA, axes = F, #ylim = c(0, 6000),
+        cex.lab = 2, cex.main = 1.5, cex.names = 2)
+axis(2, at = c(0, 50, 100, 150, 200), cex.axis = 1.5)
+mtext(side = 1,line = -2.5, at = c(0.7, 1.9, 3.1, 4.3, 5.5),
+      text = paste0( counts ), cex = 1.4,
+      col = c("white", "yellow"))
+```
+
+
+## Conserved and non-conserved regions 
+
+A specific function is provided to get the coordinates of conserved and 
+non-conserved regions, which can be used in further downstream analyses.
+
+The conserved regions from each pairwise comparison are retrieved typing: 
+```{r conserv}
+conserved_regions(x = autby_coef)
+```
+
+
+The non-conserved regions from each pairwise comparison are obtained with
+the same function but different settings:
+```{r nonconsv}
+ncs <- conserved_regions(x = autby_coef, conserved = FALSE)
+ncs
+```
+
+# Subsetting regions of interest
+The application of some of the available bioinformatic tools is straightforward.
+For example, knowing the positions for the conserved and non-conserved regions,
+we can subset into the alignment region of potential interest. 
+
+The coordinates carrying mutational events are:
+```{r mut}
+sort(unique(start(ncs)))
+```
+
+We will use function 
+[DNAStringSet](https://www.rdocumentation.org/packages/Biostrings/versions/2.40.2/topics/XStringSet-class)
+from the Bioconductor R package [Biostrings](https://kasperdanielhansen.github.io/genbioconductor/html/Biostrings.html) 
+to subset the MSA of primate cytochrome c. 
+
+```{r dna_region}
+cyc_aln_region <- DNAStringSet(cyc_aln, start = 37*3 - 2, end = 42*3)
+cyc_aln_region
+```
+
+
+Next, function [ggseqlogo](https://rdrr.io/cran/ggseqlogo/man/ggseqlogo.html)
+from the R package [ggseqlogo](https://rdrr.io/cran/ggseqlogo/) will be applied 
+to get the logo sequence from the selected MSA region. 
+```{r seqlogo, message=FALSE}
+ggseqlogo( as.character(cyc_aln_region) )
+```
+
+The corresponding aminoacid sequence will be
+
+```{r aa}
+cyc_aln_region_aa = translate(cyc_aln_region)
+cyc_aln_region_aa
+```
+
+And the corresponding aminoacid sequence logo will is
+```{r aa_logo, message=FALSE}
+ggseqlogo( as.character(cyc_aln_region_aa) )
+```
+
+That is, the first mutational event reported in the codon sequence correspond to
+a synonymous mutation.
+
+Alternatively, we can start translating the DNA MSA. 
+
+```{r trasnl}
+cyc_aln_aa <- translate(cyc_aln@unmasked)
+cyc_aln_aa
+```
+
+
+```{r subs}
+cyc_aln_aa_region <- AAStringSet(cyc_aln_aa, start = 37, end = 42)
+cyc_aln_aa_region
+```
+
+
+```{r seqlogo_aa}
+ggseqlogo( as.character(cyc_aln_aa_region) )
+```
+
+# References
+ 1.<a name="1"></a> Sanchez R, Morgado E, Grau R. Gene algebra from a genetic
+ code algebraic structure. J Math Biol. 2005 Oct;51(4):431-57. doi:
+ 10.1007/s00285-005-0332-8. Epub 2005 Jul 13. PMID: 16012800. (
+ [PDF](https://arxiv.org/pdf/q-bio/0412033.pdf)).
+ 
+ 2.<a name="2"></a> Robersy Sanchez, Jesús Barreto (2021) Genomic Abelian Finite
+  Groups.
+ [doi: 10.1101/2021.06.01.446543](https://doi.org/10.1101/2021.06.01.446543).
+ 
+ 3.<a name="3"></a> M. V José, E.R. Morgado, R. Sánchez, T. Govezensky, The 24
+ possible algebraic representations of the standard genetic code in six or in
+ three dimensions, Adv. Stud. Biol. 4 (2012)
+ 119–152.[PDF](https://is.gd/na9eap).
+ 
+ 4.<a name="4"></a> R. Sanchez. Symmetric Group of the Genetic–Code Cubes.
+ Effect of the Genetic–Code Architecture on the Evolutionary Process MATCH
+ Commun. Math. Comput. Chem. 79 (2018) 527-560. [PDF](https://bit.ly/2Z9mjM7).
+
