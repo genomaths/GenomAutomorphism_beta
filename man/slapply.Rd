@@ -60,4 +60,3 @@ slapply(x, mean, keep.attr = TRUE, simplify = TRUE)
 \author{
 Robersy Sanchez (\url{https://genomaths.com}).
 }
-\keyword{internal}

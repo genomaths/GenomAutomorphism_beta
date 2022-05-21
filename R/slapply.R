@@ -31,7 +31,6 @@
 #' @return Same as in ?base::\code{\link[base]{lapply}} if keep.attr = FALSE.
 #' Otherwise same values preserving original attributes from 'x'.
 #' @seealso \code{\link[base]{lapply}} and \code{\link[base]{sapply}}
-#' @keywords internal
 #' @export
 #' @examples
 #' ## Create a list

@@ -53,7 +53,6 @@
 #' to get the coordinates in a numeric object in object from and still to
 #' preserve the base/codon sequence information.
 #'
-#' @import Biostrings
 #' @importFrom GenomicRanges makeGRangesFromDataFrame GRanges GRangesList
 #' @importFrom S4Vectors mcols DataFrame
 #' @importFrom Biostrings DNAStringSet

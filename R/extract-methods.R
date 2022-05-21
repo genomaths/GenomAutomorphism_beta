@@ -21,6 +21,7 @@
 #' @description First and second level subsetting of 'x'. Extraction using names
 #' can be done as x$name.
 #' @return An element of x, an \code{\link{AutomorphismList-class}} object.
+#' @keywords internal
 #' @export
 #' @author Robersy Sanchez <https://genomaths.com>
 setMethod(

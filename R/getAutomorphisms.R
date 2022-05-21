@@ -27,7 +27,6 @@
 #' an object from the same class but now inheriting from a
 #' \code{\link[GenomicRanges]{GRanges-class}}.
 #'
-#' @import S4Vectors
 #' @export
 #' @examples
 #' ## Load a dataset
@@ -58,6 +57,8 @@ setGeneric(
 #' @rdname getAutomorphisms
 #' @aliases getAutomorphisms
 #' @importFrom GenomicRanges GRanges
+#' @importFrom IRanges IRanges
+#' @importFrom methods new
 #' @export
 setMethod("getAutomorphisms",
     signature = "AutomorphismList",

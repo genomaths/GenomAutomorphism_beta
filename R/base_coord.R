@@ -43,10 +43,8 @@
 #' are just used for the further insertion the codon set in the 3D space (R^3).
 #' @seealso [Symmetric Group of the Genetic-Code Cubes.](
 #' https://github.com/genomaths/GenomeAlgebra_SymmetricGroup)
-#' @import Biostrings
-#' @import GenomicRanges
 #' @importFrom S4Vectors mcols DataFrame
-#' @importFrom Biostrings DNAStringSet
+#' @importFrom Biostrings DNAStringSet readDNAMultipleAlignment
 #' @importFrom methods new
 #' @export
 #' @author Robersy Sanchez <https://genomaths.com>
@@ -99,9 +97,9 @@ setGeneric(
 
 #' @aliases base_coord
 #' @rdname base_coord
-#' @import Biostrings
 #' @importFrom GenomicRanges makeGRangesFromDataFrame
 #' @importFrom methods new
+#' @importFrom Biostrings DNAStringSet
 #' @return A BaseGroup-class object.
 #' @export
 #' @return A BaseGroup-class object.

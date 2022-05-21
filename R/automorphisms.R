@@ -98,7 +98,6 @@
 #' requested regions.
 #'
 #' @seealso \code{\link{autZ64}}.
-#' @importFrom numbers modlin
 #' @export
 #' @author Robersy Sanchez (\url{https://genomaths.com}).
 #' @references
@@ -165,7 +164,7 @@ setGeneric(
 #' @importFrom stats setNames
 #' @importFrom parallel detectCores makeCluster stopCluster
 #' @importFrom BiocGenerics width
-#' @import Biostrings
+#' @importFrom Biostrings readDNAMultipleAlignment
 #' @export
 setMethod(
     "automorphisms", signature(seqs = "DNAStringSet_OR_NULL"),

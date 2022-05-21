@@ -21,7 +21,7 @@ Description:
             created by the direct sum of homocyclic Abelian group of 
             prime-power order.
 Depends: 
-    R (>= 4.2)
+    R (>= 4.1)
 License: file LICENSE
 Encoding: UTF-8
 biocViews: 
