@@ -321,6 +321,7 @@ valid.MatrixList <- function(x) {
 #' @importClassesFrom Biostrings DNAMultipleAlignment DNAMultipleAlignment
 #' @rdname valid.MatrixList
 #' @keywords internal
+#' @importClassesFrom Biostrings DNAMultipleAlignment DNAStringSet
 #' @export
 setClassUnion(
     "DNAStringSet_OR_NULL",

@@ -47,68 +47,69 @@ setGeneric(
 #' @param x An automorphism-class object returned by function
 #' \code{\link{automorphisms}}.
 #' @importFrom data.table data.table
+#' @importFrom dplyr mutate lag %>%
 #' @export
 setMethod(
     "automorphism_bycoef", signature(x = "Automorphism"),
     function(x, mut.type = TRUE) {
         seq1 <- seq2 <- autm <- cube <- row_names <- NULL
-
+        starts <- lagged <- NULL
+        
+        idx <- which(x$cube != "Trnl")
+        x <- x[ idx ]
         nams <- names(x)
+        x <- data.frame(x)
+        
+        if (mut.type) {
+            x$mut_type <- slapply(
+                seq_len(nrow(x)),
+                function(k) mut_type(x$seq1[k], x$seq2[k])
+            )
+        }
+        
         if (!is.null(nams)) {
             x$row_names <- nams
         }
 
         x$autm[which(is.na(x$autm))] <- 0
-        i <- 1
-        l <- length(x)
-        idx <- vector(mode = "numeric", length = length(x))
-        coefs <- x$autm[1]
-        for (k in seq_len(l)) {
-            if (x$autm[k] != coefs) {
-                i <- i + 1
-                coefs <- x$autm[k]
-            }
-            idx[k] <- i
-        }
+        x <- x %>% mutate(lagged = lag(autm)) %>% 
+                mutate(starts = (autm != lagged))
+        x$starts[1] <- TRUE
+        x <- x %>% mutate(idx = cumsum(starts))
+        x$idx <- as.factor(x$idx)
 
-        if (mut.type) {
-            x$mut_type <- slapply(
-                seq_along(x),
-                function(k) mut_type(x$seq1[k], x$seq2[k])
-            )
-        }
-
-        x$idx <- as.factor(idx)
         x <- data.table(data.frame(x))
+        if (mut.type)
+            keys <- c("idx", "mut_type")
+        else
+            keys <- "idx"
+        
         if (!is.null(nams)) {
             x <- x[, list(
-                seqnames = unique(seqnames),
-                start = min(start),
-                end = max(end),
-                strand = unique(strand),
-                seq1 = unique(seq1),
-                seq2 = unique(seq2),
-                autm = unique(autm),
-                cube = unique(cube),
-                row_names = unique(row_names)
-            ),
-            by = c("idx", "mut_type")
-            ]
+                        seqnames = unique(seqnames),
+                        start = min(start),
+                        end = max(end),
+                        strand = unique(strand),
+                        seq1 = unique(seq1),
+                        seq2 = unique(seq2),
+                        autm = unique(autm),
+                        cube = unique(cube),
+                        row_names = unique(row_names)),
+                    by = keys ]
             x <- makeGRangesFromDataFrame(x, keep.extra.columns = TRUE)
             names(x) <- x$row_names
         } else {
             x <- x[, list(
-                seqnames = unique(seqnames),
-                start = min(start),
-                end = max(end),
-                strand = unique(strand),
-                seq1 = unique(seq1),
-                seq2 = unique(seq2),
-                autm = unique(autm),
-                cube = unique(cube)
-            ),
-            by = c("idx", "mut_type")
-            ]
+                        seqnames = unique(seqnames),
+                        start = min(start),
+                        end = max(end),
+                        strand = unique(strand),
+                        seq1 = unique(seq1),
+                        seq2 = unique(seq2),
+                        autm = unique(autm),
+                        cube = unique(cube)),
+                    by = keys
+                ]
             x <- makeGRangesFromDataFrame(x, keep.extra.columns = TRUE)
         }
         x <- x[, c("seq1", "seq2", "autm", "mut_type", "cube")]

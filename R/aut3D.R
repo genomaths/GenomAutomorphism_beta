@@ -49,6 +49,7 @@
 #' metacolumn named: \emph{seq1}, \emph{seq2}, \emph{autm}, and \emph{cube}.
 #' @importFrom BiocParallel MulticoreParam bplapply SnowParam
 #' @importFrom methods new
+#' @importFrom Biostrings nchar
 #' @export
 #' @author Robersy Sanchez (\url{https://genomaths.com}).
 #' @references

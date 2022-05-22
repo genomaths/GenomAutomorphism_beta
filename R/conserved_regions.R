@@ -150,8 +150,7 @@ setMethod("conserved_regions",
                     strand = unique(strand),
                     autm = unique(autm)
                 ),
-                by = c("start", "cube")
-                ]
+                by = c("start", "cube") ]
                 x <- makeGRangesFromDataFrame(x,
                     keep.extra.columns = TRUE
                 )

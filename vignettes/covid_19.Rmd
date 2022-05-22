@@ -137,7 +137,7 @@ mtext(side = 1,line = -1.5, at = c(0.7, 1.9, 3.1, 4.3, 5.5),
 
 # Analysis of conserved regions
 ```{r uniq}
-conserv2 <- conserved_regions(covid_aut)
+conserv2 <- conserved_regions(x = covid_aut)
 conserv2
 ```
 
@@ -147,7 +147,7 @@ is applied to find the best fitted probability function to the the sizes of
 conserved regions. 
 ```{r dist, fig.height= 8, fig.width=12}
 widths <- width(conserv2)
-dist2 <- fitCDF(widths, distNames = c(2, 3, 7, 10, 11, 19, 20), plot = TRUE, 
+dist2 <- fitCDF(widths, distNames = c(3, 7, 9, 10, 11, 12, 19, 20), plot = TRUE, 
                loss.fun = "cauchy")
 dist2
 ```
@@ -156,7 +156,7 @@ dist2
 ```{r hist, fig.height = 6, fig.width = 7}
 par(lwd = 0.5, cex.axis = 2, cex.lab =1.4,
     cex.main = 2, mar=c(5,6,4,4), family = "serif")
-hist(widths, 14, freq = FALSE, las = 1, family = "serif",
+hist(widths, 20, freq = FALSE, las = 1, family = "serif",
 col = "cyan1", cex.main = 0.9,
 main = "Histogram and best fitted CDF model for conserved region sizes",
 xlab = "Conserved region size (bp)", yaxt = "n", ylab="", cex.axis = 1.4)
@@ -165,8 +165,8 @@ mtext("Density", side = 2, cex = 1.4, line = 3.5)
 
 x1 <- seq(1, 150, by = 1)
 txt <- TeX(r'($\textit{f}(\textit{x}) = \frac{\alpha}{\beta\Gamma(\gamma)}
-  {(\frac{\textit{x}}{\beta})}^{\alpha\delta-1}
-  e^{(-\frac{\textit{x}}{\beta})^\alpha}$)')
+  {(\frac{\textit{x - \mu}}{\beta})}^{\alpha\delta-1}
+  e^{(-\frac{\textit{x - \mu}}{\beta})^\alpha}$)')
 
 lines(x1, dggamma(x1,
                   alpha = coef(dist2$bestfit)[1],
@@ -191,8 +191,7 @@ mcgoftest(
 mcgoftest(
           varobj = widths,
           model = dist2,
-          stat = "rmse",
-          breaks = 12)
+          stat = "ad")
 
 ```
 
@@ -238,7 +237,7 @@ conserv
 ```{r consv}
 consvr <- c(conserv, conserv2)
 widths <- width(consvr)
-dist <- fitCDF(widths, distNames = c(2, 3, 7, 10, 11, 19, 20), plot = TRUE, 
+dist <- fitCDF(widths, distNames = c(2, 3, 7, 9, 10, 11, 19, 20), plot = TRUE, 
                loss.fun = "cauchy")
 dist
 ```
@@ -258,8 +257,8 @@ mtext("Density", side = 2, cex = 1.4, line = 3.5)
 
 x1 <- seq(1, 150, by = 1)
 txt <- TeX(r'($\textit{f}(\textit{x}) = \frac{\alpha}{\beta\Gamma(\gamma)}
-  {(\frac{\textit{x}}{\beta})}^{\alpha\delta-1}
-  e^{(-\frac{\textit{x}}{\beta})^\alpha}$)')
+  {(\frac{\textit{x - \mu}}{\beta})}^{\alpha\delta-1}
+  e^{(-\frac{\textit{x - \mu}}{\beta})^\alpha}$)')
 
 lines(x1, dggamma(x1,
                   alpha = coef(dist$bestfit)[1],
@@ -281,8 +280,7 @@ cat("\n===========================\n")
 mcgoftest(
           varobj = widths,
           model = dist,
-          stat = "rmse",
-          breaks = 12)
+          stat = "ad")
 
 ```
 

@@ -41,7 +41,6 @@
 #' alignment from a file.
 #'
 #' @importFrom S4Vectors mcols DataFrame
-#' @importFrom Biostrings DNAStringSet
 #' @importFrom methods new
 #' @export
 #' @seealso \code{\link{matrices}}, \code{\link{codon_coord}}, and

@@ -45,7 +45,7 @@
 #' @return An object \code{\link{Automorphism-class}} with four columns on its
 #' metacolumn named: \emph{seq1}, \emph{seq2}, \emph{autm}, and \emph{cube}.
 #' @importFrom BiocParallel MulticoreParam bplapply SnowParam
-#' @importFrom Biostrings readDNAMultipleAlignment
+#' @importFrom Biostrings readDNAMultipleAlignment unmasked nchar
 #' @importFrom methods new
 #' @export
 #' @author Robersy Sanchez (\url{https://genomaths.com}).
@@ -100,6 +100,9 @@ autZ64 <- function(seq = NULL,
                 " DNAMultipleAlignment class."
             )
         }
+        
+        if (inherits(seq, "DNAMultipleAlignment")) 
+            seq <- unmasked(seq)
 
         if (any(nchar(seq) %% 3 != 0)) {
             stop(
