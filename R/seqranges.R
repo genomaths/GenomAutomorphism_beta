@@ -33,13 +33,12 @@
 #' \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default
 #' values given for the function definition will be used.
 #' @param ... Not in use.
-#' @details This function provide an alternative way to get the codon coordinate
-#' and the information on the codon sequence from a \code{\link{CodonSeq}} class
-#' objects. The function can either take the output from functions
-#' \code{\link{codon_coord}} or to operate directly on a
+#' @details This function provide an alternative way to get the codon
+#' coordinate and the information on the codon sequence from a
+#' \code{\link{CodonSeq}} class objects. The function can either take the
+#' output from functions \code{\link{codon_coord}} or to operate directly on a
 #' \code{\link[Biostrings]{DNAStringSet}} or to retrieve the a DNA sequence
 #' alignment from a file.
-#'
 #' @importFrom S4Vectors mcols DataFrame
 #' @importFrom methods new
 #' @export
@@ -48,14 +47,14 @@
 #' @author Robersy Sanchez <https://genomaths.com>
 #' @references
 #' \enumerate{
-#'  \item Robersy Sanchez, Jesús Barreto (2021) Genomic Abelian Finite
+#'  \item Robersy Sanchez, Jesus Barreto (2021) Genomic Abelian Finite
 #'   Groups.
-#'  [doi: 10.1101/2021.06.01.446543](https://doi.org/10.1101/2021.06.01.446543).
-#'  \item M. V José, E.R. Morgado, R. Sánchez, T. Govezensky, The 24 possible
+#'  [doi:10.1101/2021.06.01.446543](https://doi.org/10.1101/2021.06.01.446543)
+#'  \item M. V Jose, E.R. Morgado, R. Sanchez, T. Govezensky, The 24 possible
 #'  algebraic representations of the standard genetic code in six or in three
-#'  dimensions, Adv. Stud. Biol. 4 (2012) 119–152.[PDF](https://is.gd/na9eap).
-#'  \item R. Sanchez. Symmetric Group of the Genetic–Code Cubes. Effect of the
-#'  Genetic–Code Architecture on the Evolutionary Process MATCH Commun. Math.
+#'  dimensions, Adv. Stud. Biol. 4 (2012) 119-152.[PDF](https://is.gd/na9eap).
+#'  \item R. Sanchez. Symmetric Group of the Genetic-Code Cubes. Effect of the
+#'  Genetic-Code Architecture on the Evolutionary Process MATCH Commun. Math.
 #'  Comput. Chem. 79 (2018) 527-560.
 #' }
 #' @examples
@@ -76,8 +75,8 @@
 #'     base_seq = FALSE,
 #'     filepath = NULL,
 #' )
-#'
 #' @aliases seqranges
+#' @return A \code{\link[GenomicRanges]{GRanges-class}}
 setGeneric(
     "seqranges",
     function(x,

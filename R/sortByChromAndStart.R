@@ -26,7 +26,7 @@
 #' GR <- as(c("chr2:1-1", "chr1:1-1"), "GRanges")
 #' GR <- sortByChromAndStart(GR)
 #'
-#' @importFrom BiocGenerics sort start
+#' @importFrom BiocGenerics sort start end
 #' @importFrom GenomeInfoDb seqlevels seqlevels<- seqnames
 #'
 #' @aliases sortByChromAndStart

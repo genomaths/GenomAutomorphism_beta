@@ -11,6 +11,11 @@ valid.MatrixList(x)
 \arguments{
 \item{x}{A 'MatrixList object'}
 }
+\value{
+If valid return NULL
+
+Only used to specify signature in the S4 setMethod.
+}
 \description{
 Valid MatrixList
 }

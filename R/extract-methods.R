@@ -18,8 +18,8 @@
 #' @aliases AutomorphismList-methods
 #' @param x An \code{\link{AutomorphismList-class}} object.
 #' @param i,j,...,drop As in \code{\link[base]{Extract}}.
-#' @description First and second level subsetting of 'x'. Extraction using names
-#' can be done as x$name.
+#' @description First and second level subsetting of 'x'. Extraction using
+#' names can be done as x$name.
 #' @return An element of x, an \code{\link{AutomorphismList-class}} object.
 #' @keywords internal
 #' @export
@@ -41,15 +41,15 @@ setMethod(
 #' @exportMethod "[["
 #' @export
 #' @author Robersy Sanchez (\url{https://genomaths.com}).
-#' @examples 
+#' @examples
 #' #' ## Load automorphisms found BRCA1 primate genes
 #' data(brca1_autm)
 #' ## Extract AutomorphismList object with only one element
-#' brca1_autm[ 1 ]
+#' brca1_autm[1]
 #' ## Extract Automorphism object with only one element
-#' brca1_autm[[ 3 ]]
+#' brca1_autm[[3]]
 #' ## Extract Automorphism object using element name.
-#' brca1_autm[[ "human_1.gorilla_1" ]]
+#' brca1_autm[["human_1.gorilla_1"]]
 setMethod(
     "[[", signature(x = "AutomorphismList"),
     function(x, i, ...) {

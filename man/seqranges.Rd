@@ -45,15 +45,18 @@ number of the DNA bases in the given sequences must be multiple of 3.}
 \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default
 values given for the function definition will be used.}
 }
+\value{
+A \code{\link[GenomicRanges]{GRanges-class}}
+}
 \description{
 Extract the gene ranges and coordinates from a pairwise
 alignment of codon/base sequences represented on a given Abelian group.
 }
 \details{
-This function provide an alternative way to get the codon coordinate
-and the information on the codon sequence from a \code{\link{CodonSeq}} class
-objects. The function can either take the output from functions
-\code{\link{codon_coord}} or to operate directly on a
+This function provide an alternative way to get the codon
+coordinate and the information on the codon sequence from a
+\code{\link{CodonSeq}} class objects. The function can either take the
+output from functions \code{\link{codon_coord}} or to operate directly on a
 \code{\link[Biostrings]{DNAStringSet}} or to retrieve the a DNA sequence
 alignment from a file.
 }
@@ -75,18 +78,17 @@ seqranges(
     base_seq = FALSE,
     filepath = NULL,
 )
-
 }
 \references{
 \enumerate{
-\item Robersy Sanchez, Jesús Barreto (2021) Genomic Abelian Finite
+\item Robersy Sanchez, Jesus Barreto (2021) Genomic Abelian Finite
 Groups.
-\href{https://doi.org/10.1101/2021.06.01.446543}{doi: 10.1101/2021.06.01.446543}.
-\item M. V José, E.R. Morgado, R. Sánchez, T. Govezensky, The 24 possible
+\href{https://doi.org/10.1101/2021.06.01.446543}{doi:10.1101/2021.06.01.446543}
+\item M. V Jose, E.R. Morgado, R. Sanchez, T. Govezensky, The 24 possible
 algebraic representations of the standard genetic code in six or in three
-dimensions, Adv. Stud. Biol. 4 (2012) 119–152.\href{https://is.gd/na9eap}{PDF}.
-\item R. Sanchez. Symmetric Group of the Genetic–Code Cubes. Effect of the
-Genetic–Code Architecture on the Evolutionary Process MATCH Commun. Math.
+dimensions, Adv. Stud. Biol. 4 (2012) 119-152.\href{https://is.gd/na9eap}{PDF}.
+\item R. Sanchez. Symmetric Group of the Genetic-Code Cubes. Effect of the
+Genetic-Code Architecture on the Evolutionary Process MATCH Commun. Math.
 Comput. Chem. 79 (2018) 527-560.
 }
 }

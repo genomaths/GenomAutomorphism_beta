@@ -53,63 +53,68 @@ setMethod(
     "automorphism_bycoef", signature(x = "Automorphism"),
     function(x, mut.type = TRUE) {
         seq1 <- seq2 <- autm <- cube <- row_names <- NULL
-        starts <- lagged <- NULL
-        
+        starts <- lagged <- end <- NULL
+
         idx <- which(x$cube != "Trnl")
-        x <- x[ idx ]
+        x <- x[idx]
         nams <- names(x)
         x <- data.frame(x)
-        
+
         if (mut.type) {
             x$mut_type <- slapply(
                 seq_len(nrow(x)),
                 function(k) mut_type(x$seq1[k], x$seq2[k])
             )
         }
-        
+
         if (!is.null(nams)) {
             x$row_names <- nams
         }
 
         x$autm[which(is.na(x$autm))] <- 0
-        x <- x %>% mutate(lagged = lag(autm)) %>% 
-                mutate(starts = (autm != lagged))
+        x <- x %>%
+            mutate(lagged = lag(autm)) %>%
+            mutate(starts = (autm != lagged))
         x$starts[1] <- TRUE
         x <- x %>% mutate(idx = cumsum(starts))
         x$idx <- as.factor(x$idx)
 
         x <- data.table(data.frame(x))
-        if (mut.type)
+        if (mut.type) {
             keys <- c("idx", "mut_type")
-        else
+        } else {
             keys <- "idx"
-        
+        }
+
         if (!is.null(nams)) {
             x <- x[, list(
-                        seqnames = unique(seqnames),
-                        start = min(start),
-                        end = max(end),
-                        strand = unique(strand),
-                        seq1 = unique(seq1),
-                        seq2 = unique(seq2),
-                        autm = unique(autm),
-                        cube = unique(cube),
-                        row_names = unique(row_names)),
-                    by = keys ]
+                seqnames = unique(seqnames),
+                start = min(start),
+                end = max(end),
+                strand = unique(strand),
+                seq1 = unique(seq1),
+                seq2 = unique(seq2),
+                autm = unique(autm),
+                cube = unique(cube),
+                row_names = unique(row_names)
+            ),
+            by = keys
+            ]
             x <- makeGRangesFromDataFrame(x, keep.extra.columns = TRUE)
             names(x) <- x$row_names
         } else {
             x <- x[, list(
-                        seqnames = unique(seqnames),
-                        start = min(start),
-                        end = max(end),
-                        strand = unique(strand),
-                        seq1 = unique(seq1),
-                        seq2 = unique(seq2),
-                        autm = unique(autm),
-                        cube = unique(cube)),
-                    by = keys
-                ]
+                seqnames = unique(seqnames),
+                start = min(start),
+                end = max(end),
+                strand = unique(strand),
+                seq1 = unique(seq1),
+                seq2 = unique(seq2),
+                autm = unique(autm),
+                cube = unique(cube)
+            ),
+            by = keys
+            ]
             x <- makeGRangesFromDataFrame(x, keep.extra.columns = TRUE)
         }
         x <- x[, c("seq1", "seq2", "autm", "mut_type", "cube")]
@@ -130,8 +135,8 @@ setMethod(
 #' job. value must be a scalar integer >= 0L. In this documentation a job is
 #' defined as a single call to a function, such as
 #' \code{\link[BiocParallel]{bplapply}}. A task is the division of the \eqn{X}
-#' argument into chunks. When tasks == 0 (default), \eqn{X} is divided as evenly
-#' as possible over the number of workers (see
+#' argument into chunks. When tasks == 0 (default), \eqn{X} is divided as
+#' evenly as possible over the number of workers (see
 #' \code{\link[BiocParallel]{MulticoreParam}} from BiocParallel package).
 #' @param verbose logic(1). If TRUE, enable progress bar.
 #' @importFrom GenomicRanges GRangesList

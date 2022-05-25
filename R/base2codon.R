@@ -17,15 +17,15 @@
 #' @description This function split a DNA sequence into a codon sequence.
 #' @details It is expected that the provided DNA sequence is multiple of
 #' 3, otherwise gaps are added to the end of the sequence.
-#' @param x A character string, \code{\link[Biostrings]{DNAStringSet-class}} or
-#' \code{\link[Biostrings]{DNAMultipleAlignment-class}} object carrying the a
-#' DNA sequence.
+#' @param x A character string, \code{\link[Biostrings]{DNAStringSet-class}}
+#' or \code{\link[Biostrings]{DNAMultipleAlignment-class}} object carrying the
+#' a DNA sequence.
 #' @param ... Not in use.
 #' @return If the argument of 'x' is character string, then a character vector
 #' of codons will returned. If the argument of 'x' is
 #' \code{\link[Biostrings]{DNAStringSet-class}} or
-#' \code{\link[Biostrings]{DNAMultipleAlignment-class}} object, then a matrix of
-#' codons is returned.
+#' \code{\link[Biostrings]{DNAMultipleAlignment-class}} object, then a matrix
+#' of codons is returned.
 #' @author Robersy Sanchez <https://genomaths.com>. 01/15/2022
 #' @examples
 #'

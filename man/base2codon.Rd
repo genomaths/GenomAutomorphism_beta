@@ -16,9 +16,9 @@ base2codon(x, ...)
 \S4method{base2codon}{DNAMultipleAlignment}(x)
 }
 \arguments{
-\item{x}{A character string, \code{\link[Biostrings]{DNAStringSet-class}} or
-\code{\link[Biostrings]{DNAMultipleAlignment-class}} object carrying the a
-DNA sequence.}
+\item{x}{A character string, \code{\link[Biostrings]{DNAStringSet-class}}
+or \code{\link[Biostrings]{DNAMultipleAlignment-class}} object carrying the
+a DNA sequence.}
 
 \item{...}{Not in use.}
 }
@@ -26,8 +26,8 @@ DNA sequence.}
 If the argument of 'x' is character string, then a character vector
 of codons will returned. If the argument of 'x' is
 \code{\link[Biostrings]{DNAStringSet-class}} or
-\code{\link[Biostrings]{DNAMultipleAlignment-class}} object, then a matrix of
-codons is returned.
+\code{\link[Biostrings]{DNAMultipleAlignment-class}} object, then a matrix
+of codons is returned.
 }
 \description{
 This function split a DNA sequence into a codon sequence.

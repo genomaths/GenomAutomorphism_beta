@@ -6,6 +6,5 @@ test_that("aut3D function test", {
         end = 30,
         verbose = FALSE
     )
-    test1 <- autms$autm[2] == "2,1,1"
-    expect_true(test1)
+    expect_true(autms$autm[2] == "1,2,1")
 })

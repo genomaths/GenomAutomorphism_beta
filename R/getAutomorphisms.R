@@ -17,16 +17,13 @@
 #' @title Get Automorphisms
 #' @param x An \code{\link{AutomorphismList-class}}.
 #' @param ... Not in use.
-#' @description This function returns an \code{\link{AutomorphismList-class}}
-#' object as a list of \code{\link{Automorphism-class}} objects, which inherits
-#' from \code{\link[GenomicRanges]{GRanges-class}} objects.
-#' @details For the sake of saving memory, each \code{\link{Automorphism-class}}
+#' @description For the sake of saving memory, each
+#' \code{\link{Automorphism-class}}
 #' objects is stored in an \code{\link{AutomorphismList-class}}, which  does
-#' not inherits from a \code{\link[GenomicRanges]{GRanges-class}}. This
-#' function just transform each \code{\link{Automorphism-class}} object into
-#' an object from the same class but now inheriting from a
+#' not inherits from a \code{\link[GenomicRanges]{GRanges-class}}.
+#' @details This function just transform each \code{\link{Automorphism-class}}
+#' object into an object from the same class but now inheriting from a
 #' \code{\link[GenomicRanges]{GRanges-class}}.
-#'
 #' @export
 #' @examples
 #' ## Load a dataset
@@ -44,7 +41,6 @@
 #' ## Automorphism-class inherits from 'GRanges-class'
 #' aut <- as(autm, "GRanges")
 #' as(aut, "Automorphism")
-#'
 setGeneric(
     "getAutomorphisms",
     function(x,
@@ -59,7 +55,11 @@ setGeneric(
 #' @importFrom GenomicRanges GRanges
 #' @importFrom IRanges IRanges
 #' @importFrom methods new
+#' @importFrom S4Vectors mcols mcols<-
 #' @export
+#' @return This function returns an \code{\link{AutomorphismList-class}}
+#' object as a list of \code{\link{Automorphism-class}} objects, which inherits
+#' from \code{\link[GenomicRanges]{GRanges-class}} objects.
 setMethod("getAutomorphisms",
     signature = "AutomorphismList",
     function(x) {
@@ -104,6 +104,7 @@ setMethod("getAutomorphisms",
 #' @aliases getAutomorphisms
 #' @importFrom GenomicRanges GRanges
 #' @export
+#' @return An \code{\link{AutomorphismList-class}}
 setMethod("getAutomorphisms",
     signature = "list",
     function(x) {
@@ -118,6 +119,7 @@ setMethod("getAutomorphisms",
 #' @aliases getAutomorphisms
 #' @importFrom GenomicRanges GRanges
 #' @export
+#' @return An \code{\link{Automorphism-class}}
 setMethod("getAutomorphisms",
     signature = "DataFrame_OR_data.frame",
     function(x) {

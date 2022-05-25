@@ -40,8 +40,8 @@ conserved_regions(x, ...)
 \arguments{
 \item{x}{A \code{\link{Automorphism-class}}, a
 \code{\link{AutomorphismList-class}},
-a \code{\link{AutomorphismByCoef}} or a \code{\link{AutomorphismByCoefList}}
-class object.}
+a \code{\link{AutomorphismByCoef}} or a
+\code{\link{AutomorphismByCoefList}} class object.}
 
 \item{...}{Not in use.}
 
@@ -57,8 +57,8 @@ BiocParallel package). Argument \emph{tasks} denotes the number of tasks per
 job. value must be a scalar integer >= 0L. In this documentation a job is
 defined as a single call to a function, such as
 \code{\link[BiocParallel]{bplapply}}. A task is the division of the \eqn{X}
-argument into chunks. When tasks == 0 (default), \eqn{X} is divided as evenly
-as possible over the number of workers (see
+argument into chunks. When tasks == 0 (default), \eqn{X} is divided as
+evenly as possible over the number of workers (see
 \code{\link[BiocParallel]{MulticoreParam}} from BiocParallel package).}
 
 \item{verbose}{logic(1). If TRUE, enable progress bar.}
@@ -77,6 +77,6 @@ conserved_regions(autm[1:3])
 ## Load automorphism found COVID datatset
 data(covid_autm)
 ## Conserved regions in the first 100 codons
-conserv <- conserved_regions(covid_autm[ 1:100 ], output="unique")
+conserv <- conserved_regions(covid_autm[1:100], output = "unique")
 conserv
 }

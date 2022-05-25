@@ -1,18 +1,20 @@
-## Copyright (C) 2021 Robersy Sanchez <https://genomaths.com/> Author: Robersy
-## Sanchez This file is part of the R package 'GenomAutomorphism'.
-## 'GenomAutomorphism' is a free software: you can redistribute it and/or modify
-## it under the terms of the GNU General Public License as published by the Free
-## Software Foundation, either version 3 of the License, or (at your option) any
-## later version.  This program is distributed in the hope that it will be
-## useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
-## Public License for more details.  You should have received a copy of the GNU
+## Copyright (C) 2021 Robersy Sanchez <https://genomaths.com/>
+## Author: Robersy Sanchez This file is part of the R package
+## 'GenomAutomorphism'.  'GenomAutomorphism' is a free
+## software: you can redistribute it and/or modify it under the
+## terms of the GNU General Public License as published by the Free
+## Software Foundation, either version 3 of the License, or (at
+## your option) any later version.  This program is distributed in
+## the hope that it will be useful, but WITHOUT ANY WARRANTY;
+## without even the implied warranty of MERCHANTABILITY or FITNESS
+## FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+## more details.  You should have received a copy of the GNU
 ## General Public License along with this program; if not, see
 ## <http://www.gnu.org/licenses/>.
 
 #' @rdname get_coord
-#' @title DNA base/codon sequence and coordinates represented on a given Abelian
-#' group.
+#' @title DNA base/codon sequence and coordinates represented on a given
+#' Abelian group.
 #' @description Given a string denoting a codon or base from the DNA (or RNA)
 #' alphabet and a genetic-code Abelian group as given in reference (1), this
 #' function returns an object from \code{\link{CodonGroup-class}} carrying the
@@ -42,27 +44,27 @@
 #' @param output  See [Value](@return) section.
 #' @param ... Not in use.
 #' @details Symbols '-' and 'N' usually found in DNA sequence alignments to
-#' denote gaps and missing/unknown bases are represented by the number: '-1' on
-#' Z4 and '0' in Z5. In Z64 the symbol 'NA' will be returned for codons
+#' denote gaps and missing/unknown bases are represented by the number: '-1'
+#' on Z4 and '0' in Z5. In Z64 the symbol 'NA' will be returned for codons
 #' including symbols '-' and 'N'.
 #'
 #' Although the \code{\link{CodonGroup-class}} object returned by
 #' functions \code{\link{codon_coord}} and \code{\link{base_coord}} are useful
-#' to store genomic information, the base and codon coordinates are not given on
-#' them as numeric magnitudes. Function \code{\link{get_coord}} provides the way
-#' to get the coordinates in a numeric object in object from and still to
-#' preserve the base/codon sequence information.
+#' to store genomic information, the base and codon coordinates are not given
+#' on them as numeric magnitudes. Function \code{\link{get_coord}} provides
+#' the way to get the coordinates in a numeric object in object from and still
+#' to preserve the base/codon sequence information.
 #'
-#' @importFrom GenomicRanges makeGRangesFromDataFrame GRanges GRangesList
 #' @importFrom S4Vectors mcols DataFrame
 #' @importFrom Biostrings DNAStringSet
 #' @importFrom methods new
-#' @return An object from \code{\link{CodonGroup-class}} class is returned when
-#' \emph{output = 'all'}. This has two slots, the first one carrying a list of
-#' matrices and the second one carrying the codon/base sequence information.
-#' That is, if \emph{x} is an object from \code{\link{CodonGroup-class}} class,
-#' then a list of matrices of codon coordinate can be retrieved as x@CoordList
-#' and the information on the codon sequence as x@SeqRanges.
+#' @return An object from \code{\link{CodonGroup-class}} class is returned
+#' when \emph{output = 'all'}. This has two slots, the first one carrying a
+#' list of matrices and the second one carrying the codon/base sequence
+#' information. That is, if \emph{x} is an object from
+#' \code{\link{CodonGroup-class}} class, then a list of matrices of codon
+#' coordinate can be retrieved as x@CoordList and the information on the
+#' codon sequence as x@SeqRanges.
 #'
 #' if \emph{output = 'matrix.list'}, then an object from
 #' \code{\link{MatrixList}} class is returned.
@@ -106,12 +108,15 @@ setGeneric("get_coord", function(x, ...) standardGeneric("get_coord"))
 
 #' @aliases get_coord
 #' @rdname get_coord
+#' @importFrom S4Vectors mcols DataFrame
+#' @importFrom GenomicRanges makeGRangesFromDataFrame GRanges GRangesList
 #' @export
 setMethod(
     "get_coord", signature(x = "BaseGroup_OR_CodonGroup"),
     function(x, output = c("all", "matrix.list")) {
         output <- match.arg(output)
 
+        grp <- x@group
         gr <- x
         x <- mcols(x)
         nms <- colnames(x)
@@ -125,7 +130,7 @@ setMethod(
             )
         }
 
-        if (nchar(x[1, idx[1]]) >= 5) {
+        if (grp == "Z5^3") {
             m <- lapply(idx, function(k) {
                 m <- do.call(rbind, strsplit(x[, k], ","))
                 m <- apply(m, 2, as.numeric)

@@ -20,17 +20,24 @@ getAutomorphisms(x, ...)
 
 \item{...}{Not in use.}
 }
-\description{
+\value{
 This function returns an \code{\link{AutomorphismList-class}}
 object as a list of \code{\link{Automorphism-class}} objects, which inherits
 from \code{\link[GenomicRanges]{GRanges-class}} objects.
+
+An \code{\link{AutomorphismList-class}}
+
+An \code{\link{Automorphism-class}}
+}
+\description{
+For the sake of saving memory, each
+\code{\link{Automorphism-class}}
+objects is stored in an \code{\link{AutomorphismList-class}}, which  does
+not inherits from a \code{\link[GenomicRanges]{GRanges-class}}.
 }
 \details{
-For the sake of saving memory, each \code{\link{Automorphism-class}}
-objects is stored in an \code{\link{AutomorphismList-class}}, which  does
-not inherits from a \code{\link[GenomicRanges]{GRanges-class}}. This
-function just transform each \code{\link{Automorphism-class}} object into
-an object from the same class but now inheriting from a
+This function just transform each \code{\link{Automorphism-class}}
+object into an object from the same class but now inheriting from a
 \code{\link[GenomicRanges]{GRanges-class}}.
 }
 \examples{
@@ -49,5 +56,4 @@ getAutomorphisms(aut)
 ## Automorphism-class inherits from 'GRanges-class'
 aut <- as(autm, "GRanges")
 as(aut, "Automorphism")
-
 }

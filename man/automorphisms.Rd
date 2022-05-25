@@ -40,23 +40,24 @@ given base or codon as shown in reference (1).}
 
 \item{...}{Not in use.}
 
-\item{cube, cube_alt}{A character string denoting pairs of the 24 Genetic-code
-cubes, as given in references (2-3). That is, the base pairs from the given
-cubes must be complementary each other. Such a cube pair are call
-\eqn{dual cubes} and, as shown in reference (3), each pair integrates group.}
+\item{cube, cube_alt}{A character string denoting pairs of the 24
+Genetic-code cubes, as given in references (2-3). That is, the base pairs
+from the given cubes must be complementary each other. Such a cube pair are
+call \eqn{dual cubes} and, as shown in reference (3), each pair integrates
+group.}
 
-\item{nms}{Optional. Only used if the DNA sequence alignment provided carries
-more than two sequences. A character string giving short names for the
-alignments to be compared. If not given then the automorphisms between
-pairwise alignment are named as: "aln_1", "aln_2", and so on.}
+\item{nms}{Optional. Only used if the DNA sequence alignment provided
+carries more than two sequences. A character string giving short names for
+the alignments to be compared. If not given then the automorphisms between
+pairwise alignment are named as: 'aln_1', 'aln_2', and so on.}
 
 \item{start, end, chr, strand}{Optional parameters required to build a
 \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default
 values given for the function definition will be used.}
 
 \item{num.cores, tasks}{Parameters for parallel computation using package
-\code{\link[BiocParallel]{BiocParallel-package}}: the number of cores to use,
-i.e. at most how many child processes will be run simultaneously (see
+\code{\link[BiocParallel]{BiocParallel-package}}: the number of cores to
+use, i.e. at most how many child processes will be run simultaneously (see
 \code{\link[BiocParallel]{bplapply}} and the number of tasks per job (only
 for Linux OS).}
 
@@ -68,30 +69,30 @@ with four columns on its metacolumn named: \emph{seq1}, \emph{seq2},
 \emph{autm}, and \emph{cube}.
 }
 \description{
-Given two codon sequences represented in a given Abelian group,
-this function computes the automorphisms describing codon mutational events.
-Basically, this function is a wrapping to call the corresponding function
-for a specified Abelian group.
+Given two codon sequences represented in a given Abelian
+group, this function computes the automorphisms describing codon mutational
+events. Basically, this function is a wrapping to call the corresponding
+function for a specified Abelian group.
 }
 \details{
-Herein, automorphisms are algebraic descriptions of mutational event
-observed in codon sequences represented on different Abelian groups. In
-particular, as described in references (3-4), for each representation of the
-codon set on a defined Abelian group there are 24 possible isomorphic Abelian
-groups. These Abelian groups can be labeled based on the DNA base-order used
-to generate them. The set of 24 Abelian groups can be described as a group
-isomorphic to the symmetric group of degree four (\eqn{S_4}, see reference
-(4)). Function \code{\link{automorphismByRanges}} permits the classification
-of the pairwise alignment of protein-coding sub-regions based on the
-mutational events observed on it and on the genetic-code cubes that describe
-them.
+Herein, automorphisms are algebraic descriptions of mutational
+event observed in codon sequences represented on different Abelian groups.
+In particular, as described in references (3-4), for each representation of
+the codon set on a defined Abelian group there are 24 possible isomorphic
+Abelian groups. These Abelian groups can be labeled based on the DNA
+base-order used to generate them. The set of 24 Abelian groups can be
+described as a group isomorphic to the symmetric group of degree four
+(\eqn{S_4}, see reference (4)). Function \code{\link{automorphismByRanges}}
+permits the classification of the pairwise alignment of protein-coding
+sub-regions based on the mutational events observed on it and on the
+genetic-code cubes that describe them.
 
-Automorphisms in Z5, Z64 and Z125 are described as functions \eqn{f(x) =
-k x mod 64} and \eqn{f(x) = k x mod 125}, where k and x are elements from the
-set of integers modulo 64 or modulo 125, respectively. If an automorphisms
-cannot be found on any of the cubes provided in the argument \eqn{cube}, then
-function \code{\link{automorphisms}} will search for automorphisms in the
-cubes provided in the argument \eqn{cube_alt}.
+Automorphisms in Z5, Z64 and Z125 are described as functions
+\eqn{f(x) = k x mod 64} and \eqn{f(x) = k x mod 125}, where k and x are
+elements from the set of integers modulo 64 or modulo 125, respectively. If
+an automorphisms cannot be found on any of the cubes provided in the
+argument \eqn{cube}, then function \code{\link{automorphisms}} will search
+for automorphisms in the cubes provided in the argument \eqn{cube_alt}.
 
 Automorphisms in Z5^3' are described as functions \eqn{f(x) = Ax mod Z5},
 where A is diagonal matrix.
@@ -165,14 +166,14 @@ automorphismByRanges(autms)
 algebraic structure. J Math Biol. 2005 Oct;51(4):431-57.
 doi: 10.1007/s00285-005-0332-8. Epub 2005 Jul 13. PMID: 16012800. (
 \href{https://arxiv.org/pdf/q-bio/0412033.pdf}{PDF}).
-\item Robersy Sanchez, Jesús Barreto (2021) Genomic Abelian Finite
+\item Robersy Sanchez, Jesus Barreto (2021) Genomic Abelian Finite
 Groups.
-\href{https://doi.org/10.1101/2021.06.01.446543}{doi: 10.1101/2021.06.01.446543}.
-\item M. V José, E.R. Morgado, R. Sánchez, T. Govezensky, The 24 possible
+\href{https://doi.org/10.1101/2021.06.01.446543}{doi:10.1101/2021.06.01.446543}
+\item M. V Jose, E.R. Morgado, R. Sanchez, T. Govezensky, The 24 possible
 algebraic representations of the standard genetic code in six or in three
-dimensions, Adv. Stud. Biol. 4 (2012) 119–152.\href{https://is.gd/na9eap}{PDF}.
-\item R. Sanchez. Symmetric Group of the Genetic–Code Cubes. Effect of the
-Genetic–Code Architecture on the Evolutionary Process MATCH Commun. Math.
+dimensions, Adv. Stud. Biol. 4 (2012) 110-152.\href{https://is.gd/na9eap}{PDF}.
+\item R. Sanchez. Symmetric Group of the Genetic-Code Cubes. Effect of the
+Genetic-Code Architecture on the Evolutionary Process MATCH Commun. Math.
 Comput. Chem. 79 (2018) 527-560. \href{https://bit.ly/2Z9mjM7}{PDF}
 }
 }

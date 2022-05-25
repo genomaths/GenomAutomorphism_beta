@@ -14,7 +14,8 @@ cyc_autm
 This is a \code{\link{AutomorphismList}} object carrying a list of pairwise
 automorphisms between the DNA sequences from the MSA of
 \href{https://bit.ly/3kdEAzs}{Primate Somatic Cytochrome C} to be used in the
-examples provided for the package functions. The automorphisms were estimated
-from the \code{\link{cyc_aln}} MSA with function \code{\link{autZ64}}.
+examples provided for the package functions. The automorphisms were
+estimated from the \code{\link{cyc_aln}} MSA with function
+\code{\link{autZ64}}.
 }
 \keyword{datasets}

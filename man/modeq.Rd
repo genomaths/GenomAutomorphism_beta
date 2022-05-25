@@ -7,7 +7,8 @@
 modeq(a, b, n)
 }
 \value{
-A number.
+A number. If the equation has not solution in their definition,
+domain it will return -1.
 }
 \description{
 It is just a wrapper function to call
@@ -23,6 +24,5 @@ modeq(10, 3, 64)
 
 ## The result is the giving calling modlin(10, 4, 64)
 modeq(10, 4, 64)
-
 }
 \keyword{internal}

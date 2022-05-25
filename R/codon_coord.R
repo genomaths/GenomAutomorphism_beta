@@ -17,9 +17,9 @@
 #' @description Given a string denoting a codon or base from the DNA (or RNA)
 #' alphabet and a genetic-code Abelian group as given in reference (1).
 #' @param codon An object from \code{\link{BaseGroup-class}} (generated with
-#' function \code{\link{base_coord}}), \code{\link[Biostrings]{DNAStringSet}} or
-#' from \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
-#' pairwise alignment of two sequences.
+#' function \code{\link{base_coord}}), \code{\link[Biostrings]{DNAStringSet}}
+#' or from \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the
+#' DNA pairwise alignment of two sequences.
 #' @param filepath A character vector containing the path to a file in
 #' \emph{\strong{fasta}} format to be read. This argument must be given if
 #' \emph{codon & base} arguments are not provided.
@@ -32,8 +32,8 @@
 #' values given for the function definition will be used.
 #' @param ... Not in use.
 #' @details Symbols "-" and "N" usually found in DNA sequence alignments to
-#' denote gaps and missing/unknown bases are represented by the number: '-1' on
-#' Z4 and '0' in Z5. In Z64 the symbol 'NA' will be returned for codons
+#' denote gaps and missing/unknown bases are represented by the number: '-1'
+#' on Z4 and '0' on Z5. In Z64 the symbol 'NA' will be returned for codons
 #' including symbols "-" and "N".
 #'
 #' This function returns a \code{\link[GenomicRanges]{GRanges-class}} object
@@ -55,14 +55,14 @@
 #' @author Robersy Sanchez <https://genomaths.com>
 #' @references
 #' \enumerate{
-#'  \item Robersy Sanchez, Jesús Barreto (2021) Genomic Abelian Finite
+#'  \item Robersy Sanchez, Jesus Barreto (2021) Genomic Abelian Finite
 #'   Groups.
-#'  [doi: 10.1101/2021.06.01.446543](https://doi.org/10.1101/2021.06.01.446543).
-#'  \item M. V José, E.R. Morgado, R. Sánchez, T. Govezensky, The 24 possible
+#'  [doi: 10.1101/2021.06.01.446543](https://doi.org/10.1101/2021.06.01.446543)
+#'  \item M. V Jose, E.R. Morgado, R. Sanchez, T. Govezensky, The 24 possible
 #'  algebraic representations of the standard genetic code in six or in three
-#'  dimensions, Adv. Stud. Biol. 4 (2012) 119–152.[PDF](https://is.gd/na9eap).
-#'  \item R. Sanchez. Symmetric Group of the Genetic–Code Cubes. Effect of the
-#'  Genetic–Code Architecture on the Evolutionary Process MATCH Commun. Math.
+#'  dimensions, Adv. Stud. Biol. 4 (2012) 119-152.[PDF](https://is.gd/na9eap).
+#'  \item R. Sanchez. Symmetric Group of the Genetic-Code Cubes. Effect of the
+#'  Genetic-Code Architecture on the Evolutionary Process MATCH Commun. Math.
 #'  Comput. Chem. 79 (2018) 527-560.
 #' }
 #' @examples
@@ -105,6 +105,7 @@ setGeneric(
 #' @importFrom BiocGenerics strand
 #' @importFrom GenomeInfoDb seqnames
 #' @importFrom IRanges ranges
+#' @importFrom S4Vectors new2 mcols
 setMethod(
     "codon_coord", signature(codon = "BaseGroup"),
     function(codon,

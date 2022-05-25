@@ -7,7 +7,7 @@ test_that("automorphisms function test", {
         end = 30,
         verbose = FALSE
     )
-    test1 <- autms$autm[2] == "2,1,1"
+    test1 <- autms$autm[2] == "1,2,1"
     autms <- automorphisms(
         seq = aln,
         group = "Z125",

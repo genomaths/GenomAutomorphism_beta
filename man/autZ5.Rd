@@ -28,18 +28,18 @@ pairwise alignment of two sequences.}
 \emph{\strong{fasta}} format to be read. This argument must be given if
 \emph{codon & base} arguments are not provided.}
 
-\item{cube, cube_alt}{A character string denoting pairs of the 24 Genetic-code
-cubes, as given in references (2-3). That is, the base pairs from the given
-cubes must be complementary each other. Such a cube pair are call dual cubes
-and, as shown in reference (3), each pair integrates group.}
+\item{cube, cube_alt}{A character string denoting pairs of the 24
+Genetic-code cubes, as given in references (2-3). That is, the base pairs
+from the given cubes must be complementary each other. Such a cube pair are
+call dual cubes and, as shown in reference (3), each pair integrates group.}
 
 \item{start, end, chr, strand}{Optional parameters required to build a
 \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default
 values given for the function definition will be used.}
 
 \item{num.cores, tasks}{Parameters for parallel computation using package
-\code{\link[BiocParallel]{BiocParallel-package}}: the number of cores to use,
-i.e. at most how many child processes will be run simultaneously (see
+\code{\link[BiocParallel]{BiocParallel-package}}: the number of cores to
+use, i.e. at most how many child processes will be run simultaneously (see
 \code{\link[BiocParallel]{bplapply}} and the number of tasks per job (only
 for Linux OS).}
 
@@ -51,14 +51,15 @@ metacolumn named: \emph{seq1}, \emph{seq2}, \emph{autm}, and \emph{cube}.
 }
 \description{
 Given two codon sequences represented in the Z5 Abelian group,
-this function computes the automorphisms describing codon mutational events.
+this function computes the automorphisms describing codon mutational
+events.
 }
 \details{
 Automorphisms in Z5 are described as functions
-\eqn{f(x) = k x mod 64}, where k and x are elements from the set of integers
-modulo 64. As noticed in reference (1).
-The pairwise alignment provided in argument \emph{\strong{seq}} or the
-'fasta' file \emph{\strong{filepath}} must correspond to DNA base sequences.
+\eqn{f(x) = k x mod 64}, where k and x are elements from the set of
+integers modulo 64. As noticed in reference (1). The pairwise alignment
+provided in argument \emph{\strong{seq}} or the 'fasta' file
+\emph{\strong{filepath}} must correspond to DNA base sequences.
 }
 \examples{
 ## Load a pairwise alignment
@@ -76,15 +77,15 @@ autms
 algebraic structure. J Math Biol. 2005 Oct;51(4):431-57.
 doi: 10.1007/s00285-005-0332-8. Epub 2005 Jul 13. PMID: 16012800. (
 \href{https://arxiv.org/pdf/q-bio/0412033.pdf}{PDF}).
-\item Robersy Sanchez, Jesús Barreto (2021) Genomic Abelian Finite
+\item Robersy Sanchez, Jesus Barreto (2021) Genomic Abelian Finite
 Groups.
-\href{https://doi.org/10.1101/2021.06.01.446543}{doi: 10.1101/2021.06.01.446543}.
-\item M. V José, E.R. Morgado, R. Sánchez, T. Govezensky, The 24 possible
+\href{https://doi.org/10.1101/2021.06.01.446543}{doi:10.1101/2021.06.01.446543}
+\item M. V Jose, E.R. Morgado, R. Sanchez, T. Govezensky, The 24 possible
 algebraic representations of the standard genetic code in six or in three
-dimensions, Adv. Stud. Biol. 4 (2012) 119–152.\href{https://is.gd/na9eap}{PDF}.
-\item R. Sanchez. Symmetric Group of the Genetic–Code Cubes. Effect of the
-Genetic–Code Architecture on the Evolutionary Process MATCH Commun. Math.
-Comput. Chem. 79 (2018) 527-560. \href{https://bit.ly/2Z9mjM7}{PDF}.
+dimensions, Adv. Stud. Biol. 4 (2012) 110-152.\href{https://is.gd/na9eap}{PDF}.
+\item R. Sanchez. Symmetric Group of the Genetic-Code Cubes. Effect of the
+Genetic-Code Architecture on the Evolutionary Process MATCH Commun. Math.
+Comput. Chem. 79 (2018) 527-560. \href{https://bit.ly/2Z9mjM7}{PDF}
 }
 }
 \seealso{

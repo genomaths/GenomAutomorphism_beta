@@ -34,9 +34,9 @@ codon_coord(codon = NULL, ...)
 }
 \arguments{
 \item{codon}{An object from \code{\link{BaseGroup-class}} (generated with
-function \code{\link{base_coord}}), \code{\link[Biostrings]{DNAStringSet}} or
-from \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
-pairwise alignment of two sequences.}
+function \code{\link{base_coord}}), \code{\link[Biostrings]{DNAStringSet}}
+or from \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the
+DNA pairwise alignment of two sequences.}
 
 \item{...}{Not in use.}
 
@@ -63,8 +63,8 @@ alphabet and a genetic-code Abelian group as given in reference (1).
 }
 \details{
 Symbols "-" and "N" usually found in DNA sequence alignments to
-denote gaps and missing/unknown bases are represented by the number: '-1' on
-Z4 and '0' in Z5. In Z64 the symbol 'NA' will be returned for codons
+denote gaps and missing/unknown bases are represented by the number: '-1'
+on Z4 and '0' on Z5. In Z64 the symbol 'NA' will be returned for codons
 including symbols "-" and "N".
 
 This function returns a \code{\link[GenomicRanges]{GRanges-class}} object
@@ -103,14 +103,14 @@ codon_coord(base2codon(x = aln))
 }
 \references{
 \enumerate{
-\item Robersy Sanchez, Jesús Barreto (2021) Genomic Abelian Finite
+\item Robersy Sanchez, Jesus Barreto (2021) Genomic Abelian Finite
 Groups.
-\href{https://doi.org/10.1101/2021.06.01.446543}{doi: 10.1101/2021.06.01.446543}.
-\item M. V José, E.R. Morgado, R. Sánchez, T. Govezensky, The 24 possible
+\href{https://doi.org/10.1101/2021.06.01.446543}{doi: 10.1101/2021.06.01.446543}
+\item M. V Jose, E.R. Morgado, R. Sanchez, T. Govezensky, The 24 possible
 algebraic representations of the standard genetic code in six or in three
-dimensions, Adv. Stud. Biol. 4 (2012) 119–152.\href{https://is.gd/na9eap}{PDF}.
-\item R. Sanchez. Symmetric Group of the Genetic–Code Cubes. Effect of the
-Genetic–Code Architecture on the Evolutionary Process MATCH Commun. Math.
+dimensions, Adv. Stud. Biol. 4 (2012) 119-152.\href{https://is.gd/na9eap}{PDF}.
+\item R. Sanchez. Symmetric Group of the Genetic-Code Cubes. Effect of the
+Genetic-Code Architecture on the Evolutionary Process MATCH Commun. Math.
 Comput. Chem. 79 (2018) 527-560.
 }
 }

@@ -24,23 +24,26 @@
 #' @keywords internal
 #' @importFrom numbers modlin
 #' @export
-#' @return A number.
+#' @return A number. If the equation has not solution in their definition, 
+#' domain it will return -1.
 #' @examples
 #' ## The MLE 10 * x = 3 mod 64 has not solution
 #' modeq(10, 3, 64)
 #'
 #' ## The result is the giving calling modlin(10, 4, 64)
 #' modeq(10, 4, 64)
-#'
 modeq <- function(a, b, n) {
-    if (is.numeric(c(a, b))) {
+    if (all(slapply(c(a, b, n), is.numeric))) {
         a <- as.integer(a)
         b <- as.integer(b)
+        n <- as.integer(n)
+        
         if (!any(is.na(c(a, b)))) {
             if (a > 0 && b > 0) {
-                res <- modlin(a, b, n)
+                res <- modlin(a, b, n)[1] ## first solution
             } else {
-                res <- -1
+                if (a != b)
+                    res <- -1
             }
         } else {
             res <- -1
@@ -54,3 +57,4 @@ modeq <- function(a, b, n) {
     }
     return(res)
 }
+
