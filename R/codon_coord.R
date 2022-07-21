@@ -46,8 +46,8 @@
 #'
 #' @seealso [Symmetric Group of the Genetic-Code Cubes.](
 #' https://github.com/genomaths/GenomeAlgebra_SymmetricGroup)
-#' @importFrom S4Vectors mcols DataFrame
-#' @importFrom Biostrings DNAStringSet
+#' @import S4Vectors
+#' @import Biostrings
 #' @importFrom methods new
 #' @export
 #' @return A \code{\link{CodonGroup-class}} object.
@@ -67,7 +67,7 @@
 #' }
 #' @examples
 #' ## Load a pairwise alignment
-#' data(aln)
+#' data(aln, package = "GenomAutomorphism")
 #' aln
 #'
 #' ## DNA base representation in the Abelian group Z5
@@ -101,11 +101,11 @@ setGeneric(
 
 #' @aliases codon_coord
 #' @rdname codon_coord
-#' @importFrom GenomicRanges makeGRangesFromDataFrame
-#' @importFrom BiocGenerics strand
+#' @import GenomicRanges
+#' @import BiocGenerics
 #' @importFrom GenomeInfoDb seqnames
-#' @importFrom IRanges ranges
-#' @importFrom S4Vectors new2 mcols
+#' @import IRanges
+#' @import S4Vectors
 setMethod(
     "codon_coord", signature(codon = "BaseGroup"),
     function(codon,
@@ -182,7 +182,7 @@ setMethod(
 
 #' @aliases codon_coord
 #' @rdname codon_coord
-#' @importFrom Biostrings readDNAMultipleAlignment
+#' @import Biostrings
 setMethod(
     "codon_coord", signature(codon = "DNAStringSet_OR_NULL"),
     function(codon = NULL,

@@ -46,7 +46,7 @@ setGeneric(
 
 #' @aliases automorphismByRanges
 #' @rdname automorphismByRanges
-#' @importFrom GenomicRanges makeGRangesFromDataFrame
+#' @import GenomicRanges
 #' @importFrom data.table data.table
 #' @export
 setMethod(
@@ -108,11 +108,11 @@ setMethod(
 #' evenly as possible over the number of workers (see
 #' \code{\link[BiocParallel]{MulticoreParam}} from BiocParallel package).
 #' @param verbose logic(1). If TRUE, enable progress bar.
-#' @importFrom GenomicRanges GRangesList
+#' @import GenomicRanges
+#' @import S4Vectors
 #' @importFrom parallel detectCores
 #' @importFrom BiocParallel MulticoreParam bplapply SnowParam
 #' @importFrom data.table data.table
-#' @importFrom S4Vectors mcols mcols<-
 #' @export
 setMethod(
     "automorphismByRanges", signature(x = "AutomorphismList"),
@@ -147,11 +147,11 @@ setMethod(
         ## -------------------------------------------------------------- ##
 
         if (length(gr) > 0) {
-            x <- lapply(x, function(x) {
+            x <- bplapply(x, function(x) {
                 mcols(gr) <- x
                 x <- automorphismByRanges(x)
                 return(x)
-            })
+            }, BPPARAM = bpparam)
         }
 
         idx <- which(slapply(x, function(x) {

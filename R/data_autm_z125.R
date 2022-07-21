@@ -20,14 +20,7 @@
 #' (GenBank: MG772933.1:265-1345513455-21542), nonstructural_polyprotein. The
 #' pairwise DNA sequence alignment is available in the dataset named
 #' \code{\link{covid_aln}} and the automorphisms were estimated with function
-#' \code{\link{autZ64}}.
-#' 
-#' The alignment of these DNA sequences is available at:
-#' \url{https://github.com/genomaths/seqalignments/raw/master/COVID-19} in 
-#' the fasta file 
-#' 'AY390556.1_265-13398_13398-21485_RNA-POL_SARS_COVI_GZ02.fas'
-#' @examples 
-#' data(autm, package = "GenomAutomorphism")
-#' autm
+#' \code{\link{autZ125}}.
+#'
 #' @format \code{\link{AutomorphismList}} class object.
-"autm"
+"autm_z125"

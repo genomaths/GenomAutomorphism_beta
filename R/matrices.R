@@ -51,7 +51,7 @@
 #'
 #' @seealso [Symmetric Group of the Genetic-Code Cubes.](
 #' https://github.com/genomaths/GenomeAlgebra_SymmetricGroup)
-#' @importFrom S4Vectors mcols DataFrame
+#' @import S4Vectors
 #' @importFrom methods new
 #' @export
 #' @author Robersy Sanchez <https://genomaths.com>
@@ -72,7 +72,7 @@
 #' }
 #' @examples
 #' ## Load a pairwise alignment
-#' data(aln)
+#' data(aln, package = "GenomAutomorphism")
 #' aln
 #'
 #' ## Coordinate representation of the aligned sequences on "Z4".

@@ -62,7 +62,7 @@ modulo 64.
 }
 \examples{
 ## Load a pairwise alignment
-data(aln)
+data(aln, package = "GenomAutomorphism")
 aln
 
 ## Automorphism on Z64

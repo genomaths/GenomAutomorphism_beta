@@ -39,12 +39,15 @@ Second level subsetting of 'x'.
 Subsetting of 'x' by element name.
 }
 \examples{
-#' ## Load automorphisms found BRCA1 primate genes
-data(brca1_autm)
+## Load automorphisms found BRCA1 primate genes
+data(brca1_autm, package = "GenomAutomorphism")
+
 ## Extract AutomorphismList object with only one element
 brca1_autm[1]
+
 ## Extract Automorphism object with only one element
 brca1_autm[[3]]
+
 ## Extract Automorphism object using element name.
 brca1_autm[["human_1.gorilla_1"]]
 }

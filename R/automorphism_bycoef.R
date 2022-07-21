@@ -27,7 +27,7 @@
 #' @return An \code{\link{AutomorphismByCoef}} class object. A coefficient with
 #' 0 value is assigned to mutational events that are not automorphisms, e.g.,
 #' indel mutations.
-#' @importFrom GenomicRanges makeGRangesFromDataFrame
+#' @import GenomicRanges
 #' @export
 #' @examples
 #' ## Load dataset
@@ -139,7 +139,7 @@ setMethod(
 #' evenly as possible over the number of workers (see
 #' \code{\link[BiocParallel]{MulticoreParam}} from BiocParallel package).
 #' @param verbose logic(1). If TRUE, enable progress bar.
-#' @importFrom GenomicRanges GRangesList
+#' @import GenomicRanges
 #' @importFrom parallel detectCores
 #' @importFrom BiocParallel MulticoreParam bplapply SnowParam
 #' @importFrom data.table data.table

@@ -77,7 +77,7 @@ Notice that the coordinates can be 3D or just one-dimension ("Z64" or
 }
 \examples{
 ## Load a pairwise alignment
-data(aln)
+data(aln, package = "GenomAutomorphism")
 aln
 
 ## DNA base representation in the Abelian group Z5

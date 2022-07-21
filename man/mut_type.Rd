@@ -27,10 +27,13 @@ the type of involved in it (2).
 \examples{
 ## Mutation type 'R'
 mut_type("A", "G")
+
 ## Mutation type 'M'
 mut_type("A", "C")
+
 ## Mutation type 'W'
 mut_type("A", "T")
+
 ## Mutation type 'S'
 mut_type("G", "C")
 }

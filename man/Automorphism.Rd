@@ -7,49 +7,21 @@
 \alias{DataFrame_OR_data.frame-class}
 \alias{AutomorphismList-class}
 \alias{AutomorphismList}
-\alias{as.AutomorphismList}
-\alias{as.AutomorphismList,GRangesList,GRanges_OR_NULL-method}
-\alias{as.AutomorphismList,list,GRanges_OR_NULL-method}
-\alias{names,AutomorphismList-method}
-\alias{names<-,AutomorphismList-method}
-\alias{as.list,AutomorphismList-method}
 \alias{valid.AutomorphismList}
-\alias{show,AutomorphismList-method}
-\alias{show-AutomorphismList}
-\alias{AutomorphismByCoef-class}
-\alias{AutomorphismByCoef}
+\alias{AutomorphismByCoefList-class}
+\alias{AutomorphismByCoefList}
 \title{A class definition to store codon automorphisms in given as an
 Abelian group representation.}
 \usage{
-as.AutomorphismList(x, grs = GRanges(), ...)
-
-\S4method{as.AutomorphismList}{GRangesList,GRanges_OR_NULL}(x, grs = GRanges(), ...)
-
-\S4method{as.AutomorphismList}{list,GRanges_OR_NULL}(x, grs = GRanges(), ...)
-
-\S4method{names}{AutomorphismList}(x)
-
-\S4method{names}{AutomorphismList}(x) <- value
-
-\S4method{as.list}{AutomorphismList}(x)
-
 valid.AutomorphismList(x)
-
-\S4method{show}{AutomorphismList}(object)
 }
 \arguments{
 \item{x}{A 'AutomorphismList object'}
-
-\item{object}{An object from \code{\link{AutomorphismList-class}}.}
-
-\item{gr}{A \code{\link[GenomicRanges]{GRanges-class}} object.}
 }
 \value{
 Given the slot values, it defines an Automorphism-class object.
 
-A \code{\link{AutomorphismList-class}} object.
-
-AutomorphismByCoef-class definition.
+AutomorphismByCoefList-class definition.
 }
 \description{
 Two classes are involved in to storing codon automorphisms:
@@ -59,65 +31,32 @@ Two classes are involved in to storing codon automorphisms:
 A class definition to store list of Automorphism class objects
 derived from the pairwise automorphism estimation from pairwise
 alignments.
-
-The function build a AutomorphismList-class object from a
-list of \code{\link[S4Vectors]{DataFrame}} or a \code{\link{automorphisms}}
-class object.
 }
 \details{
-\emph{\strong{Automorphism-class}} inherits from a
-\code{\link[GenomicRanges]{GRanges}}.
-}
-\section{Methods}{
-
-\subsection{as(from, "Automorphism")}{
-
-Permits the transformation of a \code{\link[base]{data.frame}} or a
-\code{\link[S4Vectors]{DataFrame-class}} object into
-\emph{\strong{Automorphism-class}} object the proper columns are provided.
-An \emph{\strong{Automorphism-class}} object has six columns: "seq1",
-"seq2","coord1", "coord2", "autm", and "cube". See the examples for
-function \code{\link{automorphisms}}. Observe that as the
+An \emph{\strong{Automorphism-class}} object has six
+columns: "seq1", "seq2","coord1", "coord2", "autm", and "cube". See the
+examples for function \code{\link{automorphisms}}. Observe that as the
 \emph{\strong{Automorphism-class}} inherits from
 \code{\link[GenomicRanges]{GRanges-class}} the transformation starting
 from a \code{\link[GenomicRanges]{GRanges-class}} object into an
-\emph{\strong{Automorphism-class}} is straightforward. However, the
-transformation starting from a \code{\link[base]{data.frame}} or a
-\code{\link[S4Vectors]{DataFrame-class}} object \eqn{"x"} requires for the
-creation of an additional \code{\link[GenomicRanges]{GRanges-class}}
-object, which by default will have the argument seqnames = "1",
-strand = "+" start/end = 1:nrow(x), length = nrow(x). These details must be
-keep in mind to prevent fundamental errors in the downstream analyses.
+\emph{\strong{Automorphism-class}} is straightforward.
+
+However, the transformation starting from a \code{\link[base]{data.frame}}
+or a \code{\link[S4Vectors]{DataFrame-class}} object \eqn{"x"} requires for
+the creation of an additional \code{\link[GenomicRanges]{GRanges-class}}
+object, which by default will have the argument seqnames = "1", strand =
+"+", start/end = 1:nrow(x), length = nrow(x). These details must be keep in
+mind to prevent fundamental errors in the downstream analyses.
+
+\strong{AutomorphismByCoefList-class} has the following methods:
+\subsection{as('from', "AutomorphismByCoefList")}{
+
+Where 'from' is a list of \strong{AutomorphismByCoef-class}.
 }
 
-\subsection{\emph{\strong{AutomorphismList-class}} has the method}{
-\subsection{as.AutomorphismList(x)}{
+\subsection{unlist(x)}{
 
-\emph{\strong{as.AutomorphismList}} function transform a list of
-\code{\link[GenomicRanges]{GRanges-class}}, a
-\code{\link[GenomicRanges]{GRangesList-class}}, a list of
-\code{\link[base]{data.frame}} or a
-\code{\link[S4Vectors]{DataFrame-class}}
-objects into a \emph{\strong{AutomorphismList-class}} object.
+Where 'x' is a an \strong{AutomorphismByCoefList-class} object.
 }
-
-}
-}
-
-\examples{
-## Load dataset
-data(autm)
-
-## Transforming a list of Automorphisms into an AutomorphismList object
-lista <- list(a1 = autm, a2 = autm, a3 = autm, a4 = autm)
-as.AutomorphismList(lista)
-
-## Transforming a GRangesList of Automorphisms into an AutomorphismList
-## object
-lista <- as(lista, "GRangesList")
-as.AutomorphismList(lista)
-}
-\seealso{
-\code{\link{automorphisms}}
 }
 \keyword{internal}

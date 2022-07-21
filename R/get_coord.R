@@ -55,8 +55,8 @@
 #' the way to get the coordinates in a numeric object in object from and still
 #' to preserve the base/codon sequence information.
 #'
-#' @importFrom S4Vectors mcols DataFrame
-#' @importFrom Biostrings DNAStringSet
+#' @import S4Vectors
+#' @import Biostrings
 #' @importFrom methods new
 #' @return An object from \code{\link{CodonGroup-class}} class is returned
 #' when \emph{output = 'all'}. This has two slots, the first one carrying a
@@ -72,7 +72,7 @@
 #' @aliases get_coord
 #' @examples
 #' ## Load a pairwise alignment
-#' data(aln)
+#' data(aln, package = "GenomAutomorphism")
 #' aln
 #'
 #' ## DNA base representation in the Abelian group Z5
@@ -108,8 +108,8 @@ setGeneric("get_coord", function(x, ...) standardGeneric("get_coord"))
 
 #' @aliases get_coord
 #' @rdname get_coord
-#' @importFrom S4Vectors mcols DataFrame
-#' @importFrom GenomicRanges makeGRangesFromDataFrame GRanges GRangesList
+#' @import S4Vectors
+#' @import GenomicRanges
 #' @export
 setMethod(
     "get_coord", signature(x = "BaseGroup_OR_CodonGroup"),
@@ -148,6 +148,7 @@ setMethod(
                 matrices = m, names = nms
             )
         )
+        return(res)
     }
 )
 

@@ -39,7 +39,7 @@
 #' output from functions \code{\link{codon_coord}} or to operate directly on a
 #' \code{\link[Biostrings]{DNAStringSet}} or to retrieve the a DNA sequence
 #' alignment from a file.
-#' @importFrom S4Vectors mcols DataFrame
+#' @import S4Vectors
 #' @importFrom methods new
 #' @export
 #' @seealso \code{\link{matrices}}, \code{\link{codon_coord}}, and
@@ -59,7 +59,7 @@
 #' }
 #' @examples
 #' ## Load a pairwise alignment
-#' data(aln)
+#' data(aln, package = "GenomAutomorphism")
 #' aln
 #'
 #' ## A GRanges object carrying the aligned DNA sequence.
@@ -87,7 +87,7 @@ setGeneric(
 
 #' @aliases seqranges
 #' @rdname seqranges
-#' @importFrom GenomicRanges makeGRangesFromDataFrame
+#' @import GenomicRanges
 #' @export
 setMethod(
     "seqranges", signature(x = "CodonSeq"),

@@ -9,6 +9,10 @@ S4Vectors::mcols
 #' @export
 S4Vectors::`mcols<-`
 
+#' @importFrom S4Vectors setValidity2
+#' @export
+S4Vectors::setValidity2
+
 ## From Biostrings ---------------------------------------
 #' @importFrom Biostrings DNAStringSet
 #' @export
@@ -46,3 +50,7 @@ BiocGenerics::strand
 #' @importFrom BiocGenerics strand<-
 #' @export
 BiocGenerics::`strand<-`
+
+
+
+

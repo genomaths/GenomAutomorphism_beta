@@ -52,10 +52,10 @@ setGeneric(
 
 #' @rdname getAutomorphisms
 #' @aliases getAutomorphisms
-#' @importFrom GenomicRanges GRanges
-#' @importFrom IRanges IRanges
+#' @import GenomicRanges
+#' @import IRanges
 #' @importFrom methods new
-#' @importFrom S4Vectors mcols mcols<-
+#' @import S4Vectors
 #' @export
 #' @return This function returns an \code{\link{AutomorphismList-class}}
 #' object as a list of \code{\link{Automorphism-class}} objects, which inherits
@@ -102,7 +102,7 @@ setMethod("getAutomorphisms",
 
 #' @rdname getAutomorphisms
 #' @aliases getAutomorphisms
-#' @importFrom GenomicRanges GRanges
+#' @import GenomicRanges
 #' @export
 #' @return An \code{\link{AutomorphismList-class}}
 setMethod("getAutomorphisms",
@@ -117,7 +117,7 @@ setMethod("getAutomorphisms",
 
 #' @rdname getAutomorphisms
 #' @aliases getAutomorphisms
-#' @importFrom GenomicRanges GRanges
+#' @import GenomicRanges
 #' @export
 #' @return An \code{\link{Automorphism-class}}
 setMethod("getAutomorphisms",

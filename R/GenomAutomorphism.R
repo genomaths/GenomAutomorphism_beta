@@ -3,7 +3,7 @@
 #' @docType package
 #' @title GenomAutomorphism: An R package to compute the automorphisms between
 #' DNA sequences represented as elements from an Abelian group.
-#' @description This is a R package to compute the autimorphisms between
+#' @description This is a R package to compute the automorphisms between
 #' pairwise aligned DNA sequences represented as elements from a Genomic
 #' Abelian group as described in reference (1). In a general scenario, whole
 #' chromosomes or genomic regions from a population (from any species or close

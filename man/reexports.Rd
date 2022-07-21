@@ -5,6 +5,7 @@
 \alias{reexports}
 \alias{mcols}
 \alias{mcols<-}
+\alias{setValidity2}
 \alias{DNAStringSet}
 \alias{readDNAMultipleAlignment}
 \alias{width}
@@ -25,6 +26,6 @@ below to see their documentation.
 
   \item{Biostrings}{\code{\link[Biostrings:XStringSet-class]{DNAStringSet}}, \code{\link[Biostrings:MultipleAlignment-class]{readDNAMultipleAlignment}}}
 
-  \item{S4Vectors}{\code{\link[S4Vectors:Vector-class]{mcols}}, \code{\link[S4Vectors:Vector-class]{mcols<-}}}
+  \item{S4Vectors}{\code{\link[S4Vectors:Vector-class]{mcols}}, \code{\link[S4Vectors:Vector-class]{mcols<-}}, \code{\link[S4Vectors:S4Vectors-internals]{setValidity2}}}
 }}
 

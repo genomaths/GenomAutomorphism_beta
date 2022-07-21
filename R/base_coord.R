@@ -44,8 +44,8 @@
 #' 3D space (R^3).
 #' @seealso [Symmetric Group of the Genetic-Code Cubes.](
 #' https://github.com/genomaths/GenomeAlgebra_SymmetricGroup)
-#' @importFrom S4Vectors mcols DataFrame
-#' @importFrom Biostrings DNAStringSet readDNAMultipleAlignment
+#' @import S4Vectors
+#' @import Biostrings
 #' @importFrom methods new
 #' @export
 #' @author Robersy Sanchez <https://genomaths.com>
@@ -63,8 +63,17 @@
 #' }
 #' @seealso \code{\link{codon_coord}}
 #' @examples
-#' ## Load a pairwise alignment
-#' data(aln)
+#' ## Example 1. Let's get the base coordinates for codons "ACG"
+#' ## and "TGC":
+#' x0 <- c("ACG", "TGC")
+#' x1 <- DNAStringSet(x0)
+#' x1
+#' 
+#' ## Get the base coordinates on cube = "ACGT" on the Abelian group = "Z4"
+#' base_coord(x1, cube = "ACGT", group = "Z4")
+#' 
+#' ## Example 2. Load a pairwise alignment
+#' data(aln, package = "GenomAutomorphism")
 #' aln
 #'
 #' ## DNA base representation in the Abelian group Z4
@@ -74,7 +83,7 @@
 #' )
 #' bs_cor
 #'
-#' ## DNA base representation in the Abelian group Z5
+#' ## Example 3. DNA base representation in the Abelian group Z5
 #' bs_cor <- base_coord(
 #'     base = aln,
 #'     cube = "ACGT",
@@ -98,9 +107,9 @@ setGeneric(
 
 #' @aliases base_coord
 #' @rdname base_coord
-#' @importFrom GenomicRanges makeGRangesFromDataFrame
+#' @import GenomicRanges
 #' @importFrom methods new
-#' @importFrom Biostrings DNAStringSet
+#' @import Biostrings
 #' @export
 setMethod(
     "base_coord", signature(base = "DNAStringSet_OR_NULL"),

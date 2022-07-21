@@ -90,7 +90,7 @@ to preserve the base/codon sequence information.
 }
 \examples{
 ## Load a pairwise alignment
-data(aln)
+data(aln, package = "GenomAutomorphism")
 aln
 
 ## DNA base representation in the Abelian group Z5
