@@ -34,7 +34,7 @@ nams <- c(
     "gelada_baboon_1", "gelada_baboon_2", "orangutan_1", "orangutan_2"
 )
 
-cyc_autm <- automorphism(
+cyc_autm <- automorphisms(
     filepath = URL,
     group = "Z64",
     cube = c("ACGT", "TGCA"),
@@ -63,7 +63,7 @@ nams <- c(
 brca1_aln <- readDNAMultipleAlignment(filepath = URL)
 
 
-brca1_autm <- automorphism(
+brca1_autm <- automorphisms(
     seqs = brca1_aln,
     group = "Z64",
     cube = c("ACGT", "TGCA"),
@@ -71,6 +71,23 @@ brca1_autm <- automorphism(
     nms = nams
 )
 usethis::use_data(brca1_autm, brca1_aln, overwrite = TRUE, compress = "xz")
+
+
+## Do not run it. This is included with package
+URL <- paste0("https://github.com/genomaths/seqalignments/raw/master/BRCA1/",
+              "brca1_primates_dna_repair_41_sequences.fasta")
+
+brca1_aln2 <- readDNAMultipleAlignment(filepath = URL)
+
+brca1_autm2 <- automorphisms(
+    seqs = brca1_aln2,
+    group = "Z64",
+    cube = c("ACGT", "TGCA"),
+    cube_alt = c("CATG", "GTAC"),
+    nms = nams
+)
+usethis::use_data(brca1_autm2, brca1_aln2, overwrite = TRUE, compress = "xz")
+
 
 autby_coef <- automorphismByCoef(brca1_autm)
 autby_coef
@@ -84,7 +101,7 @@ URL <- paste0(
     "COVID-19/AY390556.1_265-13398_13398-21485_RNA-POL_SARS_COVI_GZ02.fas"
 )
 
-autm <- automorphism(
+autm <- automorphisms(
     filepath = URL,
     group = "Z64",
     cube = c("ACGT", "TGCA"),
@@ -105,7 +122,7 @@ covid_aln
 usethis::use_data(covid_aln, overwrite = TRUE)
 
 
-covid_autm <- automorphism(
+covid_autm <- automorphisms(
     seq = covid_aln,
     group = "Z64",
     cube = c("ACGT", "TGCA"),
@@ -114,3 +131,12 @@ covid_autm <- automorphism(
 covid_autm
 
 usethis::use_data(covid_autm, overwrite = TRUE)
+
+aaindex2 <- readLines("https://www.genome.jp/ftp/db/community/aaindex/aaindex2")
+aaindex3 <- readLines("https://www.genome.jp/ftp/db/community/aaindex/aaindex3")
+
+usethis::use_data(aaindex2, aaindex3, overwrite = TRUE, compress = "xz")
+
+
+
+
