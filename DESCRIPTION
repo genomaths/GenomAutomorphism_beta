@@ -1,6 +1,6 @@
 Package: GenomAutomorphism
 Title: What the Package Does (One Line, Title Case)
-Version: 0.1.0
+Version: 0.99.3
 Authors@R: 
     person( given = "Robersy",
             family = "Sanchez",
@@ -44,7 +44,7 @@ Imports:
     S4Vectors,
     stats,
     numbers
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 Suggests:
     spelling,
     rmarkdown,
@@ -55,3 +55,4 @@ VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 Language: en-US
 Config/testthat/edition: 3
+LazyData: true

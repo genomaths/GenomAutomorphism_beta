@@ -24,9 +24,9 @@
 #' @param mut.type Logical. Whether to include the mutation type as given by
 #' function \code{\link{mut_type}}.
 #' @param ... Not in use.
-#' @return An \code{\link{AutomorphismByCoef}} class object. A coefficient with
-#' 0 value is assigned to mutational events that are not automorphisms, e.g.,
-#' indel mutations.
+#' @return An \code{\link{AutomorphismByCoef}} class object. A coefficient 
+#' with 0 value is assigned to mutational events that are not automorphisms,
+#' e.g., indel mutations.
 #' @import GenomicRanges
 #' @export
 #' @examples
@@ -51,13 +51,18 @@ setGeneric(
 #' @export
 setMethod(
     "automorphism_bycoef", signature(x = "Automorphism"),
-    function(x, mut.type = TRUE) {
+    function(
+        x, 
+        mut.type = TRUE) {
+        
         seq1 <- seq2 <- autm <- cube <- row_names <- NULL
-        starts <- lagged <- end <- NULL
+        starts <- lagged <- end <- genetic_code <- NULL
 
-        idx <- which(x$cube != "Trnl")
-        x <- x[idx]
         nams <- names(x)
+        genetic_code <- x@autm_info$genetic_code
+        cube <- x@autm_info$cube
+        cube_alt <- x@autm_info$cube_alt
+        
         x <- data.frame(x)
 
         if (mut.type) {
@@ -81,12 +86,15 @@ setMethod(
 
         x <- data.table(data.frame(x))
         if (mut.type) {
-            keys <- c("idx", "mut_type")
+            if (!is.null(nams))
+                keys <- c("idx", "row_names", "mut_type")
+            else 
+                keys <- c("idx", "mut_type")
         } else {
             keys <- "idx"
         }
 
-        if (!is.null(nams)) {
+        if (nchar(x$seq1[1]) == 3) {
             x <- x[, list(
                 seqnames = unique(seqnames),
                 start = min(start),
@@ -95,13 +103,15 @@ setMethod(
                 seq1 = unique(seq1),
                 seq2 = unique(seq2),
                 autm = unique(autm),
-                cube = unique(cube),
-                row_names = unique(row_names)
+                cube = unique(cube)
             ),
             by = keys
             ]
+            
+            x$aa1 <- translate(x$seq1, genetic.code = genetic_code)
+            x$aa2 <- translate(x$seq2, genetic.code = genetic_code)
+
             x <- makeGRangesFromDataFrame(x, keep.extra.columns = TRUE)
-            names(x) <- x$row_names
         } else {
             x <- x[, list(
                 seqnames = unique(seqnames),
@@ -117,9 +127,21 @@ setMethod(
             ]
             x <- makeGRangesFromDataFrame(x, keep.extra.columns = TRUE)
         }
-        x <- x[, c("seq1", "seq2", "autm", "mut_type", "cube")]
+        if (!is.null(nams))
+            names(x) <- x$row_names
+        if (nchar(x$seq1[1]) == 3) 
+            x <- x[,  c("seq1", "seq2", "aa1", "aa2", "autm",
+                        "mut_type", "cube")]
+        else
+            x <- x[, c("seq1", "seq2", "autm", "mut_type", "cube")]
+        
         x <- sortByChromAndStart(x)
-        return(as(x, "AutomorphismByCoef"))
+        x <- as(x, "AutomorphismByCoef")
+        x@autm_info <- list(
+            cube = cube,
+            cube_alt = cube_alt,
+            genetic_code = genetic_code)
+        return(x)
     }
 )
 
@@ -131,9 +153,9 @@ setMethod(
 #' @param num.cores,tasks Integers. Argument \emph{num.cores} denotes the
 #' number of cores to use, i.e. at most how many child processes will be run
 #' simultaneously (see \code{\link[BiocParallel]{bplapply}} function from
-#' BiocParallel package). Argument \emph{tasks} denotes the number of tasks per
-#' job. value must be a scalar integer >= 0L. In this documentation a job is
-#' defined as a single call to a function, such as
+#' BiocParallel package). Argument \emph{tasks} denotes the number of tasks 
+#' per job. value must be a scalar integer >= 0L. In this documentation a job
+#' is defined as a single call to a function, such as
 #' \code{\link[BiocParallel]{bplapply}}. A task is the division of the \eqn{X}
 #' argument into chunks. When tasks == 0 (default), \eqn{X} is divided as
 #' evenly as possible over the number of workers (see

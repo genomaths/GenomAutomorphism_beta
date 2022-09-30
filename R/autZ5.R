@@ -135,7 +135,11 @@ autZ5 <- function(seq = NULL,
         strand = strand(autm1),
         elementMetadata = autm1@elementMetadata,
         seqinfo = autm1@seqinfo,
-        colnames = colnames(autm1@elementMetadata)
+        colnames = colnames(autm1@elementMetadata),
+        autm_info = list(
+            cube = cube,
+            cube_alt = cube_alt,
+            genetic_code = genetic_code)
     )
     return(autm1)
 }

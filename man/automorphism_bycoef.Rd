@@ -33,9 +33,9 @@ function \code{\link{mut_type}}.}
 \item{num.cores, tasks}{Integers. Argument \emph{num.cores} denotes the
 number of cores to use, i.e. at most how many child processes will be run
 simultaneously (see \code{\link[BiocParallel]{bplapply}} function from
-BiocParallel package). Argument \emph{tasks} denotes the number of tasks per
-job. value must be a scalar integer >= 0L. In this documentation a job is
-defined as a single call to a function, such as
+BiocParallel package). Argument \emph{tasks} denotes the number of tasks
+per job. value must be a scalar integer >= 0L. In this documentation a job
+is defined as a single call to a function, such as
 \code{\link[BiocParallel]{bplapply}}. A task is the division of the \eqn{X}
 argument into chunks. When tasks == 0 (default), \eqn{X} is divided as
 evenly as possible over the number of workers (see
@@ -44,9 +44,9 @@ evenly as possible over the number of workers (see
 \item{verbose}{logic(1). If TRUE, enable progress bar.}
 }
 \value{
-An \code{\link{AutomorphismByCoef}} class object. A coefficient with
-0 value is assigned to mutational events that are not automorphisms, e.g.,
-indel mutations.
+An \code{\link{AutomorphismByCoef}} class object. A coefficient
+with 0 value is assigned to mutational events that are not automorphisms,
+e.g., indel mutations.
 }
 \description{
 Automorphisms with the same automorphism's coefficients are

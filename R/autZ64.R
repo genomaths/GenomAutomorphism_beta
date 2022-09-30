@@ -36,6 +36,12 @@
 #' @param start,end,chr,strand Optional parameters required to build a
 #' \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default
 #' values given for the function definition will be used.
+#' @param genetic_code The named character vector returned by  
+#' \code{\link[Biostrings]{getGeneticCode}} or similar. The translation of
+#' codon into aminoacids is a valuable information useful for downstream
+#' statistical analysis. The standard genetic code is the default argument
+#' value applied in the translation of codons into aminoacids
+#' (see \code{\link[Biostrings]{GENETIC_CODE_TABLE}}. 
 #' @param num.cores,tasks Parameters for parallel computation using package
 #' \code{\link[BiocParallel]{BiocParallel-package}}: the number of cores to
 #' use, i.e. at most how many child processes will be run simultaneously (see
@@ -71,7 +77,7 @@
 #' aln
 #'
 #' ## Automorphism on Z64
-#' autms <- autZ64(seq = aln)
+#' autms <- autZ64(seq = aln, verbose = FALSE)
 #' autms
 #'
 autZ64 <- function(seq = NULL,
@@ -82,6 +88,7 @@ autZ64 <- function(seq = NULL,
     end = NA,
     chr = 1L,
     strand = "+",
+    genetic_code = getGeneticCode("1"),
     num.cores = detectCores() - 1,
     tasks = 0L,
     verbose = TRUE) {
@@ -121,6 +128,7 @@ autZ64 <- function(seq = NULL,
         end = end,
         chr = chr,
         strand = strand,
+        genetic_code = genetic_code,
         num.cores = num.cores,
         tasks = tasks,
         verbose = verbose
@@ -137,6 +145,7 @@ autZ64 <- function(seq = NULL,
             end = end,
             chr = chr,
             strand = strand,
+            genetic_code = genetic_code,
             num.cores = num.cores,
             tasks = tasks,
             verbose = verbose
@@ -150,7 +159,11 @@ autZ64 <- function(seq = NULL,
         strand = strand(autm1),
         elementMetadata = autm1@elementMetadata,
         seqinfo = autm1@seqinfo,
-        colnames = colnames(autm1@elementMetadata)
+        colnames = colnames(autm1@elementMetadata),
+        autm_info = list(
+            cube = cube,
+            cube_alt = cube_alt,
+            genetic_code = genetic_code)
     )
     return(autm1)
 }
@@ -167,6 +180,7 @@ automorfismos <- function(seq,
     end = NA,
     chr = 1L,
     strand = "+",
+    genetic_code = getGeneticCode("1"),
     num.cores,
     tasks,
     verbose) {
@@ -184,6 +198,8 @@ automorfismos <- function(seq,
     )
 
     gr <- sq@SeqRanges
+    gr$aa1 <- translate(gr$seq1, genetic.code = genetic_code)
+    gr$aa2 <- translate(gr$seq2, genetic.code = genetic_code)
     gr$coord1 <- sq@CoordList$coord1
     gr$coord2 <- sq@CoordList$coord2
     gr$autm <- 1

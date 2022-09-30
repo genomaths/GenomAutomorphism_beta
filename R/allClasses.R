@@ -410,7 +410,8 @@ setClass("Automorphism",
         strand = "Rle",
         elementMetadata = "DataFrame",
         seqinfo = "Seqinfo",
-        colnames = "character"
+        colnames = "character",
+        autm_info = "list"
     ),
     contains = "GRanges"
 )
@@ -588,6 +589,14 @@ setValidity2("AutomorphismList", valid.AutomorphismList)
 #' @export
 #' @return AutomorphismByCoef-class definition.
 setClass("AutomorphismByCoef",
+    slots = c(
+        seqnames = "Rle",
+        ranges = "IRanges_OR_IPos",
+        strand = "Rle",
+        elementMetadata = "DataFrame",
+        seqinfo = "Seqinfo",
+        colnames = "character",
+        autm_info = "list"),
     contains = "GRanges"
 )
 
