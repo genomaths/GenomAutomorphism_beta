@@ -26,7 +26,14 @@ values, 20 diagonal and 20x19/2 off-diagonal elements, used for sequence
 alignments and similarity searches.
 }
 \examples{
+## Load the mutation matrices from database from the packages
 data(aaindex3, package = "GenomAutomorphism")
-aaindex3
+
+## Get the available mutation matrices
+mat <- aa_mutmat(aaindex = aaindex3, acc_list = TRUE)
+mat[1:10]
+}
+\seealso{
+\code{\link{aaindex3}} and \code{\link{aa_mutmat}}
 }
 \keyword{datasets}

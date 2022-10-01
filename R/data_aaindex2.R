@@ -12,11 +12,11 @@
 ## General Public License along with this program; if not, see
 ## <http://www.gnu.org/licenses/>.
 
-#' List of 94 Amino Acid Matrices from AAindex ver.9.2
+#' List of 94 Amino Acid Matrices from AAindex
 #'
 #' The aminoacid similarity matrices from Amino Acid Index Database
-#' \url{https://www.genome.jp/aaindex/} are provided here. AAindex is a
-#' database of numerical indices representing various physicochemical and
+#' \url{https://www.genome.jp/aaindex/} are provided here. AAindex (ver.9.2) 
+#' is a database of numerical indices representing various physicochemical and
 #' biochemical properties of amino acids and pairs of amino acids.
 #'
 #' The similarity of amino acids can be represented numerically, expressed in
@@ -26,7 +26,12 @@
 #' and similarity searches.
 
 #' @examples 
+#' ## Load the mutation matrices from database from the packages
 #' data(aaindex2, package = "GenomAutomorphism")
-#' aaindex2
+#' 
+#' ## Get the available mutation matrices
+#' mat <- aa_mutmat(aaindex = aaindex2, acc_list = TRUE)
+#' mat[1:10]
+#' @seealso \code{\link{aaindex2}} and \code{\link{aa_mutmat}}
 #' @format \code{\link{AutomorphismList}} class object.
 "aaindex2"
