@@ -14,6 +14,9 @@ get_mutscore(aa1, aa2, ...)
   aaindex = NULL,
   mutmat = NULL,
   alphabet = c("AA", "DNA"),
+  num.cores = 1L,
+  tasks = 0L,
+  verbose = FALSE,
   ...
 )
 }
@@ -36,6 +39,14 @@ possible values are:  "aaindex2" or "aaindex3".}
 four (DNA)/RNA base alphabet. This would prevent mistakes, i.e.,
 the strings "ACG" would be a base-triplet on the DNA alphabet or simply
 the amino acid sequence of alanine, cysteine, and glutamic acid.}
+
+\item{num.cores, tasks}{Parameters for parallel computation using package
+\code{\link[BiocParallel]{BiocParallel-package}}: the number of cores to
+use, i.e. at most how many child processes will be run simultaneously
+(see \code{\link[BiocParallel]{bplapply}} and the number of tasks per job
+(only for Linux OS).}
+
+\item{verbose}{If TRUE, prints the function log to stdout.}
 }
 \value{
 A single numeric score or a numerical vector.
@@ -70,4 +81,8 @@ get_mutscore(aa1 = "ACG", aa2 = "CTA", acc = "MIYS930101",
 ## Peptides can be also written as:
 get_mutscore(aa1 = c("A","C","G"), aa2 = c("C","T","A"), 
             acc = "MIYS930101", aaindex = aaindex2, alphabet = "AA")
+}
+\seealso{
+\code{\link{aa_mutmat}}, \code{\link{aaindex2}} and
+\code{\link{aaindex3}}
 }

@@ -122,7 +122,7 @@ setMethod(
         idx_coord <- grep("coord", colnames(codon))
 
         sq <- data.frame(codon[, idx_seq])
-        f <- factor(as.vector(slapply(seq_len(nrow(sq) / 3), rep, 3)))
+        f <- factor(as.vector(slapply(seq_len(nrow(sq) / 3), rep, times = 3)))
         sq <- split(sq, f)
 
         crd <- data.frame(codon[, idx_coord])

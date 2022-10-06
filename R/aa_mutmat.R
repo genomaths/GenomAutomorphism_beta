@@ -48,7 +48,12 @@
 #' ## Return the 'Base-substitution-protein-stability matrix 
 #' ## (Miyazawa-Jernigan, 1993)'
 #' aa_mutmat(acc = "MIYS930101", aaindex = aaindex2)
-#' @seealso \code{\link{aaindex2}} and \code{\link{aaindex3}}
+#' 
+#' ## Return the 'BLOSUM80 substitution matrix (Henikoff-Henikoff, 1992)'
+#' aa_mutmat(acc = "HENS920103", aaindex = aaindex2)
+#' 
+#' @seealso \code{\link{aaindex2}}, \code{\link{aaindex3}}, and
+#' \code{\link{get_mutscore}}.
 
 aa_mutmat <- function(
     acc = NA, 

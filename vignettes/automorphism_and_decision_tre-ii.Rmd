@@ -352,6 +352,14 @@ interval <- function(x, a, b) {
 }
 
 datos = dt
+datos$mut_effect <- get_mutscore(aa1 = datos$aa1, aa2 = datos$aa2, 
+            acc = "MIYS960102", aaindex = aaindex3, alphabet = "AA",
+            num.cores = 20)
+
+hist(datos$mut_effect)
+datos$mut_effect[ is.na(datos$mut_effect) ] <- -10
+
+
 datos$autms <- case_when(datos$autm < 16 ~ 'A1',
                     interval(datos$autm, 16, 31) ~ 'A2',
                     interval(datos$autm, 32, 47) ~ 'A3',
@@ -378,14 +386,16 @@ datos$autm <- as.factor(datos$autm)
 datos$species <- as.factor(datos$species)
 datos$start <- as.factor(datos$start)
 datos$cube <- as.factor(datos$cube)
-datos <- datos[, c( "autms", "regions", "mut_type", "cube", "species")]
+datos$mut_effect <- as.factor(datos$mut_effect)
+
+datos <- datos[, c( "autms", "regions", "mut_type", "cube", "mut_effect", "species")]
 DataFrame(datos)
 ```
 
 A classification tree is estimated with CHAID algorithm:
 ```{r chaid}
-ctrl <- chaid_control(minsplit = 400, minprob = 0.9, alpha2 = 0.01, alpha4 = 0.01)
-chaid_res <- chaid(species ~ autms + regions + mut_type + cube , data = datos,
+ctrl <- chaid_control(minsplit = 500, minprob = 0.9, alpha2 = 0.01, alpha4 = 0.01)
+chaid_res <- chaid(species ~ autms + regions + mut_type + cube + mut_effect , data = datos,
                    control = ctrl)
 chaid_res
 ```
@@ -397,7 +407,7 @@ Next, the data must be prepared for plotting the tree with
 ```{r, plot-data}
 ##  Updating CHAID decision tree
 dp <- data_party(chaid_res)
-dat <- dp[, c("autms", "regions", "mut_type", "cube")]
+dat <- dp[, c("autms", "regions", "mut_type", "cube", "mut_effect")]
 dat$species <- dp[, "(response)"]
     
     
@@ -428,7 +438,8 @@ node.size =  colSums(node.freq)
 
 Plotting the tree with [ggparty](https://rdrr.io/cran/ggparty/man/ggparty.html) 
 (font size adjusted for html output)
-```{r chaid-tree, fig.height = 300, fig.width = 60}
+
+```{r chaid-tree, fig.height = 300, fig.width = 80}
 ggparty(chaid_tree, horizontal = TRUE) +
     geom_edge(aes(color = id, size = node.size[id]/300), show.legend = FALSE) +
     geom_edge_label(size = 14, colour = "red",
@@ -453,7 +464,7 @@ ggparty(chaid_tree, horizontal = TRUE) +
         geom_bar(aes(x = "", fill = species), size = 0.2, width = 0.9,
                  position = position_fill(), color = "black"),
         coord_flip(),
-        theme_minimal(base_family = "arial", base_size = 46),
+        theme_minimal(base_family = "arial", base_size = 60),
         scale_fill_manual(values = c("gray50","gray55","gray60",
                                      "gray70","gray80","gray85",
                                      "blue","gray95")),
@@ -463,7 +474,7 @@ ggparty(chaid_tree, horizontal = TRUE) +
                       label = stat(count)),
                   stat = "count", position = position_fill(), 
                   vjust = 0.6, hjust = 1.5, size = 16)),
-        shared_axis_labels = TRUE, size = 1.2) 
+        shared_axis_labels = TRUE, size = 1.4) 
 ```
 
 ### Stochastic-deterministic logical rules
@@ -471,14 +482,14 @@ Since only one mutational event human-to-human in region R1 from class A3 is
 reported in the right side of the tree, with high probability only non-humans 
 hold the following rule: 
 ```{r rule1}
-rule <- (dat$autms == "A4" | (dat$autms == "A3" & dat$mut_type != "HRH"))
+rule <- (dat$mut_type == "H-H" & dat$regions == "R2")
 unique(as.character(dat[rule,]$species))
 ```
 
 
 Only humans-to-human mutations hold the following rule:
 ```{r rule2}
-idx <- dat$autm == "A1" & dat$regions == "R3" & (dat$mut_type == "HHY" | dat$mut_type == "YHH")
+idx <- (dat$autm == "A1" & dat$autm == "A2" & dat$cube == "TGCA")
 dat[ idx, ]
 ```
 

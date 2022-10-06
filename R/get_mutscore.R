@@ -31,10 +31,18 @@
 #' four (DNA)/RNA base alphabet. This would prevent mistakes, i.e., 
 #' the strings "ACG" would be a base-triplet on the DNA alphabet or simply
 #' the amino acid sequence of alanine, cysteine, and glutamic acid.
+#' @param num.cores,tasks Parameters for parallel computation using package
+#' \code{\link[BiocParallel]{BiocParallel-package}}: the number of cores to
+#' use, i.e. at most how many child processes will be run simultaneously
+#' (see \code{\link[BiocParallel]{bplapply}} and the number of tasks per job
+#' (only for Linux OS).
+#' @param verbose If TRUE, prints the function log to stdout.
 #' @param ... Not in use.
 #' 
 #' @details If a score matrix is provided by the user, then it must be a
 #' symmetric matrix 20x20.
+#' @seealso \code{\link{aa_mutmat}}, \code{\link{aaindex2}} and 
+#' \code{\link{aaindex3}}
 #' @export
 #' @return A single numeric score or a numerical vector.
 #' @examples 
@@ -74,6 +82,9 @@ setMethod("get_mutscore", signature(aa1 = "character", aa2 = "character"),
         aaindex = NULL,
         mutmat = NULL,
         alphabet = c("AA", "DNA"),
+        num.cores = 1L,
+        tasks = 0L,
+        verbose = FALSE,
         ...) {
         
         alphabet <- match.arg(alphabet)
@@ -149,8 +160,8 @@ setMethod("get_mutscore", signature(aa1 = "character", aa2 = "character"),
                 stop("The elements from 'aa2' must be single letters of ",
                     "amino acid laphabet or base-triples on DNA/RNA",
                     " alphabets.")
-            
-            score <- slapply(seq_along(aa1), 
+            if (num.cores == 1) {
+                score <- slapply(seq_along(aa1), 
                         function(k) {
                             if (nchar(aa1[k]) != nchar(aa2[k]))
                                 stop("Arguments aa1[k] & aa2[k] with ",
@@ -164,7 +175,38 @@ setMethod("get_mutscore", signature(aa1 = "character", aa2 = "character"),
                                 mutmat = mutmat,
                                 alphabet = alphabet)
                         })
-            return(score)
+            }
+            else {
+                ## ------------ Setting parallel computing ------------- ##
+                progressbar <- FALSE
+                if (verbose) progressbar <- TRUE
+                if (Sys.info()["sysname"] == "Linux") {
+                    bpparam <- MulticoreParam(
+                        workers = num.cores,
+                        tasks = tasks,
+                        progressbar = progressbar)
+                } else {
+                    bpparam <- SnowParam(
+                        workers = num.cores,
+                        type = "SOCK",
+                        progressbar = progressbar)
+                }
+                ## ----------------------------------------------------- ##
+                
+                score <- bplapply(
+                        seq_along(aa1), 
+                            function(k) {
+                                get_mutscore(
+                                    aa1 = aa1[k], 
+                                    aa2 = aa2[k], 
+                                    acc = acc,
+                                    aaindex = aaindex,
+                                    mutmat = mutmat,
+                                    alphabet = alphabet) 
+                            },
+                            BPPARAM = bpparam)
+            }
+            return(unlist(score))
         }
     }
 )
