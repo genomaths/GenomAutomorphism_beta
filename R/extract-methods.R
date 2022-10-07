@@ -22,6 +22,7 @@
 #' names can be done as x$name.
 #' @return An element of x, an \code{\link{AutomorphismList-class}} object.
 #' @keywords internal
+#' @exportMethod "["
 #' @export
 #' @author Robersy Sanchez <https://genomaths.com>
 setMethod(

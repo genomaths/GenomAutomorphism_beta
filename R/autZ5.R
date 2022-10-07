@@ -71,7 +71,7 @@
 #' aln
 #'
 #' ## Automorphism on Z5
-#' autms <- autZ5(seq = aln)
+#' autms <- autZ5(seq = aln, verbose = FALSE)
 #' autms
 #'
 autZ5 <- function(seq = NULL,
@@ -139,7 +139,7 @@ autZ5 <- function(seq = NULL,
         autm_info = list(
             cube = cube,
             cube_alt = cube_alt,
-            genetic_code = genetic_code)
+            genetic_code = character())
     )
     return(autm1)
 }

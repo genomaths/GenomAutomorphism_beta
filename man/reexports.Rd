@@ -8,7 +8,6 @@
 \alias{setValidity2}
 \alias{DNAStringSet}
 \alias{readDNAMultipleAlignment}
-\alias{getGeneticCode}
 \alias{translate}
 \alias{width}
 \alias{start}
@@ -26,7 +25,7 @@ below to see their documentation.
 \describe{
   \item{BiocGenerics}{\code{\link[BiocGenerics:start]{end}}, \code{\link[BiocGenerics:start]{end<-}}, \code{\link[BiocGenerics]{start}}, \code{\link[BiocGenerics:start]{start<-}}, \code{\link[BiocGenerics]{strand}}, \code{\link[BiocGenerics:strand]{strand<-}}, \code{\link[BiocGenerics:start]{width}}}
 
-  \item{Biostrings}{\code{\link[Biostrings:XStringSet-class]{DNAStringSet}}, \code{\link[Biostrings:GENETIC_CODE]{getGeneticCode}}, \code{\link[Biostrings:MultipleAlignment-class]{readDNAMultipleAlignment}}, \code{\link[Biostrings]{translate}}}
+  \item{Biostrings}{\code{\link[Biostrings:XStringSet-class]{DNAStringSet}}, \code{\link[Biostrings:MultipleAlignment-class]{readDNAMultipleAlignment}}, \code{\link[Biostrings]{translate}}}
 
   \item{S4Vectors}{\code{\link[S4Vectors:Vector-class]{mcols}}, \code{\link[S4Vectors:Vector-class]{mcols<-}}, \code{\link[S4Vectors:S4Vectors-internals]{setValidity2}}}
 }}

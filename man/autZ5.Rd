@@ -67,7 +67,7 @@ data(aln, package = "GenomAutomorphism")
 aln
 
 ## Automorphism on Z5
-autms <- autZ5(seq = aln)
+autms <- autZ5(seq = aln, verbose = FALSE)
 autms
 
 }

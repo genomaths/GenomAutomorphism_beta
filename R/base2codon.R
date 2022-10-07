@@ -42,6 +42,7 @@
 #' base2codon(x = aln)
 #'
 #' @aliases base2codon
+#' @export
 setGeneric(
     "base2codon",
     function(x,

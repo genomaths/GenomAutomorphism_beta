@@ -21,6 +21,11 @@
 #' @param x A character string or a list/ of character strings of 
 #' numeric/digit symbols.
 #' @param split The same as in \code{\link[base]{strsplit}}
+#' @param num.cores,tasks Parameters for parallel computation using package
+#' \code{\link[BiocParallel]{BiocParallel-package}}: the number of cores to
+#' use, i.e. at most how many child processes will be run simultaneously (see
+#' \code{\link[BiocParallel]{bplapply}} and the number of tasks per job (only
+#' for Linux OS).
 #' @param verbose If TRUE, prints the function log to stdout.
 #' @param ... Further parameters for \code{\link[base]{strsplit}}.
 #' @export

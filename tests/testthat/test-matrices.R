@@ -17,7 +17,7 @@ test_that("matrices function test", {
     )
 
     test1 <- sum(test1$coord1[1:10]) == 18
-    test2 <- sum(test2$coord1[1:10]) == 28
+    test2 <- sum(test2$coord1[1:10]) == 21
 
     expect_true(all(test1, test2))
 })

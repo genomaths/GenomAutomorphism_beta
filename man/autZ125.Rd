@@ -14,6 +14,7 @@ autZ125(
   end = NA,
   chr = 1L,
   strand = "+",
+  genetic_code = getGeneticCode("1"),
   num.cores = detectCores() - 1,
   tasks = 0L,
   verbose = TRUE
@@ -38,6 +39,13 @@ call dual cubes and, as shown in reference (3), each pair integrates group.}
 \item{start, end, chr, strand}{Optional parameters required to build a
 \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default
 values given for the function definition will be used.}
+
+\item{genetic_code}{The named character vector returned by
+\code{\link[Biostrings]{getGeneticCode}} or similar. The translation of
+codon into aminoacids is a valuable information useful for downstream
+statistical analysis. The standard genetic code is the default argument
+value applied in the translation of codons into aminoacids
+(see \code{\link[Biostrings]{GENETIC_CODE_TABLE}}.}
 
 \item{num.cores, tasks}{Parameters for parallel computation using package
 \code{\link[BiocParallel]{BiocParallel-package}}: the number of cores to

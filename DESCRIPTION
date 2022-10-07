@@ -1,6 +1,6 @@
 Package: GenomAutomorphism
-Title: What the Package Does (One Line, Title Case)
-Version: 0.99.3
+Title: Compute the automorphisms between DNA's Abelian group representations 
+Version: 0.99.4
 Authors@R: 
     person( given = "Robersy",
             family = "Sanchez",
@@ -10,7 +10,7 @@ Authors@R:
 URL: https://github.com/genomaths/GenomAutomorphism
 BugReports: https://github.com/genomaths/GenomAutomorphism/issues
 Description: 
-            This is a R package to compute the autimorphisms between pairwise 
+            This is a R package to compute the automorphisms between pairwise 
             aligned DNA sequences represented as elements from a Genomic 
             Abelian group. In a general scenario, from genomic regions till 
             the whole genomes from a given population (from any species or 
@@ -21,8 +21,8 @@ Description:
             created by the direct sum of homocyclic Abelian group of 
             prime-power order.
 Depends: 
-    R (>= 4.1)
-License: file LICENSE
+    R (>= 4.2),
+License: Artistic-2.0
 Encoding: UTF-8
 biocViews: 
     MathematicalBiology,
@@ -36,6 +36,7 @@ Imports:
     GenomeInfoDb,
     GenomicRanges,
     IRanges,
+    dplyr,
     data.table,
     parallel,
     doParallel,
@@ -43,16 +44,16 @@ Imports:
     methods,
     S4Vectors,
     stats,
-    numbers
+    numbers,
 RoxygenNote: 7.2.1
 Suggests:
     spelling,
     rmarkdown,
-    knitr,
     BiocStyle,
-    testthat (>= 3.0.0)
-VignetteBuilder: knitr
+    testthat (>= 3.0.0),
+    knitr
 Roxygen: list(markdown = TRUE)
 Language: en-US
+LazyData: false
 Config/testthat/edition: 3
-LazyData: true
+VignetteBuilder: knitr

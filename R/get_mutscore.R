@@ -100,8 +100,8 @@ setMethod("get_mutscore", signature(aa1 = "character", aa2 = "character"),
             nchar(aa1) != 3) {
             aa1 <- base2codon(aa1)
             aa2 <- base2codon(aa2)
-            aa1 <- translate(aa1)
-            aa2 <- translate(aa2)
+            aa1 <- translation(aa1)
+            aa2 <- translation(aa2)
             alphabet <- "AA"
         }
                 
@@ -110,8 +110,8 @@ setMethod("get_mutscore", signature(aa1 = "character", aa2 = "character"),
             is.triplet <- unique(nchar(c(aa1, aa2))) == 3
             
             if (is.triplet && all(is.element(query, dna))) {
-                aa1 <- translate(aa1)
-                aa2 <- translate(aa2)
+                aa1 <- translation(aa1)
+                aa2 <- translation(aa2)
                 alphabet <- "AA"
             }
         }

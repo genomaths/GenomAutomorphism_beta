@@ -108,8 +108,8 @@ setMethod(
             by = keys
             ]
             
-            x$aa1 <- translate(x$seq1, genetic.code = genetic_code)
-            x$aa2 <- translate(x$seq2, genetic.code = genetic_code)
+            x$aa1 <- translation(x$seq1, genetic.code = genetic_code)
+            x$aa2 <- translation(x$seq2, genetic.code = genetic_code)
 
             x <- makeGRangesFromDataFrame(x, keep.extra.columns = TRUE)
         } else {

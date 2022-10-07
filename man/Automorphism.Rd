@@ -5,32 +5,15 @@
 \alias{Automorphism-class}
 \alias{Automorphism}
 \alias{DataFrame_OR_data.frame-class}
-\alias{AutomorphismList-class}
-\alias{AutomorphismList}
-\alias{valid.AutomorphismList}
-\alias{AutomorphismByCoefList-class}
-\alias{AutomorphismByCoefList}
-\title{A class definition to store codon automorphisms in given as an
-Abelian group representation.}
-\usage{
-valid.AutomorphismList(x)
-}
-\arguments{
-\item{x}{A 'AutomorphismList object'}
-}
+\title{A class definition to store codon automorphisms in a given Abelian
+group representation.}
 \value{
 Given the slot values, it defines an Automorphism-class object.
-
-AutomorphismByCoefList-class definition.
 }
 \description{
 Two classes are involved in to storing codon automorphisms:
 \emph{\strong{Automorphism-class}} and
 \emph{\strong{AutomorphismList-class}}.
-
-A class definition to store list of Automorphism class objects
-derived from the pairwise automorphism estimation from pairwise
-alignments.
 }
 \details{
 An \emph{\strong{Automorphism-class}} object has six
@@ -47,16 +30,23 @@ the creation of an additional \code{\link[GenomicRanges]{GRanges-class}}
 object, which by default will have the argument seqnames = "1", strand =
 "+", start/end = 1:nrow(x), length = nrow(x). These details must be keep in
 mind to prevent fundamental errors in the downstream analyses.
+}
+\section{Automorphism-class methods}{
 
-\strong{AutomorphismByCoefList-class} has the following methods:
-\subsection{as('from', "AutomorphismByCoefList")}{
+\subsection{as(from, "Automorphism"):}{
 
-Where 'from' is a list of \strong{AutomorphismByCoef-class}.
+Permits the transformation of a \code{\link[base]{data.frame}} or a
+\code{\link[S4Vectors]{DataFrame-class}} object into
+\emph{\strong{Automorphism-class}} object if the proper columns are
+provided.
+
+Methods from \code{\link[GenomicRanges]{GRanges-class}} can also be
+applied.
+}
 }
 
-\subsection{unlist(x)}{
-
-Where 'x' is a an \strong{AutomorphismByCoefList-class} object.
-}
+\seealso{
+\code{\link{AutomorphismByCoef-class}} and
+\code{\link{AutomorphismList-class}}
 }
 \keyword{internal}

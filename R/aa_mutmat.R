@@ -59,34 +59,32 @@ aa_mutmat <- function(
     acc = NA, 
     aaindex = NA,
     acc_list = FALSE) {
-
+    
     if (acc_list)
         return(aaindex$acc_num)
     else {
         idx <- grep(acc, aaindex$aaindex)
         patt <- FALSE
-        while(!patt) {
+        while (!patt) {
             idx <- idx + 1
-            patt <- grepl("^M", aaindex$aaindex[ idx ])
+            patt <- grepl("^M", aaindex$aaindex[idx])
         }
         
-        nums = aaindex$aaindex[ seq(idx + 1, idx + 20, 1) ] 
-
+        nums = aaindex$aaindex[seq(idx + 1, idx + 20, 1)]
+        
         nums <- lapply(seq(nums), function(k) {
-                s <- strsplit(nums[k], " ")[[1]]
-                s <- suppressWarnings(as.numeric(s[ nchar(s) > 0 ]))
-                s <- c(s, rep(NA, 20 - length(s)))
-                return(s)
-            }
-        )
+            s <- strsplit(nums[k], " ")[[1]]
+            s <- suppressWarnings(as.numeric(s[nchar(s) > 0]))
+            s <- c(s, rep(NA, 20 - length(s)))
+            return(s)
+        })
         rown <- c("A","R","N","D","C","Q","E","G","H",
                 "I","L","K","M","F","P","S","T","W","Y","V")
         
         nums <- do.call(rbind, nums)
-        rownames(nums) <- rown 
-        colnames(nums) <- rown 
-        nums[ upper.tri(nums)] <- t(nums)[ upper.tri(nums) ]
+        rownames(nums) <- rown
+        colnames(nums) <- rown
+        nums[upper.tri(nums)] <- t(nums)[upper.tri(nums)]
         return(nums)
     }
 }
-

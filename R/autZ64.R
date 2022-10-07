@@ -198,8 +198,8 @@ automorfismos <- function(seq,
     )
 
     gr <- sq@SeqRanges
-    gr$aa1 <- translate(gr$seq1, genetic.code = genetic_code)
-    gr$aa2 <- translate(gr$seq2, genetic.code = genetic_code)
+    gr$aa1 <- translation(gr$seq1, genetic.code = genetic_code)
+    gr$aa2 <- translation(gr$seq2, genetic.code = genetic_code)
     gr$coord1 <- sq@CoordList$coord1
     gr$coord2 <- sq@CoordList$coord2
     gr$autm <- 1
