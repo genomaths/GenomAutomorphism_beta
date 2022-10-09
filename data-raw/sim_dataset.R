@@ -14,7 +14,7 @@ aln <- c(
 
 aln <- DNAStringSet(aln)
 
-usethis::use_data(aln)
+usethis::use_data(aln, overwrite = TRUE)
 
 URL <- paste0(
     "https://github.com/genomaths/seqalignments/raw/master/CYCS/",
@@ -73,11 +73,24 @@ brca1_autm <- automorphisms(
 usethis::use_data(brca1_autm, brca1_aln, overwrite = TRUE, compress = "xz")
 
 
+autby_coef <- automorphism_bycoef(brca1_autm)
+autby_coef
+
+usethis::use_data(autby_coef, overwrite = TRUE, compress = "xz")
+
+
 ## Do not run it. This is included with package
 URL <- paste0("https://github.com/genomaths/seqalignments/raw/master/BRCA1/",
               "brca1_primates_dna_repair_41_sequences.fasta")
 
 brca1_aln2 <- readDNAMultipleAlignment(filepath = URL)
+
+nams <- c(paste0("human_1.", 0:21),"human_2","gorilla_1","gorilla_2","gorilla_3",
+          "chimpanzee_1","chimpanzee_2","chimpanzee_3","chimpanzee_4",
+          "bonobos_1","bonobos_2","bonobos_3","bonobos_4","silvery_gibbon_1",
+          "silvery_gibbon_1","silvery_gibbon_3","golden_monkey_1",
+          "golden_monkey_2","gelada_baboon","bolivian_monkey")
+
 
 brca1_autm2 <- automorphisms(
     seqs = brca1_aln2,
@@ -87,13 +100,6 @@ brca1_autm2 <- automorphisms(
     nms = nams
 )
 usethis::use_data(brca1_autm2, brca1_aln2, overwrite = TRUE, compress = "xz")
-
-
-autby_coef <- automorphismByCoef(brca1_autm)
-autby_coef
-
-usethis::use_data(autby_coef, overwrite = TRUE, compress = "xz")
-
 
 
 URL <- paste0(

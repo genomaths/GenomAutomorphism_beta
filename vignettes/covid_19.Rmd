@@ -22,7 +22,14 @@ output:
 toc_float: true
 toc_depth: 3
 abstract: |
-    Analysis of COVID-19 mutational events in terms of automorphisms.
+    The analysis of COVID-19 mutational events in terms of automorphisms is
+    accomplished here. The analysis is accomplished in a pairwise sequence 
+    alignments of SARS coronaviruses SARS coronavirus GZ02 (GenBank: 
+    AY390556.1: 265-13398_13398-21485) and Bat SARS-like coronavirus isolate
+    bat-SL-CoVZC45 (GenBank: MG772933.1:265-1345513455-21542), nonstructural 
+    polyprotein. The analysis indicate that the distribution of the conserved
+    sites according to their sizes can be modeled by generalized gamma 
+    distribution.
 vignette: >
     %\VignetteIndexEntry{Get started-with Methyl-IT}
     %\VignetteEncoding{UTF-8}
@@ -77,7 +84,7 @@ code.r{
 }
 </style>
     
-    ```{r, include = FALSE}
+```{r, include = FALSE}
 knitr::opts_chunk$set(
     class.source = "watch-out",
     collapse = TRUE,
@@ -163,7 +170,7 @@ xlab = "Conserved region size (bp)", yaxt = "n", ylab="", cex.axis = 1.4)
 axis(side = 2, cex.axis = 1.4, las = 2)
 mtext("Density", side = 2, cex = 1.4, line = 3.5)
 
-x1 <- seq(1, 150, by = 1)
+x1 <- seq(1, 35, by = 1)
 txt <- TeX(r'($\textit{f}(\textit{x}) = \frac{\alpha}{\beta\Gamma(\gamma)}
   {(\frac{\textit{x - \mu}}{\beta})}^{\alpha\delta-1}
   e^{(-\frac{\textit{x - \mu}}{\beta})^\alpha}$)')
@@ -171,7 +178,8 @@ txt <- TeX(r'($\textit{f}(\textit{x}) = \frac{\alpha}{\beta\Gamma(\gamma)}
 lines(x1, dggamma(x1,
                   alpha = coef(dist2$bestfit)[1],
                   scale = coef(dist2$bestfit)[2],
-                  psi = coef(dist2$bestfit)[3]
+                  mu = coef(dist2$bestfit)[3],
+                  psi = coef(dist2$bestfit)[4]
                   ),
       col = "red", lwd = 1)
 mtext(txt, side = 3, line = -4, cex = 1.4, adj = 0.7)
