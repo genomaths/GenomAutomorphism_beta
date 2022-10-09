@@ -34,7 +34,7 @@ mat <- aa_mutmat(aaindex = aaindex3, acc_list = TRUE)
 mat[1:10]
 }
 \seealso{
-\code{\link{aaindex3}}, \code{\link{aa_mutmat}}, and
+\code{\link{aaindex2}}, \code{\link{aa_mutmat}}, and
 \code{\link{get_mutscore}}.
 }
 \keyword{datasets}
