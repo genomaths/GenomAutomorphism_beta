@@ -55,6 +55,7 @@ setGeneric(
 )
 
 
+#' @rdname as.AutomorphismList
 #' @aliases as.AutomorphismList
 #' @import S4Vectors
 #' @importFrom methods new

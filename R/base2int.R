@@ -14,14 +14,15 @@
 
 #' Replace bases with integers from Z4 and Z5
 #' @rdname base2int
+#' @aliases base2int
 #' @description A simple function to represent DNA bases as elements from 
 #' the Abelian group of integers modulo 4 (Z4) or 5 (Z5).
 #' @param base A character vector, string , or a dataframe of letters from the 
 #' DNA/RNA alphabet.
-#' @param cube A character string denoting one of the 24 Genetic-code cubes,
-#' as given in references (2-3).
 #' @param group A character string denoting the group representation for the
 #' given base or codon as shown in reference (2-3).
+#' @param cube A character string denoting one of the 24 Genetic-code cubes,
+#' as given in references (2-3).
 #' @param ... Not in use.
 #' @return A numerical vector.
 #' @aliases base2int
@@ -62,18 +63,16 @@
 #'  Comput. Chem. 79 (2018) 527-560.
 #' }
 #' @export
-#' @aliases base2int
 setGeneric(
     "base2int",
     function(
         base,
-        group,
-        cube,
         ...) {
         standardGeneric("base2int")
     }
 )
 
+#' @rdname base2int
 #' @aliases base2int
 #' @export
 setMethod("base2int", signature(base = "character"),
@@ -104,6 +103,7 @@ setMethod("base2int", signature(base = "character"),
 )
 
 
+#' @rdname base2int
 #' @aliases base2int
 #' @export
 setMethod("base2int", signature(base = "data.frame"),

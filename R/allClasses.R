@@ -651,6 +651,7 @@ valid.AutomorphismList <- function(x) {
 setValidity2("AutomorphismList", valid.AutomorphismList)
 
 #' @rdname AutomorphismList
+#' @aliases names
 #' @param x An \code{\link{AutomorphismList}} object.
 #' @exportMethod names
 #' @export
@@ -694,11 +695,11 @@ setReplaceMethod(
 #' autm_list <- as.list(brca1_autm[1:3])
 #' autm_list
 setMethod("as.list",
-          signature = "AutomorphismList",
-          function(x) {
-              x <- getAutomorphisms(x)
-              return(x@DataList)
-          }
+    signature = "AutomorphismList",
+    function(x) {
+        x <- getAutomorphisms(x)
+        return(x@DataList)
+    }
 )
 
 
@@ -718,11 +719,11 @@ setAs("AutomorphismList", "GRangesList", function(from) {
 
 #' @import GenomicRanges
 setMethod("unlist",
-          signature = "AutomorphismList",
-          function(x) {
-              x <- as(x, "GRangesList")
-              return(unlist(x))
-          }
+    signature = "AutomorphismList",
+    function(x) {
+        x <- as(x, "GRangesList")
+        return(unlist(x))
+    }
 )
 
 ## ========================== AutomorphismByCoef ===========================
