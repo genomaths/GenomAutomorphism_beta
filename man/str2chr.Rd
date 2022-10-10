@@ -40,3 +40,6 @@ str2chr("ATCAGCGGGATCTT")
 ## A list of character strings
 str2chr(list(str1 = "ATCAGCGGGATCTT", str2 = "CTTCTTCGTCAGGC"))
 }
+\author{
+Robersy Sanchez \url{https://genomaths.com}
+}

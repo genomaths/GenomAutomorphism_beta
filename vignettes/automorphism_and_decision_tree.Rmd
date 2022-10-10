@@ -667,8 +667,8 @@ mtext(side = 1,line = -2.8, at = c(0.7, 1.9, 3.1, 4.3),
 
 In this analysis a new variable has been include, which derives from the
 estimation of the contact potential matrix of amino acids made by Miyazawa and
-Jernigan (5), whicih are considered quasichemical energy of interactions in an
-average buried environment Thes amino acids potentials, as well as, others
+Jernigan (5), which are considered quasichemical energy of interactions in an
+average buried environment. The amino acids potentials, as well as, others
 numerical indices representing various physicochemical and biochemical
 properties of amino acids and pairs of amino acids can be found in
 [AAindex](https://www.genome.jp/aaindex/).

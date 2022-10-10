@@ -29,6 +29,8 @@
 #' object. The same as in \code{\link[Biostrings]{translate}}.
 #' @param ... Not in use yet.
 #' @seealso \code{\link[Biostrings]{translate}}
+#' @author Robersy Sanchez <https://genomaths.com>
+#' @import Biostrings
 #' @examples 
 #' ## Load a small DNA sequence alingment 
 #' data("aln", package = "GenomAutomorphism")
@@ -39,6 +41,7 @@
 #' data("covid_aln", package = "GenomAutomorphism")
 #' 
 #' translation(covid_aln)
+#' @return The translated amino acid sequence.
 #' @export
 setGeneric(
     "translation",

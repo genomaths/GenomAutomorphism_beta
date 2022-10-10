@@ -61,7 +61,7 @@
 #'  Genetic-Code Architecture on the Evolutionary Process MATCH Commun. Math.
 #'  Comput. Chem. 79 (2018) 527-560.
 #' }
-#' @seealso \code{\link{codon_coord}}
+#' @seealso \code{\link{codon_coord}} and \code{\link{base2int}}.
 #' @examples
 #' ## Example 1. Let's get the base coordinates for codons "ACG"
 #' ## and "TGC":
@@ -120,13 +120,13 @@ setMethod(
         "GTAC", "CTAG", "GATC", "ACTG", "ATCG",
         "GTCA", "GCTA", "CAGT", "TAGC", "TGAC",
         "CGAT", "AGTC", "ATGC", "CGTA", "CTGA",
-        "GACT", "GCAT", "TACG", "TCAG"
-    ),
+        "GACT", "GCAT", "TACG", "TCAG"),
     group = c("Z4", "Z5"),
     start = NA,
     end = NA,
     chr = 1L,
     strand = "+") {
+        
         cube <- match.arg(cube)
         group <- match.arg(group)
         cube <- toupper(cube)
@@ -177,7 +177,7 @@ setMethod(
             base <- data.frame(base)
         }
         seq <- base
-        base <- base_repl(base = base, cube = cube, group = group)
+        base <- base2int(base = base, cube = cube, group = group)
         if (is.na(start)) {
             start <- 1L
         }
@@ -207,7 +207,7 @@ setMethod(
             strand = strand(base),
             elementMetadata = base@elementMetadata,
             seqinfo = base@seqinfo,
-            colnames = colnames(base @elementMetadata),
+            colnames = colnames(base@elementMetadata),
             group = group,
             cube = cube
         )
@@ -216,41 +216,6 @@ setMethod(
 )
 
 ## --------------------------- Auxiliary functions --------------------------
-
-#' Replace bases with integers
-#' @details Internal use only.
-#' @keywords internal
-#' @return A numerical vector.
-base_repl <- function(base, cube, group) {
-    alf <- strsplit(cube, "")[[1]]
-
-    if (group == "Z4") {
-        base[base == "U"] <- "T"
-        base[base == alf[1]] <- 0
-        base[base == alf[2]] <- 1
-        base[base == alf[3]] <- 2
-        base[base == alf[4]] <- 3
-        base[base == "-"] <- NA
-        base[base == "N"] <- NA
-    }
-
-    if (group == "Z5") {
-        base[base == "U"] <- "T"
-        base[base == alf[1]] <- 1
-        base[base == alf[2]] <- 2
-        base[base == alf[3]] <- 3
-        base[base == alf[4]] <- 4
-        base[base == "-"] <- 0
-        base[base == "N"] <- 0
-    }
-
-    if (is.data.frame(base)) {
-        base <- apply(base, 2, as.numeric)
-    } else {
-        base <- as.numeric(base)
-    }
-    return(base)
-}
 
 #' Check URLs
 #' @details Internal use only.

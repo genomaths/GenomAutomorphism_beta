@@ -53,8 +53,8 @@ A single numeric score or a numerical vector.
 }
 \description{
 This function is applied to get the mutation or contact
-potential scores representing the similirity/distance between amino acids
-corresponding to substitution mutations. The score are retrived from a
+potential scores representing the similarity/distance between amino acids
+corresponding to substitution mutations. The score are retrieve from a
 mutation matrix or a statistical protein contact potentials matrix from
 \href{https://www.genome.jp/aaindex/}{AAindex} (ver.9.2).
 }
@@ -85,4 +85,7 @@ get_mutscore(aa1 = c("A","C","G"), aa2 = c("C","T","A"),
 \seealso{
 \code{\link{aa_mutmat}}, \code{\link{aaindex2}} and
 \code{\link{aaindex3}}
+}
+\author{
+Robersy Sanchez \url{https://genomaths.com}
 }

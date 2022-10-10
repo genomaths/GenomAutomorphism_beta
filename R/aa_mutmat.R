@@ -33,10 +33,9 @@
 #' @param aaindex Database where the requested accession id is locate. The 
 #' possible values are:  "aaindex2" or "aaindex3".
 #' @param acc_list Logical. If TRUE, then the list of available matrices ids 
-#' and index neames is returned.
-#' @export
+#' and index names is returned.
 #' @return A mutation or contact potential matrix, or the list of available
-#' matrices ids and index neames is returned.
+#' matrices ids and index names is returned.
 #' @examples 
 #' ## Load the mutation matrices from database from the packages
 #' data("aaindex2", package = "GenomAutomorphism" )
@@ -54,7 +53,8 @@
 #' 
 #' @seealso \code{\link{aaindex2}}, \code{\link{aaindex3}}, and
 #' \code{\link{get_mutscore}}.
-
+#' @author Robersy Sanchez <https://genomaths.com>
+#' @export
 aa_mutmat <- function(
     acc = NA, 
     aaindex = NA,
@@ -70,11 +70,11 @@ aa_mutmat <- function(
             patt <- grepl("^M", aaindex$aaindex[idx])
         }
         
-        nums = aaindex$aaindex[seq(idx + 1, idx + 20, 1)]
+        nums <- aaindex$aaindex[seq(idx + 1, idx + 20, 1)]
         
         nums <- lapply(seq(nums), function(k) {
             s <- strsplit(nums[k], " ")[[1]]
-            s <- suppressWarnings(as.numeric(s[nchar(s) > 0]))
+            s <- as.numeric(s[nchar(s) > 0])
             s <- c(s, rep(NA, 20 - length(s)))
             return(s)
         })

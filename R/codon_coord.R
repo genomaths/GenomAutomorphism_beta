@@ -51,7 +51,7 @@
 #' @importFrom methods new
 #' @export
 #' @return A \code{\link{CodonGroup-class}} object.
-#' @seealso \code{\link{base_coord}}
+#' @seealso \code{\link{base_coord}} and \code{\link{base2int}}.
 #' @author Robersy Sanchez <https://genomaths.com>
 #' @references
 #' \enumerate{
@@ -249,14 +249,15 @@ setClassUnion("matrix_OR_data_frame", c("matrix", "data.frame"))
 setMethod(
     "codon_coord", signature(codon = "matrix_OR_data_frame"),
     function(codon,
-    cube = c(
-        "ACGT", "AGCT", "TCGA", "TGCA", "CATG",
-        "GTAC", "CTAG", "GATC", "ACTG", "ATCG",
-        "GTCA", "GCTA", "CAGT", "TAGC", "TGAC",
-        "CGAT", "AGTC", "ATGC", "CGTA", "CTGA",
-        "GACT", "GCAT", "TACG", "TCAG"
-    ),
-    group = c("Z64", "Z125", "Z4^3", "Z5^3")) {
+        cube = c(
+            "ACGT", "AGCT", "TCGA", "TGCA", "CATG",
+            "GTAC", "CTAG", "GATC", "ACTG", "ATCG",
+            "GTCA", "GCTA", "CAGT", "TAGC", "TGAC",
+            "CGAT", "AGTC", "ATGC", "CGTA", "CTGA",
+            "GACT", "GCAT", "TACG", "TCAG"
+        ),
+        group = c("Z64", "Z125", "Z4^3", "Z5^3")) {
+        
         cube <- match.arg(cube)
         group <- match.arg(group)
 
@@ -275,15 +276,15 @@ setMethod(
             base_grp <- "Z5"
         }
 
-        crd <- slapply(seq_len(nrow(codon)), function(k) {
-            c1 <- base_repl(
-                base = str2ch(crd[k, 1]),
+        crd <- lapply(seq_len(nrow(codon)), function(k) {
+            c1 <- base2int(
+                base = crd[k, 1],
                 cube = cube,
                 group = base_grp
             )
 
-            c2 <- base_repl(
-                base = str2ch(crd[k, 2]),
+            c2 <- base2int(
+                base = crd[k, 2],
                 cube = cube,
                 group = base_grp
             )
@@ -303,9 +304,11 @@ setMethod(
             }
             return(c(c1, c2))
         })
+        crd <- do.call(rbind, crd)
 
-        crd <- data.frame(codon, t(crd))
-        colnames(crd) <- c("seq1", "seq2", "coord1", "coord2")
+        crd <- data.frame(codon, crd)
+        colnames(crd) <- c(paste0("seq", seq(dim(codon))),
+                            paste0("coord", seq(dim(codon))))
         return(crd)
     }
 )

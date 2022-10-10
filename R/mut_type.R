@@ -68,7 +68,7 @@ mut_type <- function(x, y) {
             res <- "H"
         }
         return(res)
-    }, str2ch(x), str2ch(y))
+    }, str2chr(x), str2chr(y))
     res <- paste(res, collapse = "")
     if (grepl("NA", res)) {
         res <- gsub("NA", "-", res)
@@ -79,9 +79,9 @@ mut_type <- function(x, y) {
 
 ## =========== Auxiliary function & data ======================
 
-str2ch <- function(x) {
-    strsplit(x, split = "")[[1]]
-}
+# str2ch <- function(x) {
+#     strsplit(x, split = "")[[1]]
+# }
 
 mut_type1 <- c(
     R = paste0("A", "G"),

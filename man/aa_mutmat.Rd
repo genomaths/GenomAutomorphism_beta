@@ -14,11 +14,11 @@ matrix.}
 possible values are:  "aaindex2" or "aaindex3".}
 
 \item{acc_list}{Logical. If TRUE, then the list of available matrices ids
-and index neames is returned.}
+and index names is returned.}
 }
 \value{
 A mutation or contact potential matrix, or the list of available
-matrices ids and index neames is returned.
+matrices ids and index names is returned.
 }
 \description{
 This returns an amino acid mutation matrix or a
@@ -55,4 +55,7 @@ aa_mutmat(acc = "HENS920103", aaindex = aaindex2)
 \seealso{
 \code{\link{aaindex2}}, \code{\link{aaindex3}}, and
 \code{\link{get_mutscore}}.
+}
+\author{
+Robersy Sanchez \url{https://genomaths.com}
 }

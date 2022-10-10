@@ -15,8 +15,8 @@
 #' @rdname get_mutscore
 #' @title Get Mutation Score from an AAindex Matrix
 #' @description This function is applied to get the mutation or contact 
-#' potential scores representing the similirity/distance between amino acids
-#' corresponding to substitution mutations. The score are retrived from a
+#' potential scores representing the similarity/distance between amino acids
+#' corresponding to substitution mutations. The score are retrieve from a
 #' mutation matrix or a statistical protein contact potentials matrix from
 #' \href{https://www.genome.jp/aaindex/}{AAindex} (ver.9.2).
 #' @param aa1,aa2 A simple character representing an amino acids or a 
@@ -43,6 +43,7 @@
 #' symmetric matrix 20x20.
 #' @seealso \code{\link{aa_mutmat}}, \code{\link{aaindex2}} and 
 #' \code{\link{aaindex3}}
+#' @author Robersy Sanchez <https://genomaths.com>
 #' @export
 #' @return A single numeric score or a numerical vector.
 #' @examples 
@@ -117,8 +118,8 @@ setMethod("get_mutscore", signature(aa1 = "character", aa2 = "character"),
         }
         
         if (length(aa1) == 1 && nchar(aa1) > 1 && alphabet == "AA") {
-            aa1 = str2chr(aa1)
-            aa2 = str2chr(aa2)
+            aa1 <- str2chr(aa1)
+            aa2 <- str2chr(aa2)
             if (length(aa1) != length(aa2))
                 stop("Arguments 'aa1' annd 'aa2' must have the same",
                     "the number of characters.")

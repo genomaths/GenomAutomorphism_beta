@@ -19,7 +19,7 @@
 #' examples provided for the package functions. The original file can be
 #' downloaded from GitHub at: <https://bit.ly/3DimROD>. This data set has
 #' 41 DNA sequences and it contains the previous 20 primate variants found in
-#' 'braca1_aln' data set plus 21 single mutation variants (SMV) from the human
+#' 'brca1_aln' data set plus 21 single mutation variants (SMV) from the human
 #' sequence NM_007298 transcript variant 4. The location of each SMV is given
 #' in the heading from each sequence.
 #'

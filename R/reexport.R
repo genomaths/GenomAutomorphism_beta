@@ -3,6 +3,10 @@
 
 #' @importFrom S4Vectors mcols
 #' @export
+#' @examples 
+#' ## Load an Automorphism object and take its metacolumns
+#' data("autm", package = "GenomAutomorphism")
+#' mcols(autm)
 S4Vectors::mcols
 
 #' @importFrom S4Vectors mcols<-
@@ -41,6 +45,10 @@ BiocGenerics::`start<-`
 
 #' @importFrom BiocGenerics end
 #' @export
+#' @examples 
+#' ## Load an Automorphism object and get some 'end' coordinates
+#' data("autm", package = "GenomAutomorphism")
+#' end(autm[20:50])
 BiocGenerics::end
 
 #' @importFrom BiocGenerics end<-
@@ -56,5 +64,7 @@ BiocGenerics::strand
 BiocGenerics::`strand<-`
 
 
-
-
+## From GenomicRanges ---------------------------------------
+#' @importFrom GenomicRanges GRangesList
+#' @export
+GenomicRanges::GRangesList

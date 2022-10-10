@@ -42,3 +42,6 @@ str2dig("12231456247")
 ## A list of integer vectors
 str2dig(list(num1 = "12231456247", num2 = "521436897"))
 }
+\author{
+Robersy Sanchez \url{https://genomaths.com}
+}

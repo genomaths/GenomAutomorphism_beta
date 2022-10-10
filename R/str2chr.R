@@ -28,6 +28,7 @@
 #' @param ... Further parameters for \code{\link[base]{strsplit}}.
 #' @export
 #' @returns A character string
+#' @author Robersy Sanchez <https://genomaths.com>
 #' @examples
 #' ## A character string
 #' str2chr("ATCAGCGGGATCTT")

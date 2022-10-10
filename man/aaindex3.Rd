@@ -37,4 +37,7 @@ mat[1:10]
 \code{\link{aaindex3}}, \code{\link{aa_mutmat}}, and
 \code{\link{get_mutscore}}.
 }
+\author{
+Robersy Sanchez \url{https://genomaths.com}
+}
 \keyword{datasets}

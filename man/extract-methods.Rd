@@ -19,7 +19,7 @@
 \arguments{
 \item{x}{An \code{\link{AutomorphismList-class}} object}
 
-\item{i, j, ..., drop}{As in \code{\link[base]{Extract}}.}
+\item{i, ...}{As in \code{\link[base]{Extract}}.}
 
 \item{name}{A literal character string naming an element from 'x'.}
 }

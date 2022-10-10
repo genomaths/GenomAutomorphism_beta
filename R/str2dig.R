@@ -30,6 +30,7 @@
 #' @param ... Further parameters for \code{\link[base]{strsplit}}.
 #' @export
 #' @returns A integer vector or a list of integer vectors.
+#' @author Robersy Sanchez <https://genomaths.com>
 #' @examples
 #' ## A integer vector
 #' str2dig("12231456247")

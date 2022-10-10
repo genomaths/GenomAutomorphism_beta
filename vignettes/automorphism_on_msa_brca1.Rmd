@@ -132,7 +132,7 @@ library(latex2exp)
 ```
 
 Next, we proceed to check the DNA multiple sequence alignment (MSA) file. This
-ia a FASTA file carrying the MSA of primates BRCA1 gene. Notice that
+is a FASTA file carrying the MSA of primates BRCA1 gene. Notice that
 we are familiar with the _FASTA_ file, then it is better to directly read it
 with function 
 [automorphisms](https://genomaths.github.io/genomautomorphism/reference/automorphism.html).

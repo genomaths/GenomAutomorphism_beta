@@ -33,6 +33,9 @@ translation(x, ...)
 \item{no.init.codon, if.fuzzy.codon}{Used only if 'x' is not a 'character'
 object. The same as in \code{\link[Biostrings]{translate}}.}
 }
+\value{
+The translated amino acid sequence.
+}
 \description{
 This function extends \code{\link[Biostrings]{translate}}
 function to include letters that are frequently found in the DNA sequence
@@ -58,4 +61,7 @@ translation(covid_aln)
 }
 \seealso{
 \code{\link[Biostrings]{translate}}
+}
+\author{
+Robersy Sanchez \url{https://genomaths.com}
 }

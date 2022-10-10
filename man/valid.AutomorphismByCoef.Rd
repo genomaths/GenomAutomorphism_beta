@@ -9,6 +9,9 @@ valid.AutomorphismByCoef(x)
 \arguments{
 \item{x}{A 'AutomorphismByCoef object'}
 }
+\value{
+An error if 'x' is not a valid AutomorphismByCoef.
+}
 \description{
 Valid AutomorphismByCoef mcols
 }
