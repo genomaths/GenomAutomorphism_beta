@@ -117,7 +117,7 @@ valid.BaseGroup.elem <- function(x) {
 valid.GRanges <- function(x) {
     if (length(x) > 0) {
         if (!inherits(x, "GRanges")) {
-            return("*** This is not a valid  Automorphism-class object.")
+            return("*** This is not a valid  BaseGroup-class object.")
         }
     }
     NULL
@@ -972,8 +972,12 @@ valid.ConservedRegionList <- function(x) {
 
 setValidity2("ConservedRegionList", valid.ConservedRegionList)
 
+## ========================== Class union ============================ 
 
-## ======================= Show methods =================================
+setClassUnion("CodonGroup_OR_Automorphisms", 
+              c("CodonGroup", "Automorphism", "AutomorphismByCoef"))
+
+## ======================= Show methods ==============================
 
 
 #' @rdname CodonSeq

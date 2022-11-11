@@ -22,6 +22,10 @@ S4Vectors::setValidity2
 #' @export
 Biostrings::DNAStringSet
 
+#' @importFrom Biostrings AAStringSet
+#' @export
+Biostrings::AAStringSet
+
 #' @importFrom Biostrings readDNAMultipleAlignment
 #' @export
 Biostrings::readDNAMultipleAlignment
@@ -29,6 +33,15 @@ Biostrings::readDNAMultipleAlignment
 #' @importFrom Biostrings translate
 #' @export
 Biostrings::translate
+
+#' @importFrom Biostrings GENETIC_CODE_TABLE
+#' @export
+Biostrings::GENETIC_CODE_TABLE
+
+#' @importFrom Biostrings getGeneticCode
+#' @export
+Biostrings::getGeneticCode
+
 
 ## From BiocGenerics ---------------------------------------
 #' @importFrom BiocGenerics width

@@ -139,15 +139,15 @@ covid_aln
 ```
 
 # Group representations
-Group operations are defined on the sets of DNA bases and codons, are
-associated to physicochemical or/and biophysical relationships between DNA
-bases and between codons and aminoacids. In other words, a proper definition 
-of a group operation on the set of bases or on the set of codons will encode 
-the physicochemical or/and biophysical relationships between the set’s
-elements. Thus, *by group operations defined on the set of bases or on the set
-of codons, we understand an encoding applied to represent specified
+Group operations defined on the sets of DNA bases and codons are associated to
+physicochemical or/and biophysical relationships between DNA bases and between
+codons and aminoacids. In other words, a proper definition of a group 
+operation on the set of bases or on the set of codons will encode the
+physicochemical or/and biophysical relationships between the set’s elements.
+Thus, *by group operations defined on the set of bases or on the set of 
+codons, we understand an encoding applied to represent specified
 physicochemical or/and biophysical relationships as group operations between
-the elements of the set*. Then, we shall say that _*such an encoding permits 
+the elements of the set*. Then, we shall say that _*such an encoding permits
 the representation of DNA bases, codons, genes, and genomic sequences as
 elements from algebraic structures*_.
 
@@ -158,16 +158,16 @@ to genetic code vector 3D-space, which is mathematically equivalent to a cube
 inserted in the 3D space (1). Each cube is denoted according to the 
 corresponding base order. 
 
-Given a base-order, say 'ACGT', the Abelian group defined on this ordered set 
-is isomorphic to the Abelian group defined on the set of integers modulo
-4 ('Z4'). In practical terms, this is equivalent to replace each DNA base by 
-the corresponding integer element. The base replacement in cube "ACGT and 
-group "Z4" is:
+Given a base-order, say 'ACGT', the Abelian group defined on this ordered set
+is isomorphic to the Abelian group defined on the set of integers modulo 4
+($\mathbb{Z}_{4}$). In practical terms, this is equivalent to replace each DNA
+base by the corresponding integer element. The base replacement in cube "ACGT
+and group "Z4" ($\mathbb{Z}_{4}$) is:
 ```{r int}
 base2int("ACGT", group = "Z4", cube = "ACGT")
 ```
 
-The base replacement in cube "ACGT and group "Z5"
+The base replacement in cube "ACGT and group 'Z5' ($\mathbb{Z}_{5}$):
 ```{r int2}
 base2int("ACGT", group = "Z5", cube = "ACGT")
 ```

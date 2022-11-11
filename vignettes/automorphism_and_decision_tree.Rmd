@@ -93,15 +93,14 @@ knitr::opts_chunk$set(
 options(width = 120)
 ```
 
-# Overview
-This is a R package to compute the autimorphisms between pairwise aligned DNA
-sequences represented as elements from a Genomic Abelian group as described in
-reference ([1](#1)). In a general scenario, whole chromosomes or genomic regions
-from a population (from any species or close related species) can be
-algebraically represented as a direct sum of cyclic groups or more specifically
-Abelian *p*-groups. Basically, we propose the representation of multiple
-sequence alignments (MSA) of length _N_ as a finite Abelian group created by the
-direct sum of Abelian group of _prime-power order_:
+# Overview This is a R package to compute the autimorphisms between pairwise
+aligned DNA sequences represented as elements from a Genomic Abelian group as
+described in reference ([1](#1)). In a general scenario, whole chromosomes or
+genomic regions from a population (from any species or close related species)
+can be algebraically represented as a direct sum of cyclic groups or more
+specifically Abelian *p*-groups. Basically, we propose the representation of
+multiple sequence alignments (MSA) of length _N_ as a finite Abelian group
+created by the direct sum of Abelian group of _prime-power order_:
 
 
 $$

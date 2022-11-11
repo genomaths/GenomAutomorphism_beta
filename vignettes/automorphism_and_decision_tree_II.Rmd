@@ -1,0 +1,395 @@
+---
+title: title: "A Short Introduction to Algebraic Taxonomy on Genes Regions. II"
+author: 
+    - name: Robersy Sanchez
+      affiliation: Department of Biology.
+                   Pennsylvania State University, University Park, PA 16802
+      email: rus547@psu.edu
+date: "`r format(Sys.time(), '%d %B %Y')`"
+fontsize: 11pt
+fontfamily: "serif"
+output:
+    BiocStyle::html_document:
+        toc: true
+        toc_depth: 4
+        toc_float:
+                collapsed: false
+                smooth_scroll: true
+        number_sections: true
+        theme: united 
+        geometry: margin=0.8in
+        highlight: tango
+toc_float: true
+toc_depth: 4
+abstract: |
+    A fast introduction into the analysis of DNA mutational events 
+    by means of automorphisms between two DNA sequences algebraically 
+    represented as Abelian finite group.
+vignette: >
+  %\VignetteIndexEntry{Get started-with GenomAutomorphism}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<style type="text/css">
+
+.watch-out {
+    max-width: 1820px !important;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #c9feed;
+    font-weight: bold
+    font-size: 100%;
+    padding: 2px;
+}
+
+pre, code {
+    max-width: 1820px !important;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #c9feed;
+    font-weight: bold
+    font-size: 100px;
+    padding: 2px;
+}
+
+code {
+    font-size: 100%;
+    font-family: Consolas,Monaco,"Courier New",monospace;
+    border-radius: 0;
+}
+
+code.r{
+    font-size: 100%;
+}
+</style>
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>"
+)
+```
+
+
+```{r set-options, echo=FALSE, cache=FALSE}
+options(width = 120)
+```
+
+# Overview 
+
+This is part II of the tutorial 
+[A Short Introduction to Algebraic Taxonomy on Genes Regions](https://is.gd/87wlbL)
+
+In the current case we propose expressing of the effect of mutational events
+in term of distance between codons in the framework set in reference 1.
+
+# Decision  tree with a larger dataset
+
+Although the analysis will be accomplish in a larger dataset with for 41 
+DNA sequences, mostly humans, still the information from other species is poor.
+So, the conclusion retrieved from the analysis most be taken cautiously,
+and these are only for illustrative purpose on the application of the theory.
+
+If all the required libraries all installed, then we proceed to load the 
+libraries
+```{r library,warning=FALSE,message=FALSE}
+library(GenomAutomorphism)
+library(Biostrings)
+library(party)
+library(partykit)
+library(data.table)
+library(ggplot2)
+library(ggparty)
+library(dplyr)
+library(CHAID)
+```
+
+
+```{r dna}
+data(brca1_aln2, package = "GenomAutomorphism")
+brca1_aln2
+```
+
+The sample names
+```{r names1}
+strtrim(names(brca1_aln2@unmasked), 100)
+```
+
+
+The automorphisms can be computed as before. For the sake of saving time 
+object *brca1_autm2* is included with package
+```{r url1, message=FALSE, eval = FALSE}
+## Do not run it. This is included with package
+
+nams <- c(paste0("human_1.", 0:21),"human_2","gorilla_1","gorilla_2","gorilla_3",
+        "chimpanzee_1","chimpanzee_2","chimpanzee_3","chimpanzee_4",
+        "bonobos_1","bonobos_2","bonobos_3","bonobos_4","silvery_gibbon_1",
+        "silvery_gibbon_1","silvery_gibbon_3","golden_monkey_1",
+        "golden_monkey_2","gelada_baboon","bolivian_monkey")
+
+brca1_autm2 <- automorphisms(
+                      seqs = brca1_aln2, 
+                      group = "Z64", 
+                      cube = c("ACGT", "TGCA"),
+                      cube_alt = c("CATG", "GTAC"),
+                      nms = nams, 
+                      verbose = FALSE)
+```
+
+
+Object *brca1_autm2* can be load typing:
+```{r brca1_autm2.}
+data(brca1_autm2, package = "GenomAutomorphism")
+brca1_autm2
+```
+
+
+As before we are interested on mutational events in respect to human (as 
+reference).
+```{r h1}
+nams <- names(brca1_autm2)
+idx1 <- grep("human_1.", nams)
+idx2 <- grep("human_2.", nams)
+idx <- union(idx1, idx2)
+h_brca1_autm <- unlist(brca1_autm2[ idx ])
+h_brca1_autm = h_brca1_autm[ which(h_brca1_autm$autm != 1) ]
+h_brca1_autm
+```
+
+## Autmorphism Grouping by Coefficient
+The automorphism distribution by cubes can be summarized in the bar-plot
+graphic.
+
+Object *autby_coef* carried all the pairwise comparisons, while it will be
+enough to use data from a single species as reference, e.g., humans.
+
+First the data must be reordered into a \code{\link[base]{data.frame}} object:
+```{r dat2}
+h_autby_coef <- automorphism_bycoef(x = h_brca1_autm)
+h_autby_coef
+```
+
+
+The counts by type of mutations
+```{r t1}
+table(h_autby_coef$mut_type)
+```
+
+Simplifying species names
+```{r rm-h1}
+nams <- names(h_autby_coef)
+nams <- sub("human[_][1-2][.]", "", nams)
+nams <- sub("[_][1-6]", "", nams)
+nams <- sub("[0123456789]*[.]", "", nams)
+nams <- sub("[.][0123456789]*", "", nams)
+
+dt <- data.frame(h_autby_coef, species = nams)
+dt <- data.frame(dt, species = nams)
+dt <- dt[, c("start", "autm", "species", "mut_type", "aa1", "aa2", "cube")]
+DataFrame(dt)
+```
+
+
+Nominal variables are transformed into \code{\link[base]{factor}}
+```{r as.factor1}
+dt$start <- as.numeric(dt$start)
+dt$autm <- as.numeric(dt$autm)
+dt$cube <- as.factor(dt$cube)
+dt$species <- as.factor(dt$species)
+dt$mut_type <- as.factor(dt$mut_type)
+```
+
+
+## Classification Tree Chi-squared Automated Interaction Detection (II)
+
+In this analysis a new variable has been include, which derives from the
+estimation of the contact potential matrix of amino acids made by Miyazawa and
+Jernigan (5), which are considered quasichemical energy of interactions in an
+average buried environment. The amino acids potentials, as well as, others
+numerical indices representing various physicochemical and biochemical
+properties of amino acids and pairs of amino acids can be found in
+[AAindex](https://www.genome.jp/aaindex/).
+
+The lists of available aminoacid similarity and statistical potential matrices
+can be found with functions:
+[aaindex2](https://genomaths.github.io/genomautomorphism/reference/aaindex3.html)
+and [aaindex3](https://genomaths.github.io/genomautomorphism/reference/aaindex3.html),
+respectively.
+
+```{r datos1}
+data("aaindex3", package = "GenomAutomorphism")
+interval <- function(x, a, b) {
+    x >= a & x <= b
+}
+
+datos = dt
+
+datos$mut_effect <- codon_dist(x = h_autby_coef, group = "Z5",
+                               cube = "TCGA" , num.cores = 20)
+
+datos$mut_effect[ is.na(datos$mut_effect) ] <- -10
+
+
+datos$autms <- case_when(datos$autm < 16 ~ 'A1',
+                    interval(datos$autm, 16, 31) ~ 'A2',
+                    interval(datos$autm, 32, 47) ~ 'A3',
+                    datos$autm > 47 ~ 'A4')
+datos$autms <- as.factor(datos$autms)
+
+datos$mut_type <- as.character(datos$mut_type)
+datos$mut_type <- as.factor(datos$mut_type)
+
+datos$regions <- case_when(datos$start < 102 ~ 'R0',
+                    interval(datos$start, 103, 229) ~ 'R0.',
+                    interval(datos$start, 230, 270) ~ 'R1',
+                    interval(datos$start, 271, 305) ~ 'R2',
+                    interval(datos$start, 306, 338) ~ 'R3',
+                    interval(datos$start, 339, 533) ~ 'R4',
+                    interval(datos$start, 534, 570) ~ 'R5',
+                    interval(datos$start, 571, 653) ~ 'R6',
+                    interval(datos$start, 654, 709) ~ 'R7',
+                    datos$start > 709 ~ 'R8')
+
+datos$regions <- as.factor(datos$regions)
+
+datos$autm <- as.factor(datos$autm)
+datos$species <- as.factor(datos$species)
+datos$start <- as.factor(datos$start)
+datos$cube <- as.factor(datos$cube)
+datos$mut_effect <- as.factor(datos$mut_effect)
+
+datos <- datos[, c( "autms", "regions", "mut_type", "cube", "mut_effect", "species")]
+DataFrame(datos)
+```
+
+
+A classification tree is estimated with CHAID algorithm:
+```{r chaid2}
+ctrl <- chaid_control(minsplit = 500, minprob = 0.9, alpha2 = 0.01, alpha4 = 0.01)
+chaid_res <- chaid(species ~ autms + regions + mut_type + cube + mut_effect , 
+                   data = datos,  control = ctrl)
+chaid_res
+```
+
+
+### Plotting the CHAID tree (II)
+Next, the data must be prepared for plotting the tree with 
+[ggparty](https://rdrr.io/cran/ggparty/man/ggparty.html):
+```{r, plot-data2}
+##  Updating CHAID decision tree
+dp <- data_party(chaid_res)
+dat <- dp[, c("autms", "regions", "mut_type", "cube", "mut_effect")]
+dat$species <- dp[, "(response)"]
+    
+    
+chaid_tree <- party(node = node_party(chaid_res), 
+                    data = dat,
+                    fitted =  dp[, c("(fitted)", "(response)")], 
+                    names = names(chaid_res))
+
+## Extract p-values
+pvals <- unlist(nodeapply(chaid_tree, ids = nodeids(chaid_tree), function(n) {
+    pvals <- info_node(n)$adjpvals
+    pvals < pvals[ which.min(pvals) ]
+    return(pvals)
+}))
+pvals <- pvals[ pvals < 0.05 ]
+
+## Counts of event per spciees on each node
+node.freq <- sapply(seq_along(chaid_tree), function(id) {
+    y <- data_party(chaid_tree, id = id)
+    y <- y[[ "(response)" ]]
+    table(y)
+})
+## total counts on each
+node.size =  colSums(node.freq)
+```
+
+
+
+Plotting the tree with [ggparty](https://rdrr.io/cran/ggparty/man/ggparty.html) 
+(font size adjusted for html output)
+
+```{r chaid-tree2, fig.height = 160, fig.width = 55}
+ggparty(chaid_tree, horizontal = TRUE) +
+    geom_edge(aes(color = id, size = node.size[id]/300), show.legend = FALSE) +
+    geom_edge_label(size = 12, colour = "red",
+                    fontface = "bold", 
+                    shift = 0.64, 
+                    nudge_x = -0.01,
+                    max_length = 10,
+                    splitlevels = 1:4) +
+    geom_node_label(line_list = list(aes(label = paste0("Node ", id, ": ", splitvar)),
+                aes(label = paste0("N=", node.size[id], ", p", 
+                                 ifelse(pvals < .001, "<.001",
+                                        paste0("=", round(pvals, 3)))), 
+                    size = 30)),
+                    line_gpar = list(list(size = 30), 
+                                     list(size = 30)),
+                ids = "inner", fontface = "bold", size = 30) +
+    geom_node_info() +
+    geom_node_label(aes(label = paste0("N = ", node.size), 
+                        fontface = "bold"),
+                    ids = "terminal", nudge_y = -0.0, nudge_x = 0.01, size = 12) +
+    geom_node_plot(gglist = list(
+        geom_bar(aes(x = "", fill = species), size = 0.2, width = 0.9,
+                 position = position_fill(), color = "black"),
+        coord_flip(),
+        theme_minimal(base_family = "arial", base_size = 20),
+        scale_fill_manual(values = c("gray50","gray55","gray60",
+                                     "gray70","gray80","gray85",
+                                     "blue","gray95")),
+        xlab(""), 
+        ylab("Probability"),  
+        geom_text(aes(x = "", group = species, 
+                      label = stat(count)),
+                  stat = "count", position = position_fill(), 
+                  vjust = 0.6, hjust = 1.5, size = 12)),
+        shared_axis_labels = TRUE, size = 1.2) 
+```
+
+
+It can immediately noticed that the quasichemical energy of interactions in an
+average buried environment suggest that the contact energy of amino acid buried
+in the protein inner would play a fundamental role in fixing mutational events
+in species populations.
+
+### Stochastic-deterministic logical rules
+Since only one mutational event human-to-human in region R1 from class A3 is 
+reported in the right side of the tree, with high probability only non-humans 
+hold the following rule: 
+```{r rule1.}
+rule <- (dat$mut_effect == 0.03 )
+table(as.character(dat[rule,]$species))
+```
+
+
+Only humans-to-human mutations hold the following rule:
+```{r rule2.}
+rule <- (dat$mut_effect == -0.47 & dat$regions == "R4" & dat$autm == "A4")
+table(as.character(dat[ rule, ]$species))
+```
+
+Only bonobos hold the following rule
+```{r rule3.}
+rule <- (dat$mut_effect == -0.47 & is.element(dat$regions, c("R0","R0.","R3","R5")))
+table(as.character(dat[rule,]$species))
+```
+
+Only Bolivian monkey holds:
+```{r rule4.}
+rule <- (dat$mut_effect == 0.08 )
+table(as.character(dat[rule,]$species))
+```
+
+# References
+ 1. Sanchez R. Evolutionary Analysis of DNA-Protein-Coding Regions Based
+ on a Genetic Code Cube Metric. Curr Top Med Chem. 2014;14: 407–417.
+ [doi: 10.2174/1568026613666131204110022](https://doi.org/10.2174/1568026613666131204110022).
+ 
+ 2.<a name="2"></a> Robersy Sanchez, Jesús Barreto (2021) Genomic Abelian 
+ Finite Groups.
+ [doi: 10.1101/2021.06.01.446543](https://doi.org/10.1101/2021.06.01.446543). 
+
+

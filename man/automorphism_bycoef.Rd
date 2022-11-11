@@ -58,3 +58,6 @@ data(autm, package = "GenomAutomorphism")
 
 automorphism_bycoef(x = autm[1:2])
 }
+\seealso{
+\code{\link{automorphisms}}
+}

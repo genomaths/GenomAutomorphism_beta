@@ -2,10 +2,13 @@
 % Please edit documentation in R/as.AutomorphismList.R
 \name{as.AutomorphismList}
 \alias{as.AutomorphismList}
+\alias{as.AutomorphismList,GRangesList,GRanges_OR_NULL-method}
 \alias{as.AutomorphismList,list,GRanges_OR_NULL-method}
 \title{Methods for AutomorphismList-class Objects}
 \usage{
 as.AutomorphismList(x, grs = GRanges(), ...)
+
+\S4method{as.AutomorphismList}{GRangesList,GRanges_OR_NULL}(x, grs = GRanges(), ...)
 
 \S4method{as.AutomorphismList}{list,GRanges_OR_NULL}(x, grs = GRanges(), ...)
 }

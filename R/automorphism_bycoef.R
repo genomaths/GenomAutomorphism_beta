@@ -29,6 +29,7 @@
 #' e.g., indel mutations.
 #' @import GenomicRanges
 #' @export
+#' @seealso \code{\link{automorphisms}}
 #' @examples
 #' ## Load dataset
 #' data(autm, package = "GenomAutomorphism")

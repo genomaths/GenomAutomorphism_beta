@@ -314,7 +314,7 @@ setMethod(
 )
 
 
-## --------------------------- Auxiliary functions --------------------------
+## ------------------------- Auxiliary functions --------------------------
 
 CodonCoordZ4toZ64 <- function(x) {
     if (any(is.na(x))) {
