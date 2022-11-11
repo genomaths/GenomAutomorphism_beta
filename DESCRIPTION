@@ -1,6 +1,6 @@
 Package: GenomAutomorphism
 Title: Compute the automorphisms between DNA's Abelian group representations 
-Version: 0.99.4
+Version: 1.0.1
 Authors@R: 
     person( given = "Robersy",
             family = "Sanchez",

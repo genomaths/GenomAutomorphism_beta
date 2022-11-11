@@ -2,21 +2,39 @@
 % Please edit documentation in R/base2int.R
 \name{base2int}
 \alias{base2int}
+\alias{base2int,character-method}
+\alias{base2int,data.frame-method}
 \title{Replace bases with integers from Z4 and Z5}
 \usage{
-base2int(base, group, cube, ...)
+base2int(base, ...)
+
+\S4method{base2int}{character}(
+  base,
+  group = c("Z4", "Z5", "Z64", "Z125", "Z4^3", "Z5^3"),
+  cube = c("ACGT", "AGCT", "TCGA", "TGCA", "CATG", "GTAC", "CTAG", "GATC", "ACTG",
+    "ATCG", "GTCA", "GCTA", "CAGT", "TAGC", "TGAC", "CGAT", "AGTC", "ATGC", "CGTA",
+    "CTGA", "GACT", "GCAT", "TACG", "TCAG")
+)
+
+\S4method{base2int}{data.frame}(
+  base,
+  group = c("Z4", "Z5", "Z64", "Z125", "Z4^3", "Z5^3"),
+  cube = c("ACGT", "AGCT", "TCGA", "TGCA", "CATG", "GTAC", "CTAG", "GATC", "ACTG",
+    "ATCG", "GTCA", "GCTA", "CAGT", "TAGC", "TGAC", "CGAT", "AGTC", "ATGC", "CGTA",
+    "CTGA", "GACT", "GCAT", "TACG", "TCAG")
+)
 }
 \arguments{
 \item{base}{A character vector, string , or a dataframe of letters from the
 DNA/RNA alphabet.}
+
+\item{...}{Not in use.}
 
 \item{group}{A character string denoting the group representation for the
 given base or codon as shown in reference (2-3).}
 
 \item{cube}{A character string denoting one of the 24 Genetic-code cubes,
 as given in references (2-3).}
-
-\item{...}{Not in use.}
 }
 \value{
 A numerical vector.
