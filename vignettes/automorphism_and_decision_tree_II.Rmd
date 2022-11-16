@@ -82,7 +82,9 @@ This is part II of the tutorial
 [A Short Introduction to Algebraic Taxonomy on Genes Regions](https://is.gd/87wlbL)
 
 In the current case we propose expressing of the effect of mutational events
-in term of distance between codons in the framework set in reference 1.
+in term of distance between codons in the framework set in reference (1). The
+decision tree is build based on Chi-squared Automated Interaction Detection 
+(CHAID) algorithm.
 
 # Decision  tree with a larger dataset
 
@@ -200,22 +202,12 @@ dt$species <- as.factor(dt$species)
 dt$mut_type <- as.factor(dt$mut_type)
 ```
 
+### CHAID using aminoacid/codon distance
 
-## Classification Tree Chi-squared Automated Interaction Detection (II)
-
-In this analysis a new variable has been include, which derives from the
-estimation of the contact potential matrix of amino acids made by Miyazawa and
-Jernigan (5), which are considered quasichemical energy of interactions in an
-average buried environment. The amino acids potentials, as well as, others
-numerical indices representing various physicochemical and biochemical
-properties of amino acids and pairs of amino acids can be found in
-[AAindex](https://www.genome.jp/aaindex/).
-
-The lists of available aminoacid similarity and statistical potential matrices
-can be found with functions:
-[aaindex2](https://genomaths.github.io/genomautomorphism/reference/aaindex3.html)
-and [aaindex3](https://genomaths.github.io/genomautomorphism/reference/aaindex3.html),
-respectively.
+In this analysis a new variable has been include, which derives from the 
+estimation of the distance between aminoacids, estimated as suggested in 
+reference (1). The mutational effect is measured in terms of the average of 
+two aminocid distances, which are based on the codon distance.
 
 ```{r datos1}
 data("aaindex3", package = "GenomAutomorphism")
@@ -225,8 +217,12 @@ interval <- function(x, a, b) {
 
 datos = dt
 
-datos$mut_effect <- codon_dist(x = h_autby_coef, group = "Z5",
-                               cube = "TCGA" , num.cores = 20)
+datos$mut_effect <- round((aminoacid_dist(aa1 = h_autby_coef, group = "Z5",
+                               cube = "TCGA" , num.cores = 20) +
+                      aminoacid_dist(aa1 = h_autby_coef,
+                            weight = c(0.3, 0.9, 0.08), group = "Z5",
+                              cube = "TCGA" , num.cores = 20))/2, 2)
+                      
 
 datos$mut_effect[ is.na(datos$mut_effect) ] <- -10
 
@@ -267,7 +263,7 @@ DataFrame(datos)
 A classification tree is estimated with CHAID algorithm:
 ```{r chaid2}
 ctrl <- chaid_control(minsplit = 500, minprob = 0.9, alpha2 = 0.01, alpha4 = 0.01)
-chaid_res <- chaid(species ~ autms + regions + mut_type + cube + mut_effect , 
+chaid_res <- chaid(species ~ autms + regions + mut_type + cube + mut_effect, 
                    data = datos,  control = ctrl)
 chaid_res
 ```
@@ -350,30 +346,32 @@ ggparty(chaid_tree, horizontal = TRUE) +
 ```
 
 
-It can immediately noticed that the quasichemical energy of interactions in an
-average buried environment suggest that the contact energy of amino acid buried
-in the protein inner would play a fundamental role in fixing mutational events
-in species populations.
+It is important to observe that, as shown in reference (1), that the optimal 
+weights applied to compute the aminoacid distances can be estimated 
+for each gene or genomic region via genetic algorithm. The optimization takes
+place by simulating the mutational process in the corresponding gene/region
+population.
+
 
 ### Stochastic-deterministic logical rules
 Since only one mutational event human-to-human in region R1 from class A3 is 
 reported in the right side of the tree, with high probability only non-humans 
 hold the following rule: 
 ```{r rule1.}
-rule <- (dat$mut_effect == 0.03 )
+rule <- (dat$mut_effect == 1.34 )
 table(as.character(dat[rule,]$species))
 ```
 
 
 Only humans-to-human mutations hold the following rule:
 ```{r rule2.}
-rule <- (dat$mut_effect == -0.47 & dat$regions == "R4" & dat$autm == "A4")
+rule <- (dat$mut_effect == 0.28 & dat$regions == "R4" & dat$autm == "A4")
 table(as.character(dat[ rule, ]$species))
 ```
 
-Only bonobos hold the following rule
+Only gorilla hold the following rule
 ```{r rule3.}
-rule <- (dat$mut_effect == -0.47 & is.element(dat$regions, c("R0","R0.","R3","R5")))
+rule <- (dat$mut_effect == 1.36 )
 table(as.character(dat[rule,]$species))
 ```
 
@@ -382,6 +380,7 @@ Only Bolivian monkey holds:
 rule <- (dat$mut_effect == 0.08 )
 table(as.character(dat[rule,]$species))
 ```
+
 
 # References
  1. Sanchez R. Evolutionary Analysis of DNA-Protein-Coding Regions Based
