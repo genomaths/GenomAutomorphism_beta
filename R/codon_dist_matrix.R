@@ -26,6 +26,11 @@
 #' \code{\link[Biostrings]{GENETIC_CODE_TABLE}}.
 #' @param group A character string denoting the group representation for the
 #' given codon sequence as shown in reference (2-3).
+#' @param weight A numerical vector of  weights to compute weighted Manhattan 
+#' distance between codons. If \eqn{weight = NULL}, then 
+#' \eqn{weight = (1/4,1,1/16)} for \eqn{group = "Z4"} and 
+#' \eqn{weight = (1/5,1,1/25)} for \eqn{group = "Z5"} (see 
+#' \code{\link{codon_dist}}). 
 #' @param cube A character string denoting one of the 24 Genetic-code cubes,
 #' as given in references (2-3).
 #' @param output Format of the returned lower triangular matrix: as a list of
@@ -59,6 +64,7 @@
 codon_dist_matrix <- function(
     genetic_code = "1",
     group = c("Z4", "Z5"),
+    weight = NULL,
     cube = c("ACGT", "AGCT", "TCGA", "TGCA", "CATG", 
             "GTAC", "CTAG", "GATC", "ACTG", "ATCG", 
             "GTCA", "GCTA", "CAGT", "TAGC", "TGAC", 
@@ -82,6 +88,7 @@ codon_dist_matrix <- function(
     distm <- foreach(k = seq_len(63)) %dopar% {
         d <- as.vector(outer(nms[k], nms[seq((k + 1), 64, 1)], 
                             FUN = codon_dist, group = group, 
+                            weight = weight,
                             cube = cube))
         names(d) <- nms[seq((k + 1), 64, 1)]
         return(d)

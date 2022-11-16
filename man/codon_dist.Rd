@@ -11,6 +11,7 @@ codon_dist(x, y, ...)
 
 \S4method{codon_dist}{DNAStringSet}(
   x,
+  weight = NULL,
   group = c("Z4", "Z5"),
   cube = c("ACGT", "AGCT", "TCGA", "TGCA", "CATG", "GTAC", "CTAG", "GATC", "ACTG",
     "ATCG", "GTCA", "GCTA", "CAGT", "TAGC", "TGAC", "CGAT", "AGTC", "ATGC", "CGTA",
@@ -23,6 +24,7 @@ codon_dist(x, y, ...)
 \S4method{codon_dist}{character}(
   x,
   y,
+  weight = NULL,
   group = c("Z4", "Z5"),
   cube = c("ACGT", "AGCT", "TCGA", "TGCA", "CATG", "GTAC", "CTAG", "GATC", "ACTG",
     "ATCG", "GTCA", "GCTA", "CAGT", "TAGC", "TGAC", "CGAT", "AGTC", "ATGC", "CGTA",
@@ -34,6 +36,7 @@ codon_dist(x, y, ...)
 
 \S4method{codon_dist}{CodonGroup_OR_Automorphisms}(
   x,
+  weight = NULL,
   group = c("Z4", "Z5"),
   cube = c("ACGT", "AGCT", "TCGA", "TGCA", "CATG", "GTAC", "CTAG", "GATC", "ACTG",
     "ATCG", "GTCA", "GCTA", "CAGT", "TAGC", "TGAC", "CGAT", "AGTC", "ATGC", "CGTA",
@@ -47,6 +50,11 @@ codon_dist(x, y, ...)
 \item{x, y}{A character string of codon sequences, i.e., sequences of DNA
 base-triplets. If only 'x' argument is given, then it must be a
 \code{\link[Biostrings]{DNAStringSet-class}} object.}
+
+\item{weight}{A numerical vector of  weights to compute weighted Manhattan
+distance between codons. If \eqn{weight = NULL}, then
+\eqn{weight = (1/4,1,1/16)} for \eqn{group = "Z4"} and
+\eqn{weight = (1/5,1,1/25)} for \eqn{group = "Z5"}.}
 
 \item{group}{A character string denoting the group representation for the
 given codon sequence as shown in reference (2-3).}
@@ -79,6 +87,13 @@ If the codon coordinates are given on "Z4", then the Weighted Manhattan
 distance is define as:
 
 \deqn{d_w(x,y) = |x_1 - y_1|/4 + |x_2 - y_2| + |x_3 -y_3|/16}
+
+Herein, we move to the generalized version given in reference (3), for
+which:
+
+\deqn{d_w(x,y) = |x_1 - y_1| w_1  + |x_2 - y_2| w_2 + |x_3 -y_3| w_3}
+
+where we use the vector of weight = (w_1, w_2, w_3).
 }
 \examples{
 ## Let's write two small DNA sequences
@@ -123,6 +138,6 @@ Comput. Chem. 79 (2018) 527-560. \href{https://is.gd/ZY1Gx8}{PDF}.
 }
 }
 \seealso{
-\code{\link{codon_dist_matrix}}, \code{\link{automorphisms}}, and
-\code{\link{codon_coord}}.
+\code{\link{codon_dist_matrix}}, \code{\link{automorphisms}},
+\code{\link{codon_coord}}, and \code{\link{aminoacid_dist}}.
 }

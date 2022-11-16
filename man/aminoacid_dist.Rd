@@ -13,6 +13,7 @@ aminoacid_dist(aa1, aa2, ...)
 \S4method{aminoacid_dist}{character,character}(
   aa1,
   aa2,
+  weight = NULL,
   stat = c("mean", "median", "user_def"),
   genetic_code = "1",
   group = c("Z4", "Z5"),
@@ -26,6 +27,7 @@ aminoacid_dist(aa1, aa2, ...)
 
 \S4method{aminoacid_dist}{DNAStringSet,ANY}(
   aa1,
+  weight = NULL,
   stat = c("mean", "median", "user_def"),
   group = c("Z4", "Z5"),
   cube = c("ACGT", "AGCT", "TCGA", "TGCA", "CATG", "GTAC", "CTAG", "GATC", "ACTG",
@@ -38,6 +40,7 @@ aminoacid_dist(aa1, aa2, ...)
 
 \S4method{aminoacid_dist}{AAStringSet,ANY}(
   aa1,
+  weight = NULL,
   stat = c("mean", "median", "user_def"),
   group = c("Z4", "Z5"),
   cube = c("ACGT", "AGCT", "TCGA", "TGCA", "CATG", "GTAC", "CTAG", "GATC", "ACTG",
@@ -50,6 +53,7 @@ aminoacid_dist(aa1, aa2, ...)
 
 \S4method{aminoacid_dist}{CodonGroup_OR_Automorphisms,ANY}(
   aa1,
+  weight = NULL,
   stat = c("mean", "median", "user_def"),
   group = c("Z4", "Z5"),
   cube = c("ACGT", "AGCT", "TCGA", "TGCA", "CATG", "GTAC", "CTAG", "GATC", "ACTG",
@@ -64,6 +68,12 @@ aminoacid_dist(aa1, aa2, ...)
 \item{aa1, aa2}{A character string of codon sequences, i.e., sequences of
 DNA base-triplets. If only 'x' argument is given, then it must be a
 \code{\link[Biostrings]{DNAStringSet-class}} object.}
+
+\item{weight}{A numerical vector of  weights to compute weighted Manhattan
+distance between codons. If \eqn{weight = NULL}, then
+\eqn{weight = (1/4,1,1/16)} for \eqn{group = "Z4"} and
+\eqn{weight = (1/5,1,1/25)} for \eqn{group = "Z5"} (see
+\code{\link{codon_dist}}).}
 
 \item{stat}{The name of some statistical function summarizing data like
 'mean', 'median', or some user defined function ('user_def'). If
@@ -136,4 +146,6 @@ Comput. Chem. 79 (2018) 527-560. \href{https://is.gd/ZY1Gx8}{PDF}.
 }
 \seealso{
 \code{\link{automorphisms}} and \code{\link{codon_coord}}
+
+\code{\link{codon_dist}}
 }

@@ -662,7 +662,7 @@ mtext(side = 1,line = -2.8, at = c(0.7, 1.9, 3.1, 4.3),
 ```
 
 
-## Classification Tree Chi-squared Automated Interaction Detection (II)
+## Classification Tree. Chi-squared Automated Interaction Detection
 
 In this analysis a new variable has been include, which derives from the
 estimation of the contact potential matrix of amino acids made by Miyazawa and

@@ -31,6 +31,11 @@
 #' @param aa1,aa2 A character string of codon sequences, i.e., sequences of 
 #' DNA base-triplets. If only 'x' argument is given, then it must be a
 #' \code{\link[Biostrings]{DNAStringSet-class}} object.
+#' @param weight A numerical vector of  weights to compute weighted Manhattan 
+#' distance between codons. If \eqn{weight = NULL}, then 
+#' \eqn{weight = (1/4,1,1/16)} for \eqn{group = "Z4"} and 
+#' \eqn{weight = (1/5,1,1/25)} for \eqn{group = "Z5"} (see 
+#' \code{\link{codon_dist}}). 
 #' @param stat The name of some statistical function summarizing data like
 #' 'mean', 'median', or some user defined function ('user_def'). If 
 #' \eqn{stat = 'user_def'}, then function must have a logical argument named 
@@ -62,6 +67,7 @@
 #'  Genetic-Code Architecture on the Evolutionary Process MATCH Commun. Math.
 #'  Comput. Chem. 79 (2018) 527-560. [PDF](https://is.gd/ZY1Gx8).
 #' }
+#' @seealso \code{\link{codon_dist}}
 #' @examples
 #' ## Write down to aminoacid sequences
 #' x <- "A*LTHMC"
@@ -96,6 +102,7 @@ setMethod(
     function(
         aa1,
         aa2,
+        weight = NULL,
         stat = c("mean", "median", "user_def"),
         genetic_code = "1",
         group = c("Z4", "Z5"),
@@ -123,10 +130,15 @@ setMethod(
         if (!is.function(stat))
             stop("*** Argument 'stat' must a function.")
         
-        if (nchar(aa1) > 1) 
-            aa1 <- str2chr(aa1)
-        if (nchar(aa2) > 1)
-            aa2 <- str2chr(aa2)
+        if (length(aa1) == 1) {
+            if (nchar(aa1) > 1) 
+                aa1 <- str2chr(aa1)
+        }
+
+        if (length(aa2) == 1) {
+            if (nchar(aa2) > 1)
+                aa2 <- str2chr(aa2)
+        }
         
         if (any(!is.element(unique(aa1), alf)))
             stop("*** Argument 'aa1' carries letters outside the",
@@ -139,8 +151,8 @@ setMethod(
         nms <- names(gc)
         
         cdm <- codon_dist_matrix(genetic_code = genetic_code, 
-                                cube = cube, group = group,
-                                output = "vector",
+                                cube = cube, weight = weight, 
+                                group = group, output = "vector",
                                 num.cores = num.cores)
         
         max_dist <- ceiling(max(cdm))
@@ -236,6 +248,7 @@ setMethod(
     "aminoacid_dist", signature(aa1 = "DNAStringSet"),
     function(
         aa1,
+        weight = NULL,
         stat = c("mean", "median", "user_def"),
         group = c("Z4", "Z5"),
         cube = c("ACGT", "AGCT", "TCGA", "TGCA", "CATG",
@@ -255,7 +268,7 @@ setMethod(
         aa1 <- as.character(aa1)
 
         aa1 <- aminoacid_dist(aa1 = aa1[1], aa2 = aa1[2], stat = stat, 
-                            group = group, cube = cube, 
+                            weight = weight, group = group, cube = cube, 
                             num.cores = num.cores, tasks = tasks, 
                             verbose = verbose)
         return(aa1)
@@ -271,6 +284,7 @@ setMethod(
     "aminoacid_dist", signature(aa1 = "AAStringSet"),
     function(
         aa1,
+        weight = NULL,
         stat = c("mean", "median", "user_def"),
         group = c("Z4", "Z5"),
         cube = c("ACGT", "AGCT", "TCGA", "TGCA", "CATG",
@@ -289,7 +303,7 @@ setMethod(
         aa1 <- as.character(aa1)
         
         aa1 <- aminoacid_dist(aa1 = aa1[1], aa2 = aa1[2], 
-                    stat = stat, group = group, 
+                    weight = weight, stat = stat, group = group, 
                     cube = cube, num.cores = num.cores, 
                     tasks = tasks,  verbose = verbose)
         return(aa1)
@@ -304,6 +318,7 @@ setMethod(
     "aminoacid_dist", signature(aa1 = "CodonGroup_OR_Automorphisms"),
     function(
         aa1,
+        weight = NULL,
         stat = c("mean", "median", "user_def"),
         group = c("Z4", "Z5"),
         cube = c("ACGT", "AGCT", "TCGA", "TGCA", "CATG",
@@ -320,7 +335,7 @@ setMethod(
         stat <- match.arg(stat)
         
         aa1 <- aminoacid_dist(aa1 = aa1$aa1, aa2 = aa1$aa2,
-                    stat = stat, group = group, 
+                    weight = weight, stat = stat, group = group, 
                     cube = cube, num.cores = num.cores,
                     tasks = tasks, verbose = verbose)
         return(aa1)

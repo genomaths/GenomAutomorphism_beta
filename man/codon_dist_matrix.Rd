@@ -7,6 +7,7 @@
 codon_dist_matrix(
   genetic_code = "1",
   group = c("Z4", "Z5"),
+  weight = NULL,
   cube = c("ACGT", "AGCT", "TCGA", "TGCA", "CATG", "GTAC", "CTAG", "GATC", "ACTG",
     "ATCG", "GTCA", "GCTA", "CAGT", "TAGC", "TGAC", "CGAT", "AGTC", "ATGC", "CGTA",
     "CTGA", "GACT", "GCAT", "TACG", "TCAG"),
@@ -22,6 +23,12 @@ code to extract. Should be one of the values in the id or name2 columns of
 
 \item{group}{A character string denoting the group representation for the
 given codon sequence as shown in reference (2-3).}
+
+\item{weight}{A numerical vector of  weights to compute weighted Manhattan
+distance between codons. If \eqn{weight = NULL}, then
+\eqn{weight = (1/4,1,1/16)} for \eqn{group = "Z4"} and
+\eqn{weight = (1/5,1,1/25)} for \eqn{group = "Z5"} (see
+\code{\link{codon_dist}}).}
 
 \item{cube}{A character string denoting one of the 24 Genetic-code cubes,
 as given in references (2-3).}

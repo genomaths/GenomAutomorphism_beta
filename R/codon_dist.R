@@ -29,9 +29,20 @@
 #' 
 #' \deqn{d_w(x,y) = |x_1 - y_1|/4 + |x_2 - y_2| + |x_3 -y_3|/16}
 #' 
+#' Herein, we move to the generalized version given in reference (3), for 
+#' which:
+#' 
+#' \deqn{d_w(x,y) = |x_1 - y_1| w_1  + |x_2 - y_2| w_2 + |x_3 -y_3| w_3}
+#' 
+#' where we use the vector of weight = (w_1, w_2, w_3).
+#' 
 #' @param x,y  A character string of codon sequences, i.e., sequences of DNA 
 #' base-triplets. If only 'x' argument is given, then it must be a
 #' \code{\link[Biostrings]{DNAStringSet-class}} object.
+#' @param weight A numerical vector of  weights to compute weighted Manhattan 
+#' distance between codons. If \eqn{weight = NULL}, then 
+#' \eqn{weight = (1/4,1,1/16)} for \eqn{group = "Z4"} and 
+#' \eqn{weight = (1/5,1,1/25)} for \eqn{group = "Z5"}.
 #' @param group A character string denoting the group representation for the
 #' given codon sequence as shown in reference (2-3).
 #' @param cube A character string denoting one of the 24 Genetic-code cubes,
@@ -45,8 +56,8 @@
 #' @return A numerical vector with the pairwise distances between codons in 
 #' sequences 'x' and 'y'.
 #' @export
-#' @seealso \code{\link{codon_dist_matrix}}, \code{\link{automorphisms}}, and 
-#' \code{\link{codon_coord}}.
+#' @seealso \code{\link{codon_dist_matrix}}, \code{\link{automorphisms}}, 
+#' \code{\link{codon_coord}}, and \code{\link{aminoacid_dist}}.
 #' @references
 #' \enumerate{
 #'  \item Sanchez R. Evolutionary Analysis of DNA-Protein-Coding Regions Based
@@ -105,6 +116,7 @@ setMethod(
     "codon_dist", signature(x = "DNAStringSet"),
     function(
         x, 
+        weight = NULL,
         group = c("Z4", "Z5"),
         cube = c("ACGT", "AGCT", "TCGA", "TGCA", "CATG", 
                 "GTAC", "CTAG", "GATC", "ACTG", "ATCG", 
@@ -123,6 +135,13 @@ setMethod(
         if ((ls %% 3) != 0)
             stop("*** Arguments 'x' and 'y' are not codon sequences.")
         
+        if (is.null(weight)) {
+            if (group == "Z4")
+                weight = c(1/4, 1, 1/16)
+            else
+                weight = c(1/5, 1, 1/25)
+        }
+        
         x <- base_coord(base = x, cube = cube, group = group )
         x <- mcols(x)
         
@@ -137,7 +156,7 @@ setMethod(
                     function(k) {
                         cds <- x[[k]]
                         weighted_manhattan(x = cds[, 1], y = cds[, 2],
-                                        group = group)
+                                        w = weight, group = group)
                     })
         }
         
@@ -167,7 +186,7 @@ setMethod(
                     function(k) {
                         cds <- x[[k]]
                         weighted_manhattan(x = cds[, 1], y = cds[, 2],
-                                        group = group)
+                                    w = weight, group = group)
                     }, BPPARAM = bpparam)
             x <- unlist(x)
         }
@@ -184,12 +203,13 @@ setMethod(
     function(
         x, 
         y,
+        weight = NULL,
         group = c("Z4", "Z5"),
         cube = c("ACGT", "AGCT", "TCGA", "TGCA", "CATG", 
-                 "GTAC", "CTAG", "GATC", "ACTG", "ATCG", 
-                 "GTCA", "GCTA", "CAGT", "TAGC", "TGAC", 
-                 "CGAT", "AGTC", "ATGC", "CGTA", "CTGA", 
-                 "GACT", "GCAT", "TACG", "TCAG"),
+                "GTAC", "CTAG", "GATC", "ACTG", "ATCG", 
+                "GTCA", "GCTA", "CAGT", "TAGC", "TGAC", 
+                "CGAT", "AGTC", "ATGC", "CGTA", "CTGA", 
+                "GACT", "GCAT", "TACG", "TCAG"),
         num.cores = 1L,
         tasks = 0L,
         verbose = FALSE) {
@@ -203,8 +223,8 @@ setMethod(
         }
         
         x <- DNAStringSet(c(x, y))
-        x <- codon_dist(x = x, group = group, cube = cube, 
-                 num.cores = num.cores, tasks = tasks, verbose = verbose)
+        x <- codon_dist(x = x, weight = weight, group = group, cube = cube, 
+                num.cores = num.cores, tasks = tasks, verbose = verbose)
         return(x)
     }
 )
@@ -221,12 +241,13 @@ setMethod(
     "codon_dist", signature(x = "CodonGroup_OR_Automorphisms"),
     function(
         x, 
+        weight = NULL,
         group = c("Z4", "Z5"),
         cube = c("ACGT", "AGCT", "TCGA", "TGCA", "CATG", 
-                 "GTAC", "CTAG", "GATC", "ACTG", "ATCG", 
-                 "GTCA", "GCTA", "CAGT", "TAGC", "TGAC", 
-                 "CGAT", "AGTC", "ATGC", "CGTA", "CTGA", 
-                 "GACT", "GCAT", "TACG", "TCAG"),
+                "GTAC", "CTAG", "GATC", "ACTG", "ATCG", 
+                "GTCA", "GCTA", "CAGT", "TAGC", "TGAC", 
+                "CGAT", "AGTC", "ATGC", "CGTA", "CTGA", 
+                "GACT", "GCAT", "TACG", "TCAG"),
         num.cores = 1L,
         tasks = 0L,
         verbose = FALSE) {
@@ -237,7 +258,7 @@ setMethod(
         x <- DNAStringSet(c(paste0(x$seq1, collapse = ""), 
                             paste0(x$seq2, collapse = "")))
 
-        x <- codon_dist(x = x, group = group, cube = cube, 
+        x <- codon_dist(x = x, weight = weight, group = group, cube = cube, 
                         num.cores = num.cores, tasks = tasks, 
                         verbose = verbose)
         return(x)
@@ -248,11 +269,14 @@ setMethod(
 
 ## ------------------------- Auxiliary functions --------------------------
 
-weighted_manhattan <- function(x, y, group) {
-    if (group == "Z4") 
-        dst <- abs(x[1] - y[1])/4 + abs(x[2] - y[2]) + abs(x[3] - y[3])/16
-    else 
-        dst <- abs(x[1] - y[1])/5 + abs(x[2] - y[2]) + abs(x[3] - y[3])/25
+weighted_manhattan <- function(x, y, w, group) {
+    if (group == "Z4") {
+        dst <- abs(x[1] - y[1]) * w[1]  + abs(x[2] - y[2]) * w[3] + 
+                    abs(x[3] - y[3]) * w[3]
+    }else {
+        dst <- abs(x[1] - y[1]) * w[1] + abs(x[2] - y[2]) * w[2] + 
+                    abs(x[3] - y[3]) * w[3]
+    }
     return(dst)
 }
 

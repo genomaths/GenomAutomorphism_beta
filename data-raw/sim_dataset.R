@@ -150,6 +150,48 @@ aaindex3 <- list(acc_num = aaindex3_acc, aaindex = aaindex3)
 
 usethis::use_data(aaindex2, aaindex3, overwrite = TRUE, compress = "xz")
 
+## ============================================================== ###
+## ================= Codon Distance Matrix ============ ###
+## ============================================================== ###
+
+library(foreach)
+library(GenomAutomorphism)
+library(Biostrings)
+
+library(doParallel)
+library(parallel)
 
 
+gc <- getGeneticCode(id_or_name2="1", full.search=FALSE, as.data.frame=FALSE)
+nms <- names(gc)
+
+## ------------ Setting up parallel computation ------------ #
+
+num.cores <- 20
+cl <- makeCluster(num.cores, type = "FORK")
+registerDoParallel(cl)
+
+start.time <- Sys.time()
+distm <- foreach(k = seq_len(63)) %dopar% {
+    d <- as.vector(outer(nms[k], nms[seq((k + 1), 64, 1)], FUN = codon_dist))
+    names(d) <- nms[seq((k + 1), 64, 1)]
+    d
+}
+end.time <- Sys.time()
+end.time - start.time
+stopCluster(cl)
+
+names(distm) <- nms[ seq(63)]
+distm <- unlist(distm)
+
+aa1 <- "L"
+aa2 <- "F"
+
+a1 <- grep(aa1, gc)
+a2 <- grep(aa2, gc)
+
+cd1.cd2 <- c(as.vector(outer(nms[a1], nms[a2], FUN = paste, sep = ".")),
+             as.vector(outer(nms[a2], nms[a1], FUN = paste, sep = ".")))
+
+mean(distm[ na.omit(match(cd1.cd2, names(distm))) ])
 
