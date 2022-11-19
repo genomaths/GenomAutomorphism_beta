@@ -41,6 +41,9 @@
 #' \eqn{stat = 'user_def'}, then function must have a logical argument named 
 #' 'na.rm' addressed to remove missing (NA) data (see e.g., 
 #' \code{\link[base]{mean}}).
+#' @param genetic_code A single string that uniquely identifies the genetic 
+#' code to extract. Should be one of the values in the id or name2 columns of 
+#' \code{\link[Biostrings]{GENETIC_CODE_TABLE}}.
 #' @param group A character string denoting the group representation for the
 #' given codon sequence as shown in reference (2-3).
 #' @param cube A character string denoting one of the 24 Genetic-code cubes,
@@ -51,6 +54,7 @@
 #' \code{\link[BiocParallel]{bplapply}} and the number of tasks per job (only
 #' for Linux OS).
 #' @param verbose If TRUE, prints the progress bar.
+#' @param ... Not in use yet.
 #' @return A numerical vector with the pairwise distances between codons in 
 #' sequences 'x' and 'y'.
 #' @export

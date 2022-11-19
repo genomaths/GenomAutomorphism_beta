@@ -61,7 +61,9 @@ $p^{\alpha_{i}}_i \in \{5, 2^6, 5^3 \}$.
 
 ## Status
 
-This application is under development. Watch this repo or check for updates.
+This application is currently available in Bioconductor (version 3.16) 
+<https://doi.org/doi:10.18129/B9.bioc.GenomAutomorphism>.
+Watch this repo or check for updates.
 
 ------------
 
@@ -124,9 +126,13 @@ _numbers_, and _S4Vectors_.
  algebraic representations of the standard genetic code in six or in three
  dimensions, Adv. Stud. Biol. 4 (2012) 119–152.[PDF](https://is.gd/na9eap).
  
- 6. R. Sanchez. Symmetric Group of the Genetic–Code Cubes. Effect of the
+ 6. Sanchez, R. Symmetric Group of the Genetic–Code Cubes. Effect of the
  Genetic–Code Architecture on the Evolutionary Process MATCH Commun. Math.
  Comput. Chem. 79 (2018) 527-560. [PDF](https://bit.ly/2Z9mjM7).
+ 
+ 7. Sanchez, R., 2014. Evolutionary Analysis of DNA-protein-coding regions
+ based on a genetic code cube metric. Current Topics in Medicinal Chemistry, 
+ 14(3), pp.407-417.
 
 ## See also
 

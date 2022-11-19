@@ -51,6 +51,8 @@ codon_dist(x, y, ...)
 base-triplets. If only 'x' argument is given, then it must be a
 \code{\link[Biostrings]{DNAStringSet-class}} object.}
 
+\item{...}{Not in use yet.}
+
 \item{weight}{A numerical vector of  weights to compute weighted Manhattan
 distance between codons. If \eqn{weight = NULL}, then
 \eqn{weight = (1/4,1,1/16)} for \eqn{group = "Z4"} and

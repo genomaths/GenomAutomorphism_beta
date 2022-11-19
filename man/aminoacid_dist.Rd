@@ -69,6 +69,8 @@ aminoacid_dist(aa1, aa2, ...)
 DNA base-triplets. If only 'x' argument is given, then it must be a
 \code{\link[Biostrings]{DNAStringSet-class}} object.}
 
+\item{...}{Not in use yet.}
+
 \item{weight}{A numerical vector of  weights to compute weighted Manhattan
 distance between codons. If \eqn{weight = NULL}, then
 \eqn{weight = (1/4,1,1/16)} for \eqn{group = "Z4"} and
@@ -80,6 +82,10 @@ distance between codons. If \eqn{weight = NULL}, then
 \eqn{stat = 'user_def'}, then function must have a logical argument named
 'na.rm' addressed to remove missing (NA) data (see e.g.,
 \code{\link[base]{mean}}).}
+
+\item{genetic_code}{A single string that uniquely identifies the genetic
+code to extract. Should be one of the values in the id or name2 columns of
+\code{\link[Biostrings]{GENETIC_CODE_TABLE}}.}
 
 \item{group}{A character string denoting the group representation for the
 given codon sequence as shown in reference (2-3).}

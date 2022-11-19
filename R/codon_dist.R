@@ -53,6 +53,7 @@
 #' \code{\link[BiocParallel]{bplapply}} and the number of tasks per job (only
 #' for Linux OS).
 #' @param verbose If TRUE, prints the progress bar.
+#' @param ... Not in use yet.
 #' @return A numerical vector with the pairwise distances between codons in 
 #' sequences 'x' and 'y'.
 #' @export

@@ -1,3 +1,14 @@
+# GenomAutomorphism 1.0.1
+
+* Expanding analyses by including aminoacid similarity based on codon
+  distances. Three new functions are added: codon_dist, codon_dist_matrix,
+  and aminoacid_dist.
+
+# GenomAutomorphism 1.0.0
+
+* Release in Bioconductor (version 3.16). 
+  https://doi.org/doi:10.18129/B9.bioc.GenomAutomorphism
+
 # GenomAutomorphism 0.99.4
 
 * Expanding analyses by including amino acid similarity and statistical 

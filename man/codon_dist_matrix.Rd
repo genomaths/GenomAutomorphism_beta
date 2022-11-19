@@ -12,8 +12,7 @@ codon_dist_matrix(
     "ATCG", "GTCA", "GCTA", "CAGT", "TAGC", "TGAC", "CGAT", "AGTC", "ATGC", "CGTA",
     "CTGA", "GACT", "GCAT", "TACG", "TCAG"),
   output = c("list", "vector"),
-  num.cores = 1L,
-  verbose = FALSE
+  num.cores = 1L
 )
 }
 \arguments{
@@ -36,9 +35,8 @@ as given in references (2-3).}
 \item{output}{Format of the returned lower triangular matrix: as a list of
 63 elements (labeled) or as a labeled vector using codons as labels.}
 
-\item{num.cores}{}
-
-\item{verbose}{}
+\item{num.cores}{An integer to setup the number of parallel workers via
+\code{\link[parallel]{makeCluster}}.}
 }
 \value{
 A lower triangular matrix excluding the diagonal.
@@ -54,22 +52,13 @@ the knowledge of lower triangular matrix is enough for its application to
 any dowstream analysis.
 }
 \examples{
-## The distance matrix for codons for the standard genetic code,
-## cube "ACGT" with base-triplet represented on the group "Z4". 
-## Each coordinate of the returned numerical vector corresponds to the 
+## The distance matrix for codons for the Invertebrate Mitochondrial,
+## cube "TGCA" with base-triplet represented on the group "Z5". Each 
+## coordinate from each returned numerical vector corresponds to the 
 ## distance between codons given in the coordinate name. 
-x <- codon_dist_matrix()
-
-## The two first elements of the list carrying the lower triangular 
-## distance matrix.
-
-x[1:2]
-
-## The distance matrix for codons for the Invertebrate Mitochondrial.
 x <- codon_dist_matrix(genetic_code = "5", cube = "TGCA", group = "Z5",
                     output = "vector")
-
-head(x, 10)
+x[61:63]
 
 }
 \seealso{
