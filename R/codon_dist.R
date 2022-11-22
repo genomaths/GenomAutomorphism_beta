@@ -34,7 +34,7 @@
 #' 
 #' \deqn{d_w(x,y) = |x_1 - y_1| w_1  + |x_2 - y_2| w_2 + |x_3 -y_3| w_3}
 #' 
-#' where we use the vector of weight = (w_1, w_2, w_3).
+#' where we use the vector of \eqn{weight = (w_1, w_2, w_3)}.
 #' 
 #' @param x,y  A character string of codon sequences, i.e., sequences of DNA 
 #' base-triplets. If only 'x' argument is given, then it must be a

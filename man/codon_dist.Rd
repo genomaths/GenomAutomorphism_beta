@@ -95,7 +95,7 @@ which:
 
 \deqn{d_w(x,y) = |x_1 - y_1| w_1  + |x_2 - y_2| w_2 + |x_3 -y_3| w_3}
 
-where we use the vector of weight = (w_1, w_2, w_3).
+where we use the vector of \eqn{weight = (w_1, w_2, w_3)}.
 }
 \examples{
 ## Let's write two small DNA sequences

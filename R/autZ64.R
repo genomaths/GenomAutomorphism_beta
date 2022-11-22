@@ -19,8 +19,9 @@
 #' @description Given two codon sequences represented in the Z64 Abelian group,
 #' this function computes the automorphisms describing codon mutational events.
 #' @details Automorphisms in Z64 are described as functions
-#' \eqn{f(x) = k x mod 64}, where k and x are elements from the set of integers
-#' modulo 64.
+#' \eqn{f(x) = k * x} \emph{mod 64}, where \eqn{k} and \eqn{x} are elements 
+#' from the set of integers modulo 64.
+#' 
 #' @param seq An object from a \code{\link[Biostrings]{DNAStringSet}} or
 #' \code{\link[Biostrings]{DNAMultipleAlignment}} class carrying the DNA
 #' pairwise alignment of two sequences. The pairwise alignment provided in
@@ -79,7 +80,7 @@
 #' ## Automorphism on Z64
 #' autms <- autZ64(seq = aln, verbose = FALSE)
 #' autms
-#'
+#' 
 autZ64 <- function(seq = NULL,
     filepath = NULL,
     cube = c("ACGT", "TGCA"),
@@ -95,7 +96,7 @@ autZ64 <- function(seq = NULL,
     if (is.null(filepath) && is.null(seq)) {
         stop("*** One of the arguments 'seq' or 'filepath' must be given.")
     }
-
+    
     if (!is.null(filepath) && is.character(filepath)) {
         seq <- readDNAMultipleAlignment(filepath = filepath)
     }
@@ -196,7 +197,20 @@ automorfismos <- function(seq,
         chr = chr,
         strand = strand
     )
-
+    
+    sq_alt <- get_coord(
+        x = seq,
+        output = "all",
+        base_seq = FALSE,
+        filepath = filepath,
+        cube = cube[2],
+        group = "Z64",
+        start = start,
+        end = end,
+        chr = chr,
+        strand = strand
+    )
+    
     gr <- sq@SeqRanges
     gr$aa1 <- translation(gr$seq1, genetic.code = genetic_code)
     gr$aa2 <- translation(gr$seq2, genetic.code = genetic_code)
@@ -243,18 +257,7 @@ automorfismos <- function(seq,
                 )
 
                 if (any(s == -1) || inherits(s, "try-error")) {
-                    sq <- get_coord(
-                        x = seq,
-                        output = "all",
-                        base_seq = FALSE,
-                        filepath = filepath,
-                        cube = cube[2],
-                        group = "Z64",
-                        start = start,
-                        end = end,
-                        chr = chr,
-                        strand = strand
-                    )
+                    sq <- sq_alt
 
                     c1 <- sq@CoordList$coord1[k]
                     c2 <- sq@CoordList$coord2[k]

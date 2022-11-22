@@ -127,8 +127,8 @@ setMethod(
         stat <- match.arg(stat)
         
         stat <- switch(stat,
-                       "mean" = mean,
-                       "median" = median
+                    "mean" = mean,
+                    "median" = median
         )
         
         if (!is.function(stat))
@@ -226,7 +226,7 @@ setMethod(
                     if (all(!is.na(cd1.cd2))) {
                         dm <- try(stat(
                                 cdm[na.omit(match(cd1.cd2, names(cdm)))],
-                                       na.rm = TRUE),
+                                    na.rm = TRUE),
                                 silent = TRUE)
                     }
                     else

@@ -36,8 +36,9 @@ For the purpose of automorphism between two aligned DNA sequences,
 
 ## Status
 
-This application is under development. Watch this repo or check for
-updates.
+This application is currently available in Bioconductor (version 3.16) 
+<https://doi.org/doi:10.18129/B9.bioc.GenomAutomorphism>.
+Watch this repo or check for updates.
 
 ------------------------------------------------------------------------
 
@@ -109,6 +110,10 @@ This package depends, so far, from: *Biostrings*, *GenomicRanges*,
     Genetic–Code Architecture on the Evolutionary Process MATCH Commun.
     Math. Comput. Chem. 79 (2018) 527-560.
     [PDF](https://bit.ly/2Z9mjM7).
+    
+7.  Sanchez, R., 2014. Evolutionary Analysis of DNA-protein-coding regions
+    based on a genetic code cube metric. Current Topics in Medicinal Chemistry, 
+    14(3), pp.407-417. https://doi.org/10.2174/1568026613666131204110022.
 
 ## See also
 
