@@ -98,7 +98,7 @@ _numbers_, and _S4Vectors_.
 ## You can install _*GenomAutomorphism*_ package from GitHub
 
 ```install.p
-   devtools::install_git("https://github.com/genomaths/GenomAutomorphism.git")
+   BiocManager::install('genomaths/GenomAutomorphism')
 
 ```
 

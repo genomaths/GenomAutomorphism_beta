@@ -78,7 +78,7 @@ This package depends, so far, from: *Biostrings*, *GenomicRanges*,
 
 ## You can install **GenomAutomorphism** package from GitHub
 
-       devtools::install_git("https://github.com/genomaths/GenomAutomorphism.git")
+       BiocManager::install('genomaths/GenomAutomorphism')
 
 ------------------------------------------------------------------------
 

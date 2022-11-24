@@ -396,7 +396,7 @@ table(as.character(dat[rule,]$species))
 
 # CHAID with different model
 
-```{r chaid2}
+```{r chaid3}
 ctrl <- chaid_control(minsplit = 200, minprob = 0.9, alpha2 = 0.01, alpha4 = 0.05)
 chaid_res <- chaid(species ~ autms + regions + mut_type + mut_cost, 
                    data = datos,  control = ctrl)
@@ -406,7 +406,7 @@ chaid_res
 ### Plotting the CHAID tree (III)
 Next, the data must be prepared for plotting the tree with 
 [ggparty](https://rdrr.io/cran/ggparty/man/ggparty.html):
-```{r, plot-data2}
+```{r, plot-data3}
 ##  Updating CHAID decision tree
 dp <- data_party(chaid_res)
 dat <- dp[, c("autms", "regions", "mut_type", "mut_cost")]
@@ -441,7 +441,7 @@ node.size =  colSums(node.freq)
 Plotting the tree with [ggparty](https://rdrr.io/cran/ggparty/man/ggparty.html) 
 (font size adjusted for html output)
 
-```{r chaid-tree2, fig.height = 160, fig.width = 55, warning=FALSE}
+```{r chaid-tree3, fig.height = 160, fig.width = 55, warning=FALSE}
 ggparty(chaid_tree, horizontal = TRUE) +
     geom_edge(aes(color = id, size = node.size[id]/300), show.legend = FALSE) +
     geom_edge_label(size = 12, colour = "red",
@@ -487,6 +487,12 @@ ggparty(chaid_tree, horizontal = TRUE) +
 
 ```{r rule5}
 rule <- (dat$mut_cost == 0.26 & (dat$autm == "A1" | dat$autm == "A2") & dat$regions != "R4" & dat$mut_type != "HHW")
+table(as.character(dat[ rule, ]$species))
+```
+
+
+```{r rule6}
+rule <- (dat$mut_cost == 0.99 & dat$mut_type == "HHS" & (dat$regions == "R7" | dat$regions == "R4"))
 table(as.character(dat[ rule, ]$species))
 ```
 
