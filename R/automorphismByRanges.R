@@ -128,7 +128,7 @@ setMethod(
 
         x <- x@DataList
 
-        ## ---------------- Setting parallel distribution --------------- ##
+        ## ---------------- Setting parallel computaton --------------- ##
 
         progressbar <- FALSE
         if (verbose) progressbar <- TRUE

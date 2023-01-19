@@ -20,6 +20,9 @@
 \alias{strand}
 \alias{strand<-}
 \alias{GRangesList}
+\alias{mod}
+\alias{modq}
+\alias{modlin}
 \title{Reexport useful functions to be available to users}
 \examples{
 ## Load an Automorphism object and take its metacolumns
@@ -40,6 +43,8 @@ below to see their documentation.
   \item{Biostrings}{\code{\link[Biostrings:XStringSet-class]{AAStringSet}}, \code{\link[Biostrings:XStringSet-class]{DNAStringSet}}, \code{\link[Biostrings:GENETIC_CODE]{GENETIC_CODE_TABLE}}, \code{\link[Biostrings:GENETIC_CODE]{getGeneticCode}}, \code{\link[Biostrings:MultipleAlignment-class]{readDNAMultipleAlignment}}, \code{\link[Biostrings]{translate}}}
 
   \item{GenomicRanges}{\code{\link[GenomicRanges:GRangesList-class]{GRangesList}}}
+
+  \item{numbers}{\code{\link[numbers]{mod}}, \code{\link[numbers]{modlin}}, \code{\link[numbers:mod]{modq}}}
 
   \item{S4Vectors}{\code{\link[S4Vectors:Vector-class]{mcols}}, \code{\link[S4Vectors:Vector-class]{mcols<-}}, \code{\link[S4Vectors:S4Vectors-internals]{setValidity2}}}
 }}

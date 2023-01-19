@@ -1,8 +1,13 @@
+# GenomAutomorphism 1.0.2
+
+* Fix error of parallel computation on Windows (12/08/2022)
+
 # GenomAutomorphism 1.0.1
 
 * Expanding analyses by including aminoacid similarity based on codon
   distances. Three new functions are added: codon_dist, codon_dist_matrix,
-  and aminoacid_dist.
+  and aminoacid_dist. See a tutorial applying these functions at 
+  https://is.gd/oYLDK4.
 
 # GenomAutomorphism 1.0.0
 
@@ -33,4 +38,3 @@
 * Release:
     February 28, 2022
     * Initial development.
-

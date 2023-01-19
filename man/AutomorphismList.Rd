@@ -21,7 +21,10 @@
 \S4method{show}{AutomorphismList}(object)
 }
 \arguments{
-\item{x}{An \code{\link{AutomorphismList}} object.}
+\item{x}{An \code{\link{AutomorphismList-class}} object.}
+
+\item{value}{A character vector naming the elements of the
+\code{\link{AutomorphismList-class}} object 'x'.}
 
 \item{object}{An object from \code{\link{AutomorphismList-class}}.}
 }

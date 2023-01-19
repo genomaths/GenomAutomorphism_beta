@@ -57,6 +57,7 @@
 #' @param ... Not in use yet.
 #' @return A numerical vector with the pairwise distances between codons in 
 #' sequences 'x' and 'y'.
+#' @importFrom utils data
 #' @export
 #' @seealso \code{\link{automorphisms}} and \code{\link{codon_coord}}
 #' @references
@@ -119,12 +120,24 @@ setMethod(
         tasks = 0L,
         verbose = FALSE) {
         
-        alf <- c("A","R","N","D","C","Q","E","G","H","I","L","K",
-                "M","F","P","S","T","W","Y","V", "*", "-", "X")
-        
+        cdm_z64 <- NULL
         group <- match.arg(group)
         cube <- match.arg(cube)
         stat <- match.arg(stat)
+        
+        if (genetic_code == "1" && group == "Z4") {
+            data(cdm_z64, package = "GenomAutomorphism", 
+                envir = environment(), overwrite = TRUE)
+            cdm <- cdm_z64[[ cube ]]
+        }
+        else
+            cdm <- codon_dist_matrix(genetic_code = genetic_code, 
+                                    cube = cube, weight = weight, 
+                                    group = group, output = "vector",
+                                    num.cores = num.cores)
+        
+        alf <- c("A","R","N","D","C","Q","E","G","H","I","L","K",
+                "M","F","P","S","T","W","Y","V", "*", "-", "X")
         
         stat <- switch(stat,
                     "mean" = mean,
@@ -153,12 +166,7 @@ setMethod(
         
         gc <- getGeneticCode(id_or_name2 = genetic_code)
         nms <- names(gc)
-        
-        cdm <- codon_dist_matrix(genetic_code = genetic_code, 
-                                cube = cube, weight = weight, 
-                                group = group, output = "vector",
-                                num.cores = num.cores)
-        
+    
         max_dist <- ceiling(max(cdm))
         
         if (length(aa1) == 1) {
@@ -345,6 +353,4 @@ setMethod(
         return(aa1)
     }
 )
-
-
 

@@ -239,7 +239,12 @@ setMethod(
 
             num.cores <- floor(num.cores / 2)
             no_cores <- num.cores
-            cl <- makeCluster(no_cores, type = "FORK")
+            
+            if (Sys.info()["sysname"] == "Linux") 
+                cl <- makeCluster(num.cores, type = "FORK")
+            else
+                cl <- makeCluster(num.cores, type = "SOCK")
+            
             registerDoParallel(cl)
 
             if (is.null(nms)) {

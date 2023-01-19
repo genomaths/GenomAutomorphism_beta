@@ -667,6 +667,9 @@ setMethod("names",
 ## ================= AutomorphismList-methods ========================
 
 #' @rdname AutomorphismList
+#' @param x An \code{\link{AutomorphismList-class}} object.
+#' @param value A character vector naming the elements of the 
+#' \code{\link{AutomorphismList-class}} object 'x'.
 #' @export
 #' @examples 
 #' ## Load a DNA sequence alignment

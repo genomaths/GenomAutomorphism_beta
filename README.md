@@ -11,7 +11,7 @@ orcid.org/0000-0002-5246-1453](https://orcid.org/0000-0002-5246-1453)
 
 ## Overview
 
-This is a R package to compute the autimorphisms between pairwise
+This is a R package to compute the automorphisms between pairwise
 aligned DNA sequences represented as elements from a Genomic Abelian
 group as described in the paper [Genomic Abelian Finite
 Groups](https://www.biorxiv.org/content/10.1101/2021.06.01.446543v2). In
@@ -42,19 +42,23 @@ Watch this repo or check for updates.
 
 ------------------------------------------------------------------------
 
-## Tutotials
+## Tutorials
 
 There are several tutorials on how to use the package at
 [GenomAutomorphism](https://genomaths.github.io/genomautomorphism)
 website
-[<img src="man/figures/logo.png" align="middle" width="32" height="32" />](https://genomaths.github.io/genomautomorphism):
+[<img src="man/figures/logo.png" align="middle" width="32" height="32" />](https://genomaths.github.io/genomautomorphism)
 
-* <a href="https://genomaths.github.io/genomautomorphism/articles/GenomAutomorphism.html" target="_blank">Get started-with GenomAutomorphism</a>
-* [Analysis of Automorphisms on a DNA Multiple Sequence Alignment](https://genomaths.github.io/genomautomorphism/articles/automorphism_on_msa.html)
-* [Analysis of Automorphisms on a MSA of Primate BRCA1 Gene](https://genomaths.github.io/genomautomorphism/articles/automorphism_on_msa_brca1.html)
-* [A Short Introduction to Algebraic Taxonomy on Genes Regions](https://genomaths.github.io/genomautomorphism/articles/automorphism_and_decision_tree.html)
-* [Automorphism analysis on COVID-19 data](https://genomaths.github.io/genomautomorphism/articles/covid_19.html)
-
+-   <a href="https://is.gd/zwRaUw" target="_blank" rel="noopener">Get
+    started-with GenomAutomorphism</a>
+-   <a href="https://is.gd/A03Fkl" target="_blank" rel="noopener">Analysis
+    of Automorphisms on a DNA Multiple Sequence Alignment</a>
+-   <a href="https://is.gd/gsZcuj" target="_blank" rel="noopener">Analysis
+    of Automorphisms on a MSA of Primate BRCA1 Gene</a>
+-   <a href="https://is.gd/87wlbL" target="_blank" rel="noopener">A
+    Short Introduction to Algebraic Taxonomy on Genes Regions</a>
+-   <a href="https://is.gd/836uas" target="_blank" rel="noopener">Automorphism
+    analysis on COVID-19 data</a>
 
 ## Dependences
 
@@ -66,13 +70,10 @@ This package depends, so far, from: *Biostrings*, *GenomicRanges*,
 ## Installation of R dependencies:
 
         if (!requireNamespace("BiocManager")) install.packages("BiocManager")
-        BiocManager::install()
-        
+
         BiocManager::install(c("Biostrings", "GenomicRanges", "S4Vectors",
-        "BiocParallel", "GenomeInfoDb", "BiocGenerics"))
-        install.packages(c("numbers", "devtools", "doParallel", "data.table",
-        "foreach","parallel", "dplyr"), 
-        dependencies=TRUE)
+        "BiocParallel", "GenomeInfoDb", "BiocGenerics", "numbers", "devtools",
+        "doParallel", "data.table", "foreach","parallel"), dependencies = TRUE)
 
 ------------------------------------------------------------------------
 

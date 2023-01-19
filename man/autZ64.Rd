@@ -65,8 +65,8 @@ this function computes the automorphisms describing codon mutational events.
 }
 \details{
 Automorphisms in Z64 are described as functions
-\eqn{f(x) = k x mod 64}, where k and x are elements from the set of integers
-modulo 64.
+\eqn{f(x) = k * x} \emph{mod 64}, where \eqn{k} and \eqn{x} are elements
+from the set of integers modulo 64.
 }
 \examples{
 ## Load a pairwise alignment

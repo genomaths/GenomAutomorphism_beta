@@ -71,9 +71,18 @@ codon_dist_matrix <- function(
     gc <- getGeneticCode(id_or_name2 = genetic_code)
     nms <- names(gc)
     
+    ## ---------------- Setting parallel computation --------------- ##
     
-    cl <- makeCluster(num.cores, type = "FORK")
+    if (Sys.info()["sysname"] == "Linux") 
+        cl <- makeCluster(num.cores, type = "FORK")
+    else
+        cl <- makeCluster(num.cores, type = "SOCK")
+    
     registerDoParallel(cl)
+    
+    ## -------------------------------------------------------------- ##
+    
+    k <- NULL
     
     distm <- foreach(k = seq_len(63)) %dopar% {
         d <- as.vector(outer(nms[k], nms[seq((k + 1), 64, 1)], 

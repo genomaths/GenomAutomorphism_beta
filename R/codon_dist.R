@@ -138,9 +138,9 @@ setMethod(
         
         if (is.null(weight)) {
             if (group == "Z4")
-                weight = c(1/4, 1, 1/16)
+                weight <- c(1/4, 1, 1/16)
             else
-                weight = c(1/5, 1, 1/25)
+                weight <- c(1/5, 1, 1/25)
         }
         
         x <- base_coord(base = x, cube = cube, group = group )
@@ -232,7 +232,7 @@ setMethod(
 
 
 setClassUnion("CodonGroup_OR_Automorphisms", 
-              c("CodonGroup", "Automorphism", "AutomorphismByCoef"))
+            c("CodonGroup", "Automorphism", "AutomorphismByCoef"))
 
 #' @rdname codon_dist
 #' @aliases codon_dist
