@@ -1,0 +1,153 @@
+---
+title: "Modular Matrix Operations of Mutational Events"
+author: 
+    - name: Robersy Sanchez
+      affiliation: Department of Biology.
+                   Pennsylvania State University, University Park, PA 16802
+      email: rus547@psu.edu
+date: "`r format(Sys.time(), '%d %B %Y')`"
+fontsize: 11pt
+fontfamily: "serif"
+output:
+    BiocStyle::html_document:
+        toc: true
+        toc_depth: 4
+        toc_float:
+                collapsed: false
+                smooth_scroll: true
+        number_sections: true
+        theme: united 
+        geometry: margin=0.8in
+        highlight: tango
+toc_float: true
+toc_depth: 4
+abstract: |
+    A fast introduction into the analysis of DNA mutational events 
+    as modular matrix operation, i.e., as automorphisms over a ring.
+vignette: >
+  %\VignetteIndexEntry{Get started-with GenomAutomorphism}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>"
+)
+```
+
+
+```{r set-options, echo=FALSE, cache=FALSE}
+options(width = 120)
+```
+
+# Introduction
+
+In the Abelian p-group defined on $\mathbb{Z}_{p^{\alpha_{i}}_i}$  the 
+endomorphisms $\eta_i \in End(\mathbb{Z}_{p^{\alpha_{i}}_i})$ are described as
+functions $f(x)=kx$ mod $p^{\alpha_{i}}_i$, where $k$ and $x$ are elements 
+from the set of integers modulo $p^{\alpha_{i}}_i$.
+
+Next, we proceed to load the R package required libraries
+```{r lib}
+library(GenomAutomorphism)
+```
+
+# Modular operation on homocyclic group
+
+The mutational events transforming the codon sequence ATACCCATGGCCAAC into the
+sequence ACACCCATGACCAAC can be represented by means of automorphisms.
+
+
+In the cube ACGT the codon sequence ATACCCATGGCCAAC is represented by the 
+vector $(48,21,50,25,1) \in (\mathbb{Z}_{2^6})^5$, where $(\mathbb{Z}_{2^6})^5$
+stands for the homocyclic Abelian group of vectors of integers modulo 
+$\mathbb{Z}_{2^6}$, while the sequence ACACCCATGACCAAC is represented by
+$(16,21,50,17,1)$.
+
+To translate the DNA sequence into numerical vectors from 
+$(\mathbb{Z}_{2^6})^5$ they are previously incorporated into a 
+[DNAStringSet](https://rdrr.io/bioc/Biostrings/man/XStringSet-class.html) 
+object.
+
+```{r dna}
+dna <- DNAStringSet(c('ATACCCATGGCCAAC', 'ACACCCATGACCAAC'))
+dna
+```
+
+
+```{r mod}
+cd <- codon_coord(dna, cube = "ACGT", group = "Z64")
+cd
+```
+
+A list of coordinates is retrieved from object *cd*
+```{r cd1}
+cd <- coordList(get_coord(cd))
+cd
+```
+
+```{r}
+```
+
+
+The diagonal element of matrix transforming coordinate elements from *coord1* 
+into *coord2* are estimated as shown below
+```{r mle}
+dg <- modlineq(cd$coord1, cd$coord2, 64)
+dg
+```
+
+That is, we have the matrix:
+```{r m}
+diag(dg)
+```
+The multiplication of vector *coord1* by the matrix *diag(dg)* yields vector
+coord2:
+```{r m1}
+(cd$coord1 %*% diag(dg)) %% 64
+# Or
+cat("\n---- \n")
+(cd$coord1 %*% diag(dg)) %% 64 == cd$coord2
+
+```
+
+```{r m2}
+dna2 <- DNAStringSet(c('GACAGAGCAGTATTAGCTTCACAC', 'GAAAAC---GTATTA---TCAAAG'))
+dna2
+```
+
+```{r mod2}
+cd2 <- codon_coord(dna2, cube = "ACGT", group = "Z64")
+cd2
+```
+
+```{r cd}
+cd2$coord2[ is.na(cd2$coord2) ] <- 0
+cd2
+```
+
+```{r cd2}
+cd2 <- coordList(get_coord(cd2))
+cd2
+```
+
+```{r m3}
+dg2 <- modlineq(cd2$coord1, cd2$coord2, c(64,125,125,64,64,125,64,64))
+diag(dg2)
+```
+
+
+```{r m4}
+(cd2$coord1 %*% diag(dg2)) %% c(64,125,125,64,64,125,64,64)
+```
+
+The last matrix multiplication yields vector *coord2*:
+```{r m5}
+(cd2$coord1 %*% diag(dg2)) %% c(64,125,125,64,64,125,64,64) == cd2$coord2
+```
+
+
+
+

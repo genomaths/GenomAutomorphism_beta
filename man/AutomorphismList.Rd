@@ -6,7 +6,7 @@
 \alias{AutomorphismList}
 \alias{names,AutomorphismList-method}
 \alias{names}
-\alias{names<-,AutomorphismList-method}
+\alias{names<-,AutomorphismList,ANY-method}
 \alias{as.list,AutomorphismList-method}
 \alias{show,AutomorphismList-method}
 \alias{show-AutomorphismList}
@@ -14,7 +14,7 @@
 \usage{
 \S4method{names}{AutomorphismList}(x)
 
-\S4method{names}{AutomorphismList}(x) <- value
+\S4method{names}{AutomorphismList,ANY}(x) <- value
 
 \S4method{as.list}{AutomorphismList}(x)
 
