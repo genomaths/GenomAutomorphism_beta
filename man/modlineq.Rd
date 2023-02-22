@@ -4,7 +4,7 @@
 \alias{modlineq}
 \title{Modular System of Linear Equation Solver (MLE)}
 \usage{
-modlineq(a, b, n)
+modlineq(a, b, n, no.sol = 0)
 }
 \arguments{
 \item{a}{An integer or a vector of integers.}
@@ -12,10 +12,15 @@ modlineq(a, b, n)
 \item{b}{An integer or a vector of integers.}
 
 \item{n}{An integer or a vector of integers.}
+
+\item{no.sol}{Values to return when the equation is not solvable or yield
+the value 0. Default is 0.}
 }
 \value{
-A numerical vector. If for some coordinate the equation has not
-solution in their definition domain it will return 0 for such coordinate.
+If the solution is exact, then a numerical vector will be returned,
+otherwise, if there is not exact solution for some coordinate, the a list
+carrying the element on the diagonal matrix and the tranlation vector will
+be returned.
 }
 \description{
 If \eqn{a, b}, and  \eqn{c} are integer vectors, this function

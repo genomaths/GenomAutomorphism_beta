@@ -88,12 +88,12 @@ cd <- coordList(get_coord(cd))
 cd
 ```
 
-```{r}
-```
+## Homomorphism matrices
 
-
-The diagonal element of matrix transforming coordinate elements from *coord1* 
-into *coord2* are estimated as shown below
+Most of the mutational events in small DNA segments can be represented by 
+means homomorphisms with which, in turns, are presented by diagonal matrices.
+The diagonal elements of matrix a transforming coordinate elements from
+*coord1* into *coord2* are estimated as shown below
 ```{r mle}
 dg <- modlineq(cd$coord1, cd$coord2, 64)
 dg
@@ -133,19 +133,96 @@ cd2 <- coordList(get_coord(cd2))
 cd2
 ```
 
+
+Coordinates of *seq2* can be obtained from *seq1* solving the equation:
+$seq1 \cdot x = seq2$ mod $n$
 ```{r m3}
-dg2 <- modlineq(cd2$coord1, cd2$coord2, c(64,125,125,64,64,125,64,64))
-diag(dg2)
+modulo <- c(64,125,64,64,64,64,64,64)
+coord1 <- cd2$coord1
+coord2 <- cd2$coord2
+
+dg <- modlineq(coord1, coord2, modulo)
+dg
 ```
 
+Or in a form of diagonal matrix:
+```{r d}
+m  <- diag(dg)
+```
 
+That is, the matrix multiplication below yields coordinates of *seq2*.
 ```{r m4}
-(cd2$coord1 %*% diag(dg2)) %% c(64,125,125,64,64,125,64,64)
+(coord1 %*% m) %% modulo
 ```
 
-The last matrix multiplication yields vector *coord2*:
+Or
 ```{r m5}
-(cd2$coord1 %*% diag(dg2)) %% c(64,125,125,64,64,125,64,64) == cd2$coord2
+(coord1 %*% m) %% modulo == coord2
+```
+
+## Affine Transformations
+
+Next, we search for the homomorphims transforming coordinates coord2 into
+coodinates coord1:
+```{r m6}
+modulo <- c(64,125,64,64,64,64,64,64)
+
+dg1 <- modlineq(a = coord2, b = coord1, n = modulo, no.sol = 0)
+dg1
+```
+
+This is an affine transformation, which involves the sum of a homomorphism:
+```{r hom}
+m1 <- diag(dg1$diag)
+m1
+```
+
+Plus a translation. That is:
+```{r cheq}
+(coord2 %*% m1 + dg1$translation) %% modulo
+
+# Or
+cat("\n---- \n")
+
+(coord2 %*% m1 + dg1$translation) %% modulo == coord1
+```
+
+However, the solution is not unique. For example, setting no.sol = 1, we have
+another solution
+```{r m7}
+dg2 <- modlineq(a = coord2, b = coord1, n = modulo, no.sol = 1)
+dg2
+```
+
+```{r cheq1}
+m2 <- diag(dg2$diag)
+
+(coord2 %*% m2 + dg2$translation) %% modulo
+
+# Or
+cat("\n---- \n")
+
+(coord2 %*% m2 + dg2$translation) %% modulo == coord1
+```
+
+Since the second element of *seq2* has coordinate is 1, to build a homomorphism that 
+transform coordinates from *seq2* into coordinates from *seq1*, we can just sum 
+the translation vector to the second column of matrix m2:
+
+```{r m8}
+m3 <- m2
+m3[, 2] <- (m2[, 2] + dg2$translation) %% modulo
+m3
+```
+
+It is easy to see that:
+```{r m9}
+(coord2 %*% t(m3)) %% modulo
+```
+
+Or, as a column vector:
+```{r m10}
+(m3 %*% coord2) %% modulo
 ```
 
 

@@ -195,3 +195,25 @@ cd1.cd2 <- c(as.vector(outer(nms[a1], nms[a2], FUN = paste, sep = ".")),
 
 mean(distm[ na.omit(match(cd1.cd2, names(distm))) ])
 
+
+# ---------------------------------------------------------------------- #
+# ----- Codon Distance Matrices for the Standard Genetic Code on Z4 ---- #
+# ---------------------------------------------------------------------- #
+
+GC <- c("ACGT","AGCT","TCGA","TGCA","CATG","GTAC","CTAG","GATC","ACTG",
+        "ATCG","GTCA","GCTA","CAGT","TAGC","TGAC","CGAT","AGTC","ATGC",
+        "CGTA","CTGA","GACT","GCAT","TACG","TCAG")
+
+names(GC) <- GC
+
+cdm_z64 <- lapply(GC[1:2], function(gc) {
+    codon_dist_matrix(genetic_code = "1", 
+                      cube = gc, group = "Z4",
+                      output = "vector",
+                      num.cores = 24L)
+})
+
+
+
+
+

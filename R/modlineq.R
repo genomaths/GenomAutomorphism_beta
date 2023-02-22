@@ -18,6 +18,8 @@
 #' @param a An integer or a vector of integers. 
 #' @param b An integer or a vector of integers.
 #' @param n An integer or a vector of integers.
+#' @param no.sol Values to return when the equation is not solvable or yield
+#' the value 0. Default is 0.
 #' @description If \eqn{a, b}, and  \eqn{c} are integer vectors, this function 
 #' try to find, at each coordinate, the solution of the MLE 
 #' \eqn{a x = b}  mod \eqn{n}. If the MLE \eqn{a x = b mod n} has not 
@@ -27,21 +29,25 @@
 #' wrapper function to call \code{\link[numbers]{modlin}}. 
 #' @importFrom numbers modlin
 #' @export
-#' @return A numerical vector. If for some coordinate the equation has not 
-#' solution in their definition domain it will return 0 for such coordinate.
+#' @return If the solution is exact, then a numerical vector will be returned,
+#' otherwise, if there is not exact solution for some coordinate, the a list
+#' carrying the element on the diagonal matrix and the tranlation vector will
+#' be returned.
 #' @examples
 #' ## The MLE 8x = 54 mod 64 is not solvable; hence the first vector 
 #' ## coordinate returns 0.
 #' modlineq(a = c(8,9), b = c(54, 34), n = c(64,64))
 setGeneric(
     "modlineq",
-    function(a, b, n) {
+    function(a, b, n, no.sol = 0L) {
         a <- as.integer(a)
         b <- as.integer(b)
         n <- as.integer(n)
+        if (is.numeric(no.sol))
+            no.sol <- as.integer(no.sol)
         
         if (length(a) < 2) 
-            res <- modlin(a, b, n)
+            res <- modl(a, b, n, no.sol = no.sol)
         else {
             if (length(n) == 1) {
                 res <- mapply(function(x,y) modl(x, y, n),
@@ -49,16 +55,30 @@ setGeneric(
             }
             else
                 res <- mapply(function(x, y, z) {
-                    modl(x, y, z)
+                    modl(x, y, z, no.sol = no.sol)
                 }, a, b, n, USE.NAMES = FALSE)
         }
+        
+        ## ========= Checking ===========
+        trls <- FALSE
+        idx <- (a %*% diag(res)) %% n != b
+        if (sum(idx) > 0) {
+            trls <- TRUE
+            ## Compute translations
+            if (is.integer(no.sol))
+                trl <- c(b - (a %*% diag(res)) %% n) %% n
+        }
+        
+        if (trls) 
+            res <- list(diag = res, translation = trl)
+            
         return(res)
     }
 )
 
 ## ========= Auxiliary function ===================
 
-modl <- function(x, y, m) {
+modl <- function(x, y, m, no.sol = 0) {
     if (length(m) == 1 && length(x) > 1)
         m <- rep(m, length(x))
     if (x > 0 && y > 0) {
@@ -67,9 +87,9 @@ modl <- function(x, y, m) {
             res <- min(res)
     }
     else 
-        res <- 0
+        res <- no.sol
     if (is.null(res)) 
-        res <- 0
+        res <- no.sol
     
     return(res)
 }
