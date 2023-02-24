@@ -19,7 +19,7 @@ the value 0. Default is 0.}
 \value{
 If the solution is exact, then a numerical vector will be returned,
 otherwise, if there is not exact solution for some coordinate, the a list
-carrying the element on the diagonal matrix and the tranlation vector will
+carrying the element on the diagonal matrix and a translation vector will
 be returned.
 }
 \description{
@@ -34,7 +34,27 @@ For \eqn{a, b}, and \eqn{c} integer scalars, it is just a
 wrapper function to call \code{\link[numbers]{modlin}}.
 }
 \examples{
-## The MLE 8x = 54 mod 64 is not solvable; hence the first vector 
-## coordinate returns 0.
-modlineq(a = c(8,9), b = c(54, 34), n = c(64,64))
+## Set the vector x, y, and m.
+x <- c(9,32,24,56,60,27,28,5)
+y <-  c(8,1,0,56,60,0,28,2)
+modulo <- c(64,125,64,64,64,64,64,64)
+
+## Try to solve the modular equation a x = b mod n
+m <- modlineq(a = x, b = y, n = modulo)
+m
+
+## Or in matrix form 
+diag(m)
+
+## The reverse mapping is an affine transformation
+mt <- modlineq(a = y, b = x, n = modulo, no.sol = 1L)
+mt
+
+## That is, vector 'x' is revovered with the transformaiton
+(y \%*\% diag(mt$diag) + mt$translation) \%\% modulo
+
+# Or
+cat("\n---- \n")
+
+(y \%*\% diag(mt$diag) + mt$translation) \%\% modulo == x
 }

@@ -59,6 +59,8 @@ website
     Short Introduction to Algebraic Taxonomy on Genes Regions</a>
 -   <a href="https://is.gd/836uas" target="_blank" rel="noopener">Automorphism
     analysis on COVID-19 data</a>
+-   <a href="https://is.gd/wlyzhr" target="_blank" rel="noopener">Modular
+    Matrix Operations of Mutational Events</a>    
 
 ## Dependences
 
@@ -96,7 +98,7 @@ This package depends, so far, from: *Biostrings*, *GenomicRanges*,
 
 3.  Sanchez R, Grau R. An algebraic hypothesis about the primeval
     genetic code architecture. Math Biosci. 2009/07/18. 2009;221: 60–76.
-    <doi:S0025-5564(09)00114-X> \[pii\] 10.1016/j.mbs.2009.07.001
+    [doi:10.1016/j.mbs.2009.07.001](https://doi.org/10.1016/j.mbs.2009.07.001)
 
 4.  Robersy Sanchez, Jesús Barreto (2021) Genomic Abelian Finite Groups.
     [doi:

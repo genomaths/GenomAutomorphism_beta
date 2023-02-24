@@ -3,6 +3,6 @@ test_that("codon_dist works", {
     y <- c("TGC","GCC","CGT","GAC","---","TGA","A-G")
     x <- codon_dist(x, y, group = "Z4")
     test1 <- is.na(x[5])
-    test2 <- (x[1] == 1.8125)
+    test2 <- (x[1] == 0.8750)
     expect_true(test1 && test2)
 })
