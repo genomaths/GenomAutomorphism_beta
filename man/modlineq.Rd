@@ -4,7 +4,7 @@
 \alias{modlineq}
 \title{Modular System of Linear Equation Solver (MLE)}
 \usage{
-modlineq(a, b, n, no.sol = 0)
+modlineq(a, b, n, no.sol = 0L)
 }
 \arguments{
 \item{a}{An integer or a vector of integers.}

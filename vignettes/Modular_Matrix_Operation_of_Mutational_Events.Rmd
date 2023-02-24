@@ -167,7 +167,7 @@ coodinates coord1:
 ```{r m6}
 modulo <- c(64,125,64,64,64,64,64,64)
 
-dg1 <- modlineq(a = coord2, b = coord1, n = modulo, no.sol = 0)
+dg1 <- modlineq(a = coord2, b = coord1, n = modulo, no.sol = 0L)
 dg1
 ```
 

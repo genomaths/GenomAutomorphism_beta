@@ -31,18 +31,36 @@
 #' @export
 #' @return If the solution is exact, then a numerical vector will be returned,
 #' otherwise, if there is not exact solution for some coordinate, the a list
-#' carrying the element on the diagonal matrix and the tranlation vector will
+#' carrying the element on the diagonal matrix and a translation vector will
 #' be returned.
 #' @examples
-#' ## The MLE 8x = 54 mod 64 is not solvable; hence the first vector 
-#' ## coordinate returns 0.
-#' modlineq(a = c(8,9), b = c(54, 34), n = c(64,64))
+#' ## Set the vector x, y, and m.
+#' x <- c(9,32,24,56,60,27,28,5)
+#' y <-  c(8,1,0,56,60,0,28,2)
+#' modulo <- c(64,125,64,64,64,64,64,64)
+#' 
+#' ## Try to solve the modular equation a x = b mod n
+#' m <- modlineq(a = x, b = y, n = modulo)
+#' m
+#' 
+#' ## Or in matrix form 
+#' diag(m)
+#' 
+#' ## The reverse mapping is an affine transformation
+#' mt <- modlineq(a = y, b = x, n = modulo, no.sol = 1L)
+#' mt
+#' 
+#' ## That is, vector 'x' is revovered with the transformaiton
+#' (y %*% diag(mt$diag) + mt$translation) %% modulo
+#' 
+#' # Or
+#' cat("\n---- \n")
+#' 
+#' (y %*% diag(mt$diag) + mt$translation) %% modulo == x
 setGeneric(
     "modlineq",
     function(a, b, n, no.sol = 0L) {
-        a <- as.integer(a)
-        b <- as.integer(b)
-        n <- as.integer(n)
+
         if (is.numeric(no.sol))
             no.sol <- as.integer(no.sol)
         
@@ -50,7 +68,7 @@ setGeneric(
             res <- modl(a, b, n, no.sol = no.sol)
         else {
             if (length(n) == 1) {
-                res <- mapply(function(x,y) modl(x, y, n),
+                res <- mapply(function(x,y) modl(x, y, n, no.sol = no.sol),
                               a, b, USE.NAMES = FALSE)
             }
             else
@@ -62,7 +80,7 @@ setGeneric(
         ## ========= Checking ===========
         trls <- FALSE
         idx <- (a %*% diag(res)) %% n != b
-        if (sum(idx) > 0) {
+        if (sum(idx, na.rm = TRUE) > 0) {
             trls <- TRUE
             ## Compute translations
             if (is.integer(no.sol))
@@ -78,7 +96,11 @@ setGeneric(
 
 ## ========= Auxiliary function ===================
 
-modl <- function(x, y, m, no.sol = 0) {
+modl <- function(x, y, m, no.sol = 0L) {
+    x <- as.integer(x)
+    y <- as.integer(y)
+    m <- as.integer(m)
+    
     if (length(m) == 1 && length(x) > 1)
         m <- rep(m, length(x))
     if (x > 0 && y > 0) {
