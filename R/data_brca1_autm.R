@@ -20,4 +20,10 @@
 #' \code{\link{brca1_aln}} MSA with function \code{\link{autZ64}}.
 #'
 #' @format \code{\link{AutomorphismList}} class object.
+#' @author Robersy Sanchez <https://genomaths.com>
+#' @seealso [brca1_autm2], [brca1_aln], [brca1_aln2], and [covid_autm].
+#' @examples
+#' data(brca1_autm, package = "GenomAutomorphism")
+#' brca1_autm
+#' 
 "brca1_autm"

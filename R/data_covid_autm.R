@@ -21,6 +21,11 @@
 #' DNA sequence alignment is available in the dataset named
 #' \code{\link{covid_aln}} and the automorphisms were estimated with function
 #' \code{\link{autZ64}}.
-#'
+#' @author Robersy Sanchez <https://genomaths.com>
+#' @seealso  [brca1_autm], [brca1_autm2], [cyc_autm], and [covid_aln].
 #' @format \code{\link{AutomorphismList}} class object.
+#' @examples
+#' data(covid_autm, package = "GenomAutomorphism")
+#' covid_autm
+#' 
 "covid_autm"

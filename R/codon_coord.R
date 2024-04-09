@@ -99,6 +99,8 @@ setGeneric(
     }
 )
 
+## ====================== BaseGroup method =======================
+
 #' @aliases codon_coord
 #' @rdname codon_coord
 #' @import GenomicRanges
@@ -178,6 +180,9 @@ setMethod(
         return(codon)
     }
 )
+
+
+## ================ BaseGrDNAStringSet_OR_NULL method ====================
 
 
 #' @aliases codon_coord

@@ -22,4 +22,10 @@
 #' <https://github.com/genomaths/seqalignments/tree/master/COVID-19>
 #'
 #' @format \code{\link[Biostrings]{DNAMultipleAlignment}} class object.
+#' @author Robersy Sanchez <https://genomaths.com>
+#' @seealso  [brca1_aln], [brca1_autm2], [cyc_aln] and [covid_aln].
+#' @examples
+#' data(covid_aln, package = "GenomAutomorphism")
+#' covid_aln
+#' 
 "covid_aln"

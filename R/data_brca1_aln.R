@@ -20,4 +20,9 @@
 #' downloaded from GitHub at: <https://bit.ly/3DimROD>
 #'
 #' @format \code{\link[Biostrings]{DNAMultipleAlignment}} class object.
+#' @seealso [brca1_aln2], [brca1_autm], and [covid_aln].
+#' @examples
+#' data(brca1_aln, package = "GenomAutomorphism")
+#' brca1_aln
+#' 
 "brca1_aln"

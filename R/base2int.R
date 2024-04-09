@@ -138,6 +138,9 @@ setMethod("base2int", signature(base = "data.frame"),
 base_repl <- function(base, cube, group) {
     alf <- strsplit(cube, "")[[1]]
     
+    z4 <- setdiff(toupper(letters), c("A", "C", "G", "T", "U"))
+    z5 <- setdiff(toupper(letters), c("A", "C", "D", "G", "T", "U"))
+    
     if (group == "Z4") {
         base[base == "U"] <- "T"
         base[base == alf[1]] <- 0
@@ -146,6 +149,9 @@ base_repl <- function(base, cube, group) {
         base[base == alf[4]] <- 3
         base[base == "-"] <- NA
         base[base == "N"] <- NA
+        base[base == "?"] <- NA
+        base[base == "*"] <- NA
+        base[is.element(base, z4)] <- NA
     }
     
     if (group == "Z5") {
@@ -157,6 +163,9 @@ base_repl <- function(base, cube, group) {
         base[base == "-"] <- 0
         base[base == "N"] <- 0
         base[base == "D"] <- 0
+        base[base == "?"] <- 0
+        base[base == "*"] <- 0
+        base[is.element(base, z5)] <- 0
     }
     
     if (is.data.frame(base)) {

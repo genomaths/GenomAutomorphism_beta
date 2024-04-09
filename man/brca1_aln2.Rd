@@ -20,4 +20,9 @@ downloaded from GitHub at: \url{https://bit.ly/3DimROD}. This data set has
 sequence NM_007298 transcript variant 4. The location of each SMV is given
 in the heading from each sequence.
 }
+\examples{
+data(brca1_aln2, package = "GenomAutomorphism")
+brca1_aln2
+
+}
 \keyword{datasets}

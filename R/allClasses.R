@@ -12,7 +12,7 @@
 ## General Public License along with this program; if not, see
 ## <http://www.gnu.org/licenses/>.
 
-## ========================== BaseGroup =============================
+## ========================== GRanges_OR_NULL =============================
 
 #' @rdname GRanges_OR_NULL
 #' @title A definition for the union of 'GRanges' and 'NULL' class.
@@ -20,6 +20,62 @@
 #' @keywords internal
 #' @export
 setClassUnion("GRanges_OR_NULL", c("GRanges", "NULL", "missing"))
+
+
+## ========================== BaseGroup =============================
+
+setClassUnion("character_OR_NULL", c("character", "NULL", "missing"))
+
+#' @aliases BaseSeq
+#' @rdname BaseSeq
+#' @title A class definition to store codon automorphisms in given in the
+#' Abelian group representation.
+#' @import S4Vectors
+#' @import GenomicRanges
+#' @seealso \code{\link{automorphisms}}
+#' @keywords internal
+#' @export
+#' @return Given the slot values define a BaseSeq-class.
+setClass("BaseSeq",
+    slots = c(
+        seqnames = "Rle",
+        ranges = "IRanges_OR_IPos",
+        strand = "Rle",
+        elementMetadata = "DataFrame",
+        seqinfo = "Seqinfo",
+        seq_alias = "character_OR_NULL"
+    ),
+    contains = "GRanges"
+)
+
+## ========================== BaseGroup =============================
+
+#' @aliases BaseGroup
+#' @rdname BaseGroup
+#' @title A class definition to store codon automorphisms in given in the
+#' Abelian group representation.
+#' @import S4Vectors
+#' @import GenomicRanges
+#' @seealso \code{\link{automorphisms}}
+#' @keywords internal
+#' @export
+#' @return Given the slot values define a BaseGroup-class.
+setClass("BaseGroup",
+    slots = c(
+        seqnames = "Rle",
+        ranges = "IRanges_OR_IPos",
+        strand = "Rle",
+        elementMetadata = "DataFrame",
+        seqinfo = "Seqinfo",
+        colnames = "character",
+        group = "character",
+        cube = "character"
+    ),
+    contains = "GRanges"
+)
+
+
+## ========================== BaseGroup =============================
 
 #' @aliases BaseGroup
 #' @rdname BaseGroup

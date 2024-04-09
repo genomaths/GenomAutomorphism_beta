@@ -19,4 +19,8 @@
 #' package functions.
 #'
 #' @format \code{\link[Biostrings]{DNAStringSet}} class object.
+#' @examples
+#' data(aln, package = "GenomAutomorphism")
+#' aln
+#' 
 "aln"

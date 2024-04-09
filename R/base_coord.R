@@ -113,19 +113,20 @@ setGeneric(
 #' @export
 setMethod(
     "base_coord", signature(base = "DNAStringSet_OR_NULL"),
-    function(base = NULL,
-    filepath = NULL,
-    cube = c(
-        "ACGT", "AGCT", "TCGA", "TGCA", "CATG",
-        "GTAC", "CTAG", "GATC", "ACTG", "ATCG",
-        "GTCA", "GCTA", "CAGT", "TAGC", "TGAC",
-        "CGAT", "AGTC", "ATGC", "CGTA", "CTGA",
-        "GACT", "GCAT", "TACG", "TCAG"),
-    group = c("Z4", "Z5"),
-    start = NA,
-    end = NA,
-    chr = 1L,
-    strand = "+") {
+    function(
+        base = NULL,
+        filepath = NULL,
+        cube = c(
+            "ACGT", "AGCT", "TCGA", "TGCA", "CATG",
+            "GTAC", "CTAG", "GATC", "ACTG", "ATCG",
+            "GTCA", "GCTA", "CAGT", "TAGC", "TGAC",
+            "CGAT", "AGTC", "ATGC", "CGTA", "CTGA",
+            "GACT", "GCAT", "TACG", "TCAG"),
+        group = c("Z4", "Z5"),
+        start = NA,
+        end = NA,
+        chr = 1L,
+        strand = "+") {
         
         cube <- match.arg(cube)
         group <- match.arg(group)
@@ -147,6 +148,7 @@ setMethod(
         }
 
         len <- min(width(base))
+
         if (!is.na(start) || !is.na(end)) {
             if (!is.na(start) && start > len) {
                 stop(
