@@ -18,4 +18,15 @@ examples provided for the package functions. The automorphisms were
 estimated from the \code{\link{cyc_aln}} MSA with function
 \code{\link{autZ64}}.
 }
+\examples{
+data(cyc_autm, package = "GenomAutomorphism")
+cyc_autm
+
+}
+\seealso{
+\link{brca1_autm}, \link{brca1_autm2}, \link{covid_autm}, and \link{covid_aln}.
+}
+\author{
+Robersy Sanchez \url{https://genomaths.com}
+}
 \keyword{datasets}

@@ -16,4 +16,15 @@ automorphisms between the DNA sequences from the MSA of primate BRCA1
 DNA repair gene. The automorphisms were estimated from the
 \code{\link{brca1_aln}} MSA with function \code{\link{autZ64}}.
 }
+\examples{
+data(brca1_autm, package = "GenomAutomorphism")
+brca1_autm
+
+}
+\seealso{
+\link{brca1_autm2}, \link{brca1_aln}, \link{brca1_aln2}, and \link{covid_autm}.
+}
+\author{
+Robersy Sanchez \url{https://genomaths.com}
+}
 \keyword{datasets}

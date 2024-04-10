@@ -8,19 +8,12 @@
 Abelian group representation.}
 \value{
 Given the slot values define a BaseGroup-class.
-
-Given the slot values define a BaseGroup-class.
 }
 \description{
 A class definition to store codon automorphisms in given in the
 Abelian group representation.
-
-A class definition to store codon automorphisms in given in the
-Abelian group representation.
 }
 \seealso{
-\code{\link{automorphisms}}
-
 \code{\link{automorphisms}}
 }
 \keyword{internal}

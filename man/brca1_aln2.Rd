@@ -25,4 +25,10 @@ data(brca1_aln2, package = "GenomAutomorphism")
 brca1_aln2
 
 }
+\seealso{
+\link{brca1_aln}, \link{brca1_autm2}, \link{cyc_aln}, and \link{covid_autm}.
+}
+\author{
+Robersy Sanchez \url{https://genomaths.com}
+}
 \keyword{datasets}

@@ -18,4 +18,15 @@ pairwise sequence alignment of SARS coronavirus GZ02 (GenBank: AY390556.1:
 is available at GitHub:
 \url{https://github.com/genomaths/seqalignments/tree/master/COVID-19}
 }
+\examples{
+data(covid_aln, package = "GenomAutomorphism")
+covid_aln
+
+}
+\seealso{
+\link{brca1_aln}, \link{brca1_autm2}, \link{cyc_aln} and \link{covid_aln}.
+}
+\author{
+Robersy Sanchez \url{https://genomaths.com}
+}
 \keyword{datasets}

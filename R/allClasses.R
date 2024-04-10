@@ -22,14 +22,13 @@
 setClassUnion("GRanges_OR_NULL", c("GRanges", "NULL", "missing"))
 
 
-## ========================== BaseGroup =============================
+## ========================== BaseSeq =============================
 
 setClassUnion("character_OR_NULL", c("character", "NULL", "missing"))
 
 #' @aliases BaseSeq
 #' @rdname BaseSeq
-#' @title A class definition to store codon automorphisms in given in the
-#' Abelian group representation.
+#' @title A class definition to store DNA base sequence.
 #' @import S4Vectors
 #' @import GenomicRanges
 #' @seealso \code{\link{automorphisms}}
@@ -48,26 +47,28 @@ setClass("BaseSeq",
     contains = "GRanges"
 )
 
-## ========================== BaseGroup =============================
 
-#' @aliases BaseGroup
-#' @rdname BaseGroup
-#' @title A class definition to store codon automorphisms in given in the
-#' Abelian group representation.
+## ========================== BaseSeqMatrix =========================
+
+
+#' @aliases BaseSeqMatrix
+#' @rdname BaseSeqMatrix
+#' @title A class definition to Store DNA base sequence coordinates in a given
+#' Genetic Code Cube.
 #' @import S4Vectors
 #' @import GenomicRanges
 #' @seealso \code{\link{automorphisms}}
 #' @keywords internal
 #' @export
-#' @return Given the slot values define a BaseGroup-class.
-setClass("BaseGroup",
+#' @return Given the slot values define a BaseSeq-class.
+setClass("BaseSeqMatrix",
     slots = c(
         seqnames = "Rle",
         ranges = "IRanges_OR_IPos",
         strand = "Rle",
         elementMetadata = "DataFrame",
         seqinfo = "Seqinfo",
-        colnames = "character",
+        seq_alias = "character_OR_NULL",
         group = "character",
         cube = "character"
     ),

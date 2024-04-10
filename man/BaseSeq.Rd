@@ -4,14 +4,12 @@
 \name{BaseSeq-class}
 \alias{BaseSeq-class}
 \alias{BaseSeq}
-\title{A class definition to store codon automorphisms in given in the
-Abelian group representation.}
+\title{A class definition to store DNA base sequence.}
 \value{
 Given the slot values define a BaseSeq-class.
 }
 \description{
-A class definition to store codon automorphisms in given in the
-Abelian group representation.
+A class definition to store DNA base sequence.
 }
 \seealso{
 \code{\link{automorphisms}}
