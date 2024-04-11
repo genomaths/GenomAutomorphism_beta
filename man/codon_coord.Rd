@@ -117,7 +117,7 @@ Comput. Chem. 79 (2018) 527-560.
 \seealso{
 \href{https://github.com/genomaths/GenomeAlgebra_SymmetricGroup}{Symmetric Group of the Genetic-Code Cubes.}
 
-\code{\link{base_coord}} and \code{\link{base2int}}.
+\link{codon_matrix}, \link{base_coord} and \link{base2int}.
 }
 \author{
 Robersy Sanchez \url{https://genomaths.com}

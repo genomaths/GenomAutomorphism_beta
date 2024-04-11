@@ -51,7 +51,7 @@
 #' @importFrom methods new
 #' @export
 #' @return A \code{\link{CodonGroup-class}} object.
-#' @seealso \code{\link{base_coord}} and \code{\link{base2int}}.
+#' @seealso [codon_matrix], [base_coord] and [base2int].
 #' @author Robersy Sanchez <https://genomaths.com>
 #' @references
 #' \enumerate{

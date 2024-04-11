@@ -12,7 +12,7 @@
 ## General Public License along with this program; if not, see
 ## <http://www.gnu.org/licenses/>.
 
-## ========================== GRanges_OR_NULL =============================
+## ========================== GRanges_OR_NULL =====================
 
 #' @rdname GRanges_OR_NULL
 #' @title A definition for the union of 'GRanges' and 'NULL' class.
@@ -389,6 +389,124 @@ setMethod(
     function(x) x@SeqRanges
 )
 
+## ======================= CodonMatrix class =========================
+
+
+#' @aliases ListCodonMatrix
+#' @rdname ListCodonMatrix
+#' @title A Convenient Class to Store a Codon Coordinate in given 
+#' Genetic Code cube.
+setClass("CodonMatrix",
+    slots = c(
+        seqnames = "Rle",
+        ranges = "IRanges_OR_IPos",
+        strand = "Rle",
+        elementMetadata = "DataFrame",
+        seqinfo = "Seqinfo",
+        group = "character",
+        cube = "character",
+        seq_alias = "character_OR_NULL"
+    ),
+    contains = "GRanges"
+)
+
+#' Constructor of CodonMatrix-class
+#' @aliases CodonMatrix
+#' @rdname CodonMatrix
+#' @param object A \code{\link[GenomicRanges]{GRanges-class}} object.
+#' @param group The name of the base group, 'Z4' or 'Z5'.
+#' @param cube The name of the genetic-code cube applied to get the 
+#' codon coordinates.
+#' @param seq_alias The 'alias' given to the codon sequence.
+#' @seealso [base_coord] and [codon_coord].
+#' @export
+CodonMatrix <- function(object, group, cube, seq_alias = NULL) {
+    new("CodonMatrix",
+        seqnames = object@seqnames,
+        ranges = object@ranges,
+        strand = object@strand,
+        elementMetadata = object@elementMetadata,
+        seqinfo = object@seqinfo,
+        group = group,
+        cube = cube,
+        seq_alias = seq_alias)
+}
+
+## ======================= ListCodonMatrix class =========================
+
+#' @aliases ListCodonMatrix
+#' @rdname ListCodonMatrix
+#' @title A Convenient Class to Store Codon Coordinates in given 
+#' Genetic Code cube.
+setClass("ListCodonMatrix",
+    slots = c(
+        DataList = "list",
+        group = "character",
+        cube = "character",
+        seq_alias = "character_OR_NULL"
+    )
+)
+
+
+#' Constructor of ListCodonMatrix-class
+#' @aliases ListCodonMatrix
+#' @rdname ListCodonMatrix
+#' @param object A list of CodonMatrix-class objects
+#' @export
+ListCodonMatrix <- function(object, cube, group, seq_alias = NULL) {
+    new("ListCodonMatrix", DataList = object, 
+        cube = cube, group = group, seq_alias = seq_alias)
+}
+
+
+## ==================== Validity ListCodonMatrix ==================== #
+#
+#' @aliases valid.ListCodonMatrix
+#' @rdname ListCodonMatrix
+#' @title Valid ListCodonMatrix-class object 
+#' @param x A 'ListCodonMatrix-class' object
+#' @import S4Vectors
+#' @keywords internal
+
+valid.ListCodonMatrix <- function(x) {
+    
+    group <- x@group
+    cube <- x@cube
+    alias <- x@seq_alias
+    
+    r1 <- c("*** This is not a valid ListCodonMatrix class object.\n",
+            "Every element from the list must be a CodonMatrix object.")
+    r2 <- "*** The provided base-group must be 'Z4' or 'Z5'."
+    r3 <- "*** The provided genetic-code cube name is not valid."
+    
+    t1 <- t2 <- t3 <- t4 <- FALSE
+    
+    t1 <- !all(sapply(x@DataList, inherits, what = "CodonMatrix"))
+    t2 <- !is.element(group, c("Z5", "Z4"))
+    t3 <- !is.element(cube, c(
+        "ACGT", "AGCT", "TCGA", "TGCA", "CATG",
+        "GTAC", "CTAG", "GATC", "ACTG", "ATCG",
+        "GTCA", "GCTA", "CAGT", "TAGC", "TGAC",
+        "CGAT", "AGTC", "ATGC", "CGTA", "CTGA",
+        "GACT", "GCAT", "TACG", "TCAG"))
+    t4 <- (!is.null(alias)) && (ncol(mcols(x[[1]])) != length(alias))
+    
+    if (any(c(t1, t2, t3, t4))) {
+        if (t1)
+            return(r1)
+        if (t2 || t3)
+            return(c(r2, r3)[c(t2, t3)])
+        if (t4)
+            return(message("*** The number of codon sequences must be equal",
+                           " to the number of provided sequence's 'alias'."))
+    }
+    else 
+        NULL
+}
+
+setValidity2("ListCodonMatrix", valid.ListCodonMatrix)
+
+
 ## ========================== MatrixList class =============================
 
 #' @aliases MatrixList
@@ -578,7 +696,7 @@ valid.Automorphism <- function(x) {
 setValidity2("Automorphism", valid.Automorphism)
 
 
-## ========================== AutomorphismList =============================
+## ======================= AutomorphismList-class =========================
 
 #' @rdname AutomorphismList
 #' @title A class definition to store list of Automorphism class objects.
@@ -1070,6 +1188,56 @@ setMethod(
         invisible(object)
     }
 )
+
+
+## ======================= Show ListCodonMatrix =========================== #
+
+#' @rdname MatrixList
+#' @aliases show-ListCodonMatrix
+#' @title Show method for 'ListCodonMatrix' class object
+#' @param object An object from 'ListCodonMatrix' class
+#' @importFrom methods show
+#' @keywords internal
+#' @export
+#' @return Print/show of a ListCodonMatrix-class object.
+setMethod(
+    "show",
+    signature = "ListCodonMatrix",
+    definition = function(object) {
+        l <- length(object@DataList) 
+        nms <- object@seq_alias
+        cat(class(object), " object of length: ", l, "\n", sep = "")
+        
+        if (sum(nchar(nms)) > 50 && l > 1) 
+            nms <- paste(nms[1:6])
+        
+        if (l > 1)
+            cat("Seq.Alias:", nms, "...\n")
+        else
+            cat("Seq.Alias:", nms, "\n")
+        
+        cat("\n------- \n")
+        
+        cat("$", nms[1], "\n", sep = "")
+        print(object[[1]])
+        
+        if (l > 2) {
+            cat("\n\n")
+            cat("$", nms[2], "\n", sep = "")
+            print(object[[2]])
+            cat("\n...\n")
+            cat("\n<", l - 2, " more ", 
+                class(object@DataList[[1]])[1], " element(s)>\n",
+                sep = ""
+            )
+        }
+        
+        cat("Three slots: 'DataList', 'group', 'cube' & 'seq_alias'\n")
+        cat("------- \n")
+        invisible(object)
+    }
+)
+
 
 ## ========================= Show MatrixList ============================= #
 

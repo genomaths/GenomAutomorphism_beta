@@ -30,6 +30,18 @@ Biostrings::AAStringSet
 #' @export
 Biostrings::readDNAMultipleAlignment
 
+#' @importFrom Biostrings DNAMultipleAlignment
+#' @export
+Biostrings::DNAMultipleAlignment
+
+#' @importFrom Biostrings AAMultipleAlignment
+#' @export
+Biostrings::AAMultipleAlignment
+
+#' @importFrom XVector subseq
+#' @export
+Biostrings::subseq
+
 #' @importFrom Biostrings translate
 #' @export
 Biostrings::translate

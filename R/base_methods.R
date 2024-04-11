@@ -355,11 +355,8 @@ setMethod(
         base <- readDNAMultipleAlignment(filepath = filepath)
     }
     
-    if (inherits(base, "DNAMultipleAlignment")) {
+    if (inherits(base, "DNAMultipleAlignment")) 
         base <- base@unmasked
-        if (is.null(seq_alias))
-            seq_alias <- names(base)
-    }
     
     len <- min(width(base))
     
@@ -382,6 +379,9 @@ setMethod(
             end = end
         )
     }
+    
+    if (inherits(base, "DNAStringSet") && is.null(seq_alias))
+        seq_alias <- names(base)
     
     if (length(base) > 1) {
         base <- t(as.matrix(base))
@@ -505,14 +505,20 @@ setMethod(
             "GTCA", "GCTA", "CAGT", "TAGC", "TGAC",
             "CGAT", "AGTC", "ATGC", "CGTA", "CTGA",
             "GACT", "GCAT", "TACG", "TCAG"),
-        group = c("Z4", "Z5")) {
+        group = c("Z4", "Z5"),
+        seq_alias = NULL) {
         
         cube <- toupper(cube)
         group <- toupper(group)
         cube <- match.arg(cube)
         group <- match.arg(group)
         
+        if (is.null(seq_alias) && inherits(base, "DNAStringSet"))
+            seq_alias <- names(DNAStringSet)
+        
         base <- seq2granges(base)
+        if (is.null(seq_alias)) 
+            seq_alias <- base@seq_alias
         
         mcols(base) <- base2int(base = data.frame(mcols(base)), 
                                 cube = cube, group = group)
@@ -524,7 +530,7 @@ setMethod(
             strand = strand(base),
             elementMetadata = base@elementMetadata,
             seqinfo = base@seqinfo,
-            seq_alias = base@seq_alias,
+            seq_alias = seq_alias,
             group = group,
             cube = cube
         )

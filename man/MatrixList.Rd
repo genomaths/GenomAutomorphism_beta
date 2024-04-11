@@ -4,10 +4,14 @@
 \name{MatrixList-class}
 \alias{MatrixList-class}
 \alias{MatrixList}
+\alias{show,ListCodonMatrix-method}
+\alias{show-ListCodonMatrix}
 \alias{show,MatrixList-method}
 \alias{show-MatrixList}
 \title{Definition of MatrixList-class}
 \usage{
+\S4method{show}{ListCodonMatrix}(object)
+
 \S4method{show}{MatrixList}(object)
 }
 \arguments{
@@ -15,6 +19,8 @@
 }
 \value{
 Given the slot values, it defines a MatrixList-class.
+
+Print/show of a ListCodonMatrix-class object.
 
 Print/show of a MatrixList-class object.
 }

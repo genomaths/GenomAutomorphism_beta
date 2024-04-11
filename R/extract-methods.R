@@ -1,4 +1,4 @@
-## Copyright (C) 2021 Robersy Sanchez <https://genomaths.com/>
+## Copyright (C) 2021-2024 Robersy Sanchez <https://genomaths.com/>
 ## Author: Robersy Sanchez This file is part of the R package
 ## 'GenomAutomorphism'.  'GenomAutomorphism' is a free
 ## software: you can redistribute it and/or modify it under the
@@ -83,3 +83,66 @@ setMethod(
         return(x[[1]])
     }
 )
+
+
+#' An S4 class to extract elements from ListCodonMatrix-class object.
+#' @rdname extract-methods
+#' @aliases [
+#' @aliases ListCodonMatrix-methods
+#' @param x An \code{\link{ListCodonMatrix-class}} object.
+#' @param i,... As in \code{\link[base]{Extract}}.
+#' @description First and second level subsetting of 'x'. Extraction using
+#' names can be done as x$name.
+#' @return An element of x, an \code{\link{ListCodonMatrix-class}} object.
+#' @keywords internal
+#' @exportMethod "["
+#' @export
+#' @author Robersy Sanchez <https://genomaths.com>
+setMethod(
+    "[", signature(x = "ListCodonMatrix"),
+    function(x, i, ...) {
+        x@DataList <- x@DataList[i]
+        x@seq_alias <- x@seq_alias[i]
+        return(x)
+    }
+)
+
+#' @rdname extract-methods
+#' @aliases [[
+#' @aliases ListCodonMatrix-methods
+#' @param x An \code{\link{ListCodonMatrix-class}} object.
+#' @description Second level subsetting of 'x'.
+#' @return An element of x, an \code{\link{ListCodonMatrix-class}} object.
+#' @exportMethod "[["
+#' @export
+#' @author Robersy Sanchez (\url{https://genomaths.com}).
+setMethod(
+    "[[", signature(x = "ListCodonMatrix"),
+    function(x, i, ...) {
+        x <- x[i]
+        x <- x@DataList[[1]] 
+        return(x)
+    }
+)
+
+
+#' @rdname extract-methods
+#' @aliases $
+#' @aliases ListCodonMatrix-methods
+#' @param x An \code{\link{ListCodonMatrix-class}} object
+#' @param name A literal character string naming an element from 'x'.
+#' @description Subsetting of 'x' by element name.
+#' @return An element of x, an \code{\link{ListCodonMatrix-class}} object.
+#' @exportMethod "$"
+#' @export
+setMethod(
+    "$", signature(x = "ListCodonMatrix"),
+    function(x, name) {
+        i <- match(name, names(x))
+        x@DataList <- x@DataList[i]
+        x@seq_alias <- x@seq_alias[i] 
+        x@DataList <- x@DataList[[1]]
+        return(x)
+    }
+)
+

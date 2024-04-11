@@ -50,7 +50,8 @@ base_matrix(base, ...)
   cube = c("ACGT", "AGCT", "TCGA", "TGCA", "CATG", "GTAC", "CTAG", "GATC", "ACTG",
     "ATCG", "GTCA", "GCTA", "CAGT", "TAGC", "TGAC", "CGAT", "AGTC", "ATGC", "CGTA",
     "CTGA", "GACT", "GCAT", "TACG", "TCAG"),
-  group = c("Z4", "Z5")
+  group = c("Z4", "Z5"),
+  seq_alias = NULL
 )
 }
 \arguments{
