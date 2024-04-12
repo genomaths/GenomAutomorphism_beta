@@ -11,6 +11,7 @@
 \alias{readDNAMultipleAlignment}
 \alias{DNAMultipleAlignment}
 \alias{AAMultipleAlignment}
+\alias{subseq}
 \alias{translate}
 \alias{GENETIC_CODE_TABLE}
 \alias{getGeneticCode}
@@ -49,5 +50,7 @@ below to see their documentation.
   \item{numbers}{\code{\link[numbers]{mod}}, \code{\link[numbers]{modlin}}, \code{\link[numbers:mod]{modq}}}
 
   \item{S4Vectors}{\code{\link[S4Vectors:Vector-class]{mcols}}, \code{\link[S4Vectors:Vector-class]{mcols<-}}, \code{\link[S4Vectors:S4Vectors-internals]{setValidity2}}}
+
+  \item{XVector}{\code{\link[XVector:XVector-class]{subseq}}}
 }}
 

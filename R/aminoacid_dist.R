@@ -98,6 +98,9 @@ setGeneric(
     }
 )
 
+## =============== Characters =====================
+
+
 #' @rdname aminoacid_dist
 #' @aliases aminoacid_dist
 #' @import S4Vectors
@@ -252,6 +255,8 @@ setMethod(
     }
 )
 
+## =============== DNAStringSet =====================
+
 #' @rdname aminoacid_dist
 #' @aliases aminoacid_dist
 #' @import S4Vectors
@@ -288,6 +293,9 @@ setMethod(
 )
 
 
+## =============== AAStringSet =====================
+
+
 #' @rdname aminoacid_dist
 #' @aliases aminoacid_dist
 #' @import S4Vectors
@@ -321,6 +329,9 @@ setMethod(
         return(aa1)
     }
 )
+
+
+## =============== CodonGroup_OR_Automorphisms =====================
 
 #' @rdname aminoacid_dist
 #' @aliases aminoacid_dist

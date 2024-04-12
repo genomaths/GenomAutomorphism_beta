@@ -20,7 +20,7 @@
 #' \code{\link{codon_dist}}.
 #' @details By construction, a distance matrix is a symmetric matrix. Hence,
 #' the knowledge of lower triangular matrix is enough for its application to
-#' any dowstream analysis.
+#' any downstream analysis.
 #' @param genetic_code A single string that uniquely identifies the genetic 
 #' code to extract. Should be one of the values in the id or name2 columns of 
 #' \code{\link[Biostrings]{GENETIC_CODE_TABLE}}.
@@ -61,7 +61,7 @@ codon_dist_matrix <- function(
             "GTCA", "GCTA", "CAGT", "TAGC", "TGAC", 
             "CGAT", "AGTC", "ATGC", "CGTA", "CTGA", 
             "GACT", "GCAT", "TACG", "TCAG"),
-    output = c("list", "vector"),
+    output = c("list", "vector", "dist"),
     num.cores = 1L) {
     
     group <- match.arg(group)
@@ -96,6 +96,13 @@ codon_dist_matrix <- function(
     names(distm) <- nms[ seq(63)]
     if (output != "list")
         distm <- unlist(distm)
+    
+    if (output == "dist") {
+        m <- matrix(0, nrow = 64, ncol = 64)
+        m[ lower.tri(m, diag = FALSE) ] <- distm
+        distm <- as.dist(m)
+    }
+    
     return(distm)
 }
 

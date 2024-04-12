@@ -40,7 +40,7 @@ Biostrings::AAMultipleAlignment
 
 #' @importFrom XVector subseq
 #' @export
-Biostrings::subseq
+XVector::subseq
 
 #' @importFrom Biostrings translate
 #' @export
