@@ -12,6 +12,8 @@
 \alias{ListCodonMatrix-methods}
 \alias{[[,ListCodonMatrix-method}
 \alias{$,ListCodonMatrix-method}
+\alias{[,MatrixSeq,ANY-method}
+\alias{MatrixSeq-methods}
 \title{An S4 class to extract elements from AutomorphismList-class object.}
 \usage{
 \S4method{[}{AutomorphismList,ANY}(x, i, j, ..., drop = TRUE)
@@ -23,6 +25,10 @@
 \S4method{[}{ListCodonMatrix,ANY}(x, i, j, ..., drop = TRUE)
 
 \S4method{[[}{ListCodonMatrix}(x, i, j, ...)
+
+\S4method{$}{ListCodonMatrix}(x, name)
+
+\S4method{[}{MatrixSeq,ANY}(x, i, j, ..., drop = TRUE)
 
 \S4method{$}{ListCodonMatrix}(x, name)
 }
@@ -45,6 +51,10 @@ An element of x, an \code{\link{ListCodonMatrix-class}} object.
 An element of x, an \code{\link{ListCodonMatrix-class}} object.
 
 An element of x, an \code{\link{ListCodonMatrix-class}} object.
+
+An element of x, an \code{\link{MatrixSeq-class}} object.
+
+An element of x, an \code{\link{ListCodonMatrix-class}} object.
 }
 \description{
 First and second level subsetting of 'x'. Extraction using
@@ -58,6 +68,11 @@ First and second level subsetting of 'x'. Extraction using
 names can be done as x$name.
 
 Second level subsetting of 'x'.
+
+Subsetting of 'x' by element name.
+
+First and second level subsetting of 'x'. Extraction using
+names can be done as x$name.
 
 Subsetting of 'x' by element name.
 }

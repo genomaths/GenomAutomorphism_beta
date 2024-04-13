@@ -107,3 +107,49 @@ numbers::modq
 #' @export
 numbers::modlin
 
+## From matrixStats ---------------------------------------
+
+#' @importFrom matrixStats rowSums2
+#' @export
+matrixStats::rowSums2
+
+#' @importFrom matrixStats colSums2
+#' @export
+matrixStats::colSums2
+
+#' @importFrom matrixStats colMeans2
+#' @export
+matrixStats::colMeans2
+
+#' @importFrom matrixStats rowMeans2
+#' @export
+matrixStats::rowMeans2
+
+#' @importFrom matrixStats rowVars
+#' @export
+matrixStats::rowVars
+
+#' @importFrom matrixStats colVars
+#' @export
+matrixStats::colVars
+
+#' @importFrom matrixStats colSds
+#' @export
+matrixStats::colSds
+
+#' @importFrom matrixStats rowSds
+#' @export
+matrixStats::rowSds
+
+
+
+
+
+
+
+
+
+
+
+
+
