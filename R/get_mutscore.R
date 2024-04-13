@@ -1,4 +1,4 @@
-## Copyright (C) 2022 Robersy Sanchez <https://genomaths.com/>
+## Copyright (C) 2022-2024 Robersy Sanchez <https://genomaths.com/>
 ## Author: Robersy Sanchez This file is part of the R package
 ## 'GenomAutomorphism'.  'GenomAutomorphism' is a free
 ## software: you can redistribute it and/or modify it under the
@@ -50,8 +50,7 @@
 #' 
 #' @details If a score matrix is provided by the user, then it must be a
 #' symmetric matrix 20x20.
-#' @seealso \code{\link{aa_mutmat}}, \code{\link{aaindex2}} and 
-#' \code{\link{aaindex3}}
+#' @seealso [aa_mutmat], [aaindex2] and [aaindex3].
 #' @author Robersy Sanchez <https://genomaths.com>
 #' @export
 #' @return A single numeric score or a numerical vector, or if
@@ -158,7 +157,7 @@ setMethod("get_mutscore", signature(aa1 = "character", aa2 = "character"),
                         " matrix must be provides")
                 if (is.null(aaindex))
                     stop("The name of amino acid index database",
-                        " matrix must be provides")
+                        " matrix must be provided")
                 mutmat <- aa_mutmat(acc = acc, aaindex = aaindex)
                 return(mutmat[ match(aa1, aa), match(aa2, aa) ])
             }

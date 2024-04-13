@@ -138,6 +138,13 @@ covid_autm
 
 usethis::use_data(covid_autm, overwrite = TRUE)
 
+aaindex1 <- readLines("https://www.genome.jp/ftp/db/community/aaindex/aaindex1")
+aaindex1_acc <- readLines("https://www.genome.jp/aaindex/AAindex/list_of_indices")
+
+aaindex1 <- list(acc_num = aaindex1_acc, aaindex = aaindex1)
+usethis::use_data(aaindex1, overwrite = TRUE, compress = "xz")
+
+
 aaindex2 <- readLines("https://www.genome.jp/ftp/db/community/aaindex/aaindex2")
 aaindex2_acc <- readLines("https://www.genome.jp/aaindex/AAindex/list_of_matrices")
 

@@ -506,8 +506,59 @@ valid.ListCodonMatrix <- function(x) {
 
 setValidity2("ListCodonMatrix", valid.ListCodonMatrix)
 
+## ========================== MatrixSeq class =============================
 
-## ========================== MatrixList class =============================
+#' @aliases MatrixSeq
+#' @rdname MatrixSeq
+#' @title Definition of MatrixSeq-class
+#' @description This is a very simple flexible class to store DNA and 
+#' aminoacid aligned sequences together with their physicochemical properties.
+#' That is, a place where each aminoacid or codon from the sequence is
+#' represented by numerical value from a physicochemical index.
+#' @details
+#' 
+#' \itemize{
+#'  \item{\strong{seqs}: }{A string character vector of DNA or aminoacid 
+#'  sequences.}
+#'  \item{\strong{matrix}: }{A numerical matrix carrying the specified 
+#'  aminoacid physicochemical indices for aminoacid in the DNA or aminoacid
+#'  sequences.}
+#'  \item{\strong{names}: }{Alias/names/IDs DNA or aminoacid sequences.}
+#'  \item{\strong{aaindex}: }{Aminoacid index database where the 
+#'  physicochemical index can be found.}
+#'  \item{\strong{phychem}: }{Description of the physicochemical index applied 
+#'  to represent the DNA or aminoacid sequences.}
+#'  \item{\strong{accession}: }{Accession number or ID of the applied
+#'  physicochemical index in the database.}
+#' }
+#' 
+#' @keywords internal
+#' @export
+#' @return Given the slot values, it defines a MatrixList-class.
+setClass("MatrixSeq",
+    slots = c(
+        seqs = "character",
+        matrix = "matrix",
+        names = "character",
+        aaindex = "character",
+        phychem = "character",
+        accession = "character"
+    )
+)
+
+MatrixSeq <- function(seqs, matrix, names, aaindex, phychem, accession) {
+    new("MatrixSeq",
+        seqs = seqs,
+        matrix = matrix,
+        names = names,
+        aaindex = aaindex,
+        phychem = phychem,
+        accession = accession)
+}
+
+
+
+## ========================== MatrixList class ==========================
 
 #' @aliases MatrixList
 #' @rdname MatrixList
@@ -1236,6 +1287,49 @@ setMethod(
         cat("------- \n")
         invisible(object)
     }
+)
+
+## ========================= Show MatrixSeq ============================= #
+
+#' @rdname MatrixSeq
+#' @aliases show-MatrixSeq
+#' @title Show method for 'MatrixSeq' class object
+#' @param object An object from 'MatrixSeq' class
+#' @importFrom methods show
+#' @keywords internal
+#' @export
+#' @return Print/show of a MatrixSeq-class object.
+setMethod(
+    "show",
+    signature = "MatrixSeq",
+        function(object) {
+            d <- dim(object@matrix)
+            cat("MatrixSeq with", d[1], "rows and", d[2], "columns:\n")
+            cat("------- \n")
+            if (d[1] <= 40 && d[2] <= 20) {
+                print(object@matrix)
+            }
+            else {
+                if (d[2] > 12) {
+                    x <- object@matrix
+                    x <- data.frame(x[, c(seq(6), seq(d[2] - 5, d[2]))])
+                    x[, 6] <- "..."
+                    cn <- colnames(x)
+                    cn[6] <- "..."
+                    colnames(x) <- cn
+                }
+                
+                if (d[1] > 40) {
+                    x <- x[c(seq(11), seq(d[1] - 10, d[1])), ]
+                    x[11, ] <- "..."
+                }
+                print(x)
+            }
+            cat("------- \n")
+            cat("Slots: 'seqs', 'matrix', 'names', 'aaindex',",
+                "'phychem', 'accession")
+            invisible(object)
+        }
 )
 
 

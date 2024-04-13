@@ -167,8 +167,7 @@ get_mutscore(aa1 = c("A","C","G"), aa2 = c("C","T","A"),
             acc = "MIYS930101", aaindex = aaindex2, alphabet = "AA")
 }
 \seealso{
-\code{\link{aa_mutmat}}, \code{\link{aaindex2}} and
-\code{\link{aaindex3}}
+\link{aa_mutmat}, \link{aaindex2} and \link{aaindex3}.
 }
 \author{
 Robersy Sanchez \url{https://genomaths.com}

@@ -12,30 +12,21 @@
 ## General Public License along with this program; if not, see
 ## <http://www.gnu.org/licenses/>.
 
-#' Statistical protein contact potentials matrices from AAindex ver.9.2
-#' 
-#' A statistical potential (also knowledge-based potential, empirical
-#' potential, or residue contact potential) is an energy function derived from
-#' an analysis of known structures in the Protein Data Bank.
+#' List of 571 Amino Acid Physicochemical Indexes from AAindex Database
 #'
-#' A list of 47 amino acid matrices from Amino Acid Index Database
-#' \url{https://www.genome.jp/aaindex/} are provided here. AAindex is a
-#' database of numerical indices representing various physicochemical and
+#' The aminoacid indexes from Amino Acid Index Database
+#' \url{https://www.genome.jp/aaindex/} are provided here. AAindex (ver.9.2) 
+#' is a database of numerical indices representing various physicochemical and
 #' biochemical properties of amino acids and pairs of amino acids.
-#'
-#' The contact potential matrix of amino acids is a set of 210 numerical
-#' values, 20 diagonal and 20x19/2 off-diagonal elements, used for sequence
-#' alignments and similarity searches.
-
+#' 
 #' @examples 
 #' ## Load the mutation matrices from database from the packages
-#' data(aaindex3, package = "GenomAutomorphism")
+#' data(aaindex1, package = "GenomAutomorphism")
 #' 
 #' ## Get the available mutation matrices
-#' mat <- aa_mutmat(aaindex = aaindex3, acc_list = TRUE)
+#' mat <- aa_mutmat(aaindex = aaindex1, acc_list = TRUE)
 #' mat[1:10]
-#' @seealso [aaindex2], \code{\link{}}, and
-#' \code{\link{get_mutscore}}.
+#' @seealso [aaindex2] and [aaindex3].
 #' @author Robersy Sanchez <https://genomaths.com>
 #' @format \code{\link{AutomorphismList}} class object.
-"aaindex3"
+"aaindex1"
