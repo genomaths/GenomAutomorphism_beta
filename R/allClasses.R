@@ -533,8 +533,9 @@ setValidity2("ListCodonMatrix", valid.ListCodonMatrix)
 #' }
 #' 
 #' @keywords internal
+#' @author Robersy Sanchez <https://genomaths.com>
 #' @export
-#' @return Given the slot values, it defines a MatrixList-class.
+#' @return Given the slot values, it defines a MatrixSeq-class.
 setClass("MatrixSeq",
     slots = c(
         seqs = "character",
@@ -546,6 +547,16 @@ setClass("MatrixSeq",
     )
 )
 
+#' MatrixSeq Constructor
+#' @rdname MatrixSeq
+#' @param seqs,matrix,names,aaindex,physchem,accession See detail section 
+#' @export
+#' @returns A MatrixSeq-class object
+#' @examples 
+#' aln <- c(S1 = "ATGCGGATTAGA", S2 = "ATGACGATCACA", S3 = "ATGAGATCACAG")
+#' cd <- DNAMultipleAlignment(aln)
+#' r1 <- peptide_phychem_index(cd@unmasked, acc = "EISD840101")
+#' r1
 MatrixSeq <- function(seqs, matrix, names, aaindex, phychem, accession) {
     new("MatrixSeq",
         seqs = seqs,
@@ -557,8 +568,151 @@ MatrixSeq <- function(seqs, matrix, names, aaindex, phychem, accession) {
 }
 
 
+## ======================= GRangesMatrixSeq class =======================
 
-## ========================== MatrixList class ==========================
+#' @aliases GRangesMatrixSeq
+#' @rdname GRangesMatrixSeq
+#' @title Definition of GRangesMatrixSeq-class
+#' @description This is a very simple flexible class to store DNA and 
+#' aminoacid aligned sequences together with their physicochemical properties.
+#' That is, a place where each aminoacid or codon from the sequence is
+#' represented by numerical value from a physicochemical index.
+#' @keywords internal
+#' @export
+#' @return Given the slot values, it defines a MatrixList-class.
+setClass("GRangesMatrixSeq",
+    slots = c(
+        seqnames = "Rle",
+        ranges = "IRanges_OR_IPos",
+        strand = "Rle",
+        elementMetadata = "DataFrame",
+        seqinfo = "Seqinfo",
+        seqs = "character",
+        names = "character",
+        aaindex = "character",
+        phychem = "character",
+        accession = "character"
+    ),
+    contains = "GRanges"
+)
+
+#' @importFrom methods new setAs
+setAs("MatrixSeq", "GRangesMatrixSeq",
+    function(from, to) {
+
+        seqs <- from@seqs
+        names <- from@names
+        aaindex <- from@aaindex
+        phychem <- from@phychem
+        accession <- from@accession
+        
+        pos <- colnames(from@matrix)
+        pos <- as.numeric(gsub("A", "", pos))
+        seqinfo <- Seqinfo(seqnames = "1", seqlengths = range(pos)[2], 
+                        isCircular = NA, genome = NA)
+        
+        from <- data.frame(
+                    seqnames = rep("1", length(pos)), 
+                    start = pos, 
+                    end = pos, 
+                    strand = rep("+", length(pos)),
+                    t(from@matrix))
+        
+        from <- makeGRangesFromDataFrame(from, keep.extra.columns = TRUE)
+        
+        
+        new("GRangesMatrixSeq",
+            seqnames = seqnames(from),
+            ranges = ranges(from),
+            strand = strand(from),
+            elementMetadata = from@elementMetadata,
+            seqinfo = seqinfo,
+            seqs = seqs,
+            names = names,
+            aaindex = aaindex,
+            phychem = phychem,
+            accession = accession)
+    }
+)
+
+
+#' GRangesMatrixSeq-class constructor
+#' @rdname GRangesMatrixSeq
+#' @aliases GRangesMatrixSeq
+#' @description
+#' Constructor for 'GRangesMatrixSeq-class' object.
+#' @details
+#' This is a convenient function to transform a [MatrixSeq]-class object 
+#' returned by function [aa_phychem_index] into a 'GRangesMatrixSeq-class' 
+#' object. Since a 'GRangesMatrixSeq-class' inherits from 
+#' \code{\link[GenomicRanges]{GRanges-class}}, this transformation permits the 
+#' application of several methods from GenomicRanges package in the downstream
+#' analysis.
+#' @param object If provided, it must be a GRangesMatrixSeq-class object and
+#' in this case
+#' @param seqnames,start,end,ranges,strand,elementMetadata,seqinfo The same as
+#' in \code{\link[GenomicRanges]{GRanges}}
+#' @param seqs,matrix,names,aaindex,physchem,accession The same as in 
+#' [MatrixSeq].
+#' @export
+#' @examples
+#' aln <- c(S1 = "ATGCGGATTAGA", S2 = "ATGACGATCACA", 
+#'         S3 = "ATGAGATCACAG")
+#' cd <- DNAMultipleAlignment(aln)
+#' r1 <- peptide_phychem_index(cd@unmasked, acc = "EISD840101")
+#' 
+#' r2 <- GRangesMatrixSeq(r1)
+#' r2
+#' 
+#' r2@phychem
+#' 
+GRangesMatrixSeq <- function(
+    object = NULL,
+    seqnames = Rle(factor()), 
+    start = integer(0), 
+    end = integer(0),
+    ranges = IRanges(),
+    strands = Rle(strand()), 
+    elementMetadata = DataFrame(),
+    seqinfo = NULL,
+    seqs = character(),
+    names = character(),
+    aaindex = character(),
+    phychem = character(),
+    accession = character()) {
+    
+    if (!is.null(object)) {
+        return(as(object, "GRangesMatrixSeq"))
+    }
+    else {
+        
+        if (is.null(seqinfo))
+            seqinfo <- seqinfo(ranges)
+
+        new("GRangesMatrixSeq",
+            seqnames = seqnames,
+            ranges = IRanges(start = start, end = end),
+            strand = strands,
+            elementMetadata = elementMetadata,
+            seqinfo = seqinfo,
+            names = names,
+            aaindex = aaindex,
+            phychem = phychem,
+            accession = accession)
+    }
+}
+
+#' @rdname GRangesMatrixSeq
+#' @keywords internal
+#' @import Biostrings
+#' @export
+#' @return Only used to specify signature in the S4 setMethod.
+setClassUnion(
+    "DNAStringSet_OR_DNAMultipleAlignment",
+    c("DNAStringSet", "DNAMultipleAlignment")
+)
+
+## ======================== MatrixList class ==========================
 
 #' @aliases MatrixList
 #' @rdname MatrixList
@@ -600,6 +754,7 @@ setClassUnion(
     "DNAStringSet_OR_NULL",
     c("DNAStringSet", "DNAMultipleAlignment", "NULL", "missing")
 )
+
 
 ## ========================== Automorphism =============================
 

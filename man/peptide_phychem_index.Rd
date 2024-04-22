@@ -3,8 +3,8 @@
 \name{peptide_phychem_index}
 \alias{peptide_phychem_index}
 \alias{peptide_phychem_index,character-method}
-\alias{peptide_phychem_index,DNAStringSet-method}
-\title{Amino acid mutation matrix}
+\alias{peptide_phychem_index,DNAStringSet_OR_DNAMultipleAlignment-method}
+\title{Amino acid numerical matrix}
 \usage{
 peptide_phychem_index(aa, ...)
 
@@ -17,7 +17,7 @@ peptide_phychem_index(aa, ...)
   ...
 )
 
-\S4method{peptide_phychem_index}{DNAStringSet}(
+\S4method{peptide_phychem_index}{DNAStringSet_OR_DNAMultipleAlignment}(
   aa,
   acc = NULL,
   aaindex = NA,
@@ -77,4 +77,37 @@ pairs of amino acids to whole DNA protein-coding or to aminoacid sequences.
 As results, DNA protein-coding or the aminoacid sequences are represented
 as numerical vectors which can be subject of further
 downstream statistical analysis and digital signal processing.
+\subsection{Let's create DNAStringSet-class object}{
+
+base <- DNAStringSet(x = c( seq1 ='ACGTCATCAAGT',
+seq2 = 'GTGTAATCCAGT',
+seq3 = 'TCCTCATCAGGT'))
+}
+
+\subsection{The stop condon 'TAA' yields NA}{
+
+aa <- peptide_phychem_index(base, acc = "EISD840101")
+aa
+}
+
+\subsection{Description of the physicochemical index}{
+
+aa@phychem
+}
+
+\subsection{The aminoacid sequences. The stop codon 'TAA' is replaced by '*'.}{
+
+aa@seqs
+
+aa <- peptide_phychem_index(base, acc = "MIYS850103", aaindex = "aaindex3"
+aa
+}
+
+\subsection{Description of the physicochemical index}{
+
+aa@phychem
+}
+}
+\author{
+Robersy Sanchez \url{https://genomaths.com}
 }

@@ -8,13 +8,19 @@
 \alias{show-MatrixSeq}
 \title{Definition of MatrixSeq-class}
 \usage{
+MatrixSeq(seqs, matrix, names, aaindex, phychem, accession)
+
 \S4method{show}{MatrixSeq}(object)
 }
 \arguments{
+\item{seqs, matrix, names, aaindex, physchem, accession}{See detail section}
+
 \item{object}{An object from 'MatrixSeq' class}
 }
 \value{
-Given the slot values, it defines a MatrixList-class.
+Given the slot values, it defines a MatrixSeq-class.
+
+A MatrixSeq-class object
 
 Print/show of a MatrixSeq-class object.
 }
@@ -39,5 +45,14 @@ to represent the DNA or aminoacid sequences.}
 \item{\strong{accession}: }{Accession number or ID of the applied
 physicochemical index in the database.}
 }
+}
+\examples{
+aln <- c(S1 = "ATGCGGATTAGA", S2 = "ATGACGATCACA", S3 = "ATGAGATCACAG")
+cd <- DNAMultipleAlignment(aln)
+r1 <- peptide_phychem_index(cd@unmasked, acc = "EISD840101")
+r1
+}
+\author{
+Robersy Sanchez \url{https://genomaths.com}
 }
 \keyword{internal}

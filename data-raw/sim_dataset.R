@@ -138,6 +138,11 @@ covid_autm
 
 usethis::use_data(covid_autm, overwrite = TRUE)
 
+
+## ============================================================== ###
+## ======================== AAindex ======================= 
+## ============================================================== ###
+
 aaindex1 <- readLines("https://www.genome.jp/ftp/db/community/aaindex/aaindex1")
 aaindex1_acc <- readLines("https://www.genome.jp/aaindex/AAindex/list_of_indices")
 
@@ -158,7 +163,21 @@ aaindex3 <- list(acc_num = aaindex3_acc, aaindex = aaindex3)
 usethis::use_data(aaindex2, aaindex3, overwrite = TRUE, compress = "xz")
 
 ## ============================================================== ###
-## ================= Codon Distance Matrix ============ ###
+## ======================== DNA Base PhyChe ======================= 
+## ============================================================== ###
+
+dna_phyche <- data.frame(
+                proton_affinity = c(942.8, 949.9, 959.5, 880.9), 
+                partition_coef = c(-0.3, -1.1, -0.9, -0.7),
+                dipole_moment = c(2.51, 5.58, 6.65, 4.37),
+                tautomerization_energy = c(12.68, 2.47, 0.76, 12.26),
+                row.names = c("A", "C", "G", "T"))
+
+usethis::use_data(dna_phyche, overwrite = TRUE, compress = "xz")
+
+
+## ============================================================== ###
+## ================= Codon Distance Matrix ============ 
 ## ============================================================== ###
 
 library(foreach)
@@ -203,9 +222,10 @@ cd1.cd2 <- c(as.vector(outer(nms[a1], nms[a2], FUN = paste, sep = ".")),
 mean(distm[ na.omit(match(cd1.cd2, names(distm))) ])
 
 
-# ---------------------------------------------------------------------- #
-# ----- Codon Distance Matrices for the Standard Genetic Code on Z4 ---- #
-# ---------------------------------------------------------------------- #
+## ============================================================== ###
+## ===== Codon Distance Matrices Z4 ==== 
+## ============================================================== ###
+
 
 GC <- c("ACGT","AGCT","TCGA","TGCA","CATG","GTAC","CTAG","GATC","ACTG",
         "ATCG","GTCA","GCTA","CAGT","TAGC","TGAC","CGAT","AGTC","ATGC",

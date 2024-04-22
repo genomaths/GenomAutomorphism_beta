@@ -58,15 +58,22 @@ other functions: \strong{\emph{aa_mutmat}} and \strong{\emph{aa_index}}
 data("aaindex1","aaindex2", package = "GenomAutomorphism" )
 
 ## Get the available mutation matrices
-mat <- aa_mutmat(aaindex = aaindex2, acc_list = TRUE)
+mat <- aa_mutmat(aaindex = "aaindex2", acc_list = TRUE)
 mat[1:10]
 
 ## Return the 'Base-substitution-protein-stability matrix 
 ## (Miyazawa-Jernigan, 1993)'
-aa_mutmat(acc = "MIYS930101", aaindex = aaindex2)
+aa_mutmat(acc = "MIYS930101", aaindex = "aaindex2")
 
 ## Return the 'BLOSUM80 substitution matrix (Henikoff-Henikoff, 1992)'
-aa_mutmat(acc = "HENS920103", aaindex = aaindex2)
+aa_mutmat(acc = "HENS920103", aaindex = "aaindex2")
+
+## Using wrapping function
+aa_phychem_index(acc = "EISD840101", aaindex = "aaindex1")
+
+## Just the info. The information provided after the reference
+## corresponds to the correlaiton of 'EISD840101' with other indices.
+aa_phychem_index(acc = "EISD840101", aaindex = "aaindex1", info = TRUE)
 
 }
 \seealso{

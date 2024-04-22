@@ -1,4 +1,4 @@
-## Copyright (C) 2021 Robersy Sanchez <https://genomaths.com/>
+## Copyright (C) 2021-2024 Robersy Sanchez <https://genomaths.com/>
 ## Author: Robersy Sanchez This file is part of the R package
 ## 'GenomAutomorphism'.  'GenomAutomorphism' is a free
 ## software: you can redistribute it and/or modify it under the

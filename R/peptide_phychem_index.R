@@ -17,7 +17,7 @@
 
 #' @rdname peptide_phychem_index
 #' @aliases peptide_phychem_index
-#' @title Amino acid mutation matrix
+#' @title Amino acid numerical matrix
 #' @description 
 #' This function applies the numerical indices representing various 
 #' physicochemical and biochemical properties of amino acids and 
@@ -25,7 +25,29 @@
 #' As results, DNA protein-coding or the aminoacid sequences are represented
 #' as numerical vectors which can be subject of further 
 #' downstream statistical analysis and digital signal processing.
+#' ## Let's create DNAStringSet-class object
+#' base <- DNAStringSet(x = c( seq1 ='ACGTCATCAAGT',
+#'                             seq2 = 'GTGTAATCCAGT',
+#'                             seq3 = 'TCCTCATCAGGT'))
 #' 
+#' ## The stop condon 'TAA' yields NA
+#' aa <- peptide_phychem_index(base, acc = "EISD840101")
+#' aa
+#' 
+#' ## Description of the physicochemical index
+#' aa@phychem
+#' 
+#' ## The aminoacid sequences. The stop codon 'TAA' is replaced by '*'.
+#' aa@seqs
+#' 
+#' 
+#' aa <- peptide_phychem_index(base, acc = "MIYS850103", aaindex = "aaindex3"
+#' aa
+#' 
+#' ## Description of the physicochemical index
+#' aa@phychem
+#' @author Robersy Sanchez <https://genomaths.com>
+#' @export
 setGeneric("peptide_phychem_index",
     function(
         aa,  
@@ -129,7 +151,8 @@ setMethod("peptide_phychem_index", signature(aa = "character"),
 #' @param ... Not in use.
 #' 
 #' @export
-setMethod("peptide_phychem_index", signature(aa = "DNAStringSet"),
+setMethod("peptide_phychem_index", 
+        signature(aa = "DNAStringSet_OR_DNAMultipleAlignment"),
     function(
         aa, 
         acc = NULL,
@@ -140,11 +163,17 @@ setMethod("peptide_phychem_index", signature(aa = "DNAStringSet"),
         verbose = FALSE,
         ...) {
         
+        if (inherits(aa, "DNAMultipleAlignment"))
+            aa <- aa@unmasked
+        
         aa <- translation(aa)
         l <- width(aa[1])
         seqs <- as.character(aa)
         
         phychem <- character()
+        if (is.na(aaindex))  
+            aaindex <- "aaindex1"
+        
         if (is.element(aaindex, c("aaindex1", "aaindex2", "aaindex3"))) {
             phychem <- aa_phychem_index(aaindex = aaindex, acc_list = TRUE)
             i <- grep(acc, phychem)
