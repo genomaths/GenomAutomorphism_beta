@@ -11,7 +11,11 @@ orcid.org/0000-0002-5246-1453](https://orcid.org/0000-0002-5246-1453)
 
 ## Overview
 
-This is a R package to compute the automorphisms between pairwise
+This repository contains a 'beta' version of the
+[GenomAutomorphism](https://github.com/genomaths/GenomAutomorphism) 
+R package.
+
+GenomAutomorphism R package is addressed to computing the automorphisms between pairwise
 aligned DNA sequences represented as elements from a Genomic Abelian
 group as described in the paper [Genomic Abelian Finite
 Groups](https://www.biorxiv.org/content/10.1101/2021.06.01.446543v2). In
