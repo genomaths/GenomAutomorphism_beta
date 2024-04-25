@@ -19,16 +19,26 @@
 #' @aliases peptide_phychem_index
 #' @title Amino acid numerical matrix
 #' @description 
-#' This function applies the numerical indices representing various 
-#' physicochemical and biochemical properties of amino acids and 
-#' pairs of amino acids to whole DNA protein-coding or to aminoacid sequences.
-#' As results, DNA protein-coding or the aminoacid sequences are represented
-#' as numerical vectors which can be subject of further 
-#' downstream statistical analysis and digital signal processing.
+#' This function applies numerical indices representing various physicochemical
+#' and biochemical properties of amino acids and pairs of amino acids to DNA
+#' protein-coding or to aminoacid sequences. As results, DNA protein-coding or
+#' the aminoacid sequences are represented as numerical vectors which can be
+#' subject of further downstream statistical analysis and digital signal
+#' processing.
+#' 
+#' @details
+#' If a DNA sequence is given, then it is assumed that it is a DNA base-triplet
+#' sequence, i.e., the base sequence must be multiple of 3. 
+#' 
+#' Errors can be originated if the given sequences carry letter which are not
+#' from the DNA or aminoacid alphabet.
+#' 
+#' 
+#' @examples
 #' ## Let's create DNAStringSet-class object
-#' base <- DNAStringSet(x = c( seq1 ='ACGTCATCAAGT',
-#'                             seq2 = 'GTGTAATCCAGT',
-#'                             seq3 = 'TCCTCATCAGGT'))
+#' base <- DNAStringSet(x = c( seq1 ='ACGTCATAAAGT',
+#'                             seq2 = 'GTGTAATACAGT',
+#'                             seq3 = 'TCCTCATAAGGT'))
 #' 
 #' ## The stop condon 'TAA' yields NA
 #' aa <- peptide_phychem_index(base, acc = "EISD840101")
@@ -37,15 +47,16 @@
 #' ## Description of the physicochemical index
 #' aa@phychem
 #' 
-#' ## The aminoacid sequences. The stop codon 'TAA' is replaced by '*'.
+#' ## Getthe aminoacid sequences. The stop codon 'TAA' is replaced by '*'.
 #' aa@seqs
 #' 
 #' 
-#' aa <- peptide_phychem_index(base, acc = "MIYS850103", aaindex = "aaindex3"
+#' aa <- peptide_phychem_index(base, acc = "MIYS850103", aaindex = "aaindex3")
 #' aa
 #' 
 #' ## Description of the physicochemical index
 #' aa@phychem
+#' 
 #' @author Robersy Sanchez <https://genomaths.com>
 #' @export
 setGeneric("peptide_phychem_index",
@@ -67,8 +78,12 @@ setGeneric("peptide_phychem_index",
 #' @param userindex User provided aminoacid indices. This can be a numerical
 #' vector or a matrix (20 x 20). If a numerical matrix is provided, then the 
 #' aminoacid indices are computes as column averages. 
-#' @param acc_list Logical. If TRUE, then the list of available matrices ids 
-#' and index names is returned.
+#' @param alphabet Whether the alphabet is from the 20 aminoacid (AA) or
+#' four (DNA)/RNA base alphabet. This would prevent mistakes, i.e., 
+#' the strings "ACG" would be a base-triplet on the DNA alphabet or simply
+#' the amino acid sequence of alanine, cysteine, and glutamic acid.
+#' @param genetic.code,no.init.codon,if.fuzzy.codon The same as given in 
+#' function [translation].
 #' @return Depending on the user specifications, a mutation or contact 
 #' potential matrix, a list of available matrices (indices) ids or index 
 #' names can be returned. More specifically:
@@ -80,11 +95,6 @@ setGeneric("peptide_phychem_index",
 #'    indices.}
 #' }
 #' 
-#' @param alphabet Whether the alphabet is from the 20 aminoacid (AA) or
-#' four (DNA)/RNA base alphabet. This would prevent mistakes, i.e., 
-#' the strings "ACG" would be a base-triplet on the DNA alphabet or simply
-#' the amino acid sequence of alanine, cysteine, and glutamic acid.
-#' 
 #' @export
 setMethod("peptide_phychem_index", signature(aa = "character"),
     function(
@@ -93,6 +103,9 @@ setMethod("peptide_phychem_index", signature(aa = "character"),
         aaindex = NA,
         userindex = NULL,
         alphabet = c("AA", "DNA"),
+        genetic.code = getGeneticCode("1"),
+        no.init.codon = FALSE,
+        if.fuzzy.codon = "error",
         ...) {
         
         alphabet <- match.arg(alphabet)
@@ -110,7 +123,12 @@ setMethod("peptide_phychem_index", signature(aa = "character"),
                 stop("*** The argument 'a' is not a DNA protein-coding",
                     " sequence, i.e., it is not a base-triplet sequence.")
             
-            aa <- translation(aa)
+            aa <- translation(
+                            x = aa,
+                            genetic.code = genetic.code,
+                            no.init.codon = no.init.codon,
+                            if.fuzzy.codon = if.fuzzy.codon)
+            
             alphabet <- "AA"
         }
 
@@ -158,6 +176,10 @@ setMethod("peptide_phychem_index",
         acc = NULL,
         aaindex = NA,
         userindex = NULL,
+        alphabet = c("AA", "DNA"),
+        genetic.code = getGeneticCode("1"),
+        no.init.codon = FALSE,
+        if.fuzzy.codon = "error",
         num.cores = 1L,
         tasks = 0L,
         verbose = FALSE,
@@ -166,7 +188,12 @@ setMethod("peptide_phychem_index",
         if (inherits(aa, "DNAMultipleAlignment"))
             aa <- aa@unmasked
         
-        aa <- translation(aa)
+        aa <- translation(
+                        x = aa,
+                        genetic.code = genetic.code,
+                        no.init.codon = no.init.codon,
+                        if.fuzzy.codon = if.fuzzy.codon)
+        
         l <- width(aa[1])
         seqs <- as.character(aa)
         
@@ -193,7 +220,8 @@ setMethod("peptide_phychem_index",
         
         
         nms <- names(seqs)
-        aa <- matrix(unlist(aa, use.names = FALSE), ncol = l, byrow = TRUE)
+        aa <- matrix(unlist(aa, use.names = FALSE), 
+                    ncol = l, byrow = TRUE)
         rownames(aa) <- paste0("S", seq(nrow(aa)))
         colnames(aa) <- paste0("A", seq(ncol(aa)))
 

@@ -14,6 +14,9 @@ peptide_phychem_index(aa, ...)
   aaindex = NA,
   userindex = NULL,
   alphabet = c("AA", "DNA"),
+  genetic.code = getGeneticCode("1"),
+  no.init.codon = FALSE,
+  if.fuzzy.codon = "error",
   ...
 )
 
@@ -22,6 +25,10 @@ peptide_phychem_index(aa, ...)
   acc = NULL,
   aaindex = NA,
   userindex = NULL,
+  alphabet = c("AA", "DNA"),
+  genetic.code = getGeneticCode("1"),
+  no.init.codon = FALSE,
+  if.fuzzy.codon = "error",
   num.cores = 1L,
   tasks = 0L,
   verbose = FALSE,
@@ -47,6 +54,9 @@ four (DNA)/RNA base alphabet. This would prevent mistakes, i.e.,
 the strings "ACG" would be a base-triplet on the DNA alphabet or simply
 the amino acid sequence of alanine, cysteine, and glutamic acid.}
 
+\item{genetic.code, no.init.codon, if.fuzzy.codon}{The same as given in
+function \link{translation}.}
+
 \item{num.cores, tasks}{Parameters for parallel computation using package
 \code{\link[BiocParallel]{BiocParallel-package}}: the number of cores to
 use, i.e. at most how many child processes will be run simultaneously
@@ -54,9 +64,6 @@ use, i.e. at most how many child processes will be run simultaneously
 (only for Linux OS).}
 
 \item{verbose}{If TRUE, prints the function log to stdout.}
-
-\item{acc_list}{Logical. If TRUE, then the list of available matrices ids
-and index names is returned.}
 }
 \value{
 Depending on the user specifications, a mutation or contact
@@ -71,42 +78,43 @@ indices.}
 }
 }
 \description{
-This function applies the numerical indices representing various
-physicochemical and biochemical properties of amino acids and
-pairs of amino acids to whole DNA protein-coding or to aminoacid sequences.
-As results, DNA protein-coding or the aminoacid sequences are represented
-as numerical vectors which can be subject of further
-downstream statistical analysis and digital signal processing.
-\subsection{Let's create DNAStringSet-class object}{
-
-base <- DNAStringSet(x = c( seq1 ='ACGTCATCAAGT',
-seq2 = 'GTGTAATCCAGT',
-seq3 = 'TCCTCATCAGGT'))
+This function applies numerical indices representing various physicochemical
+and biochemical properties of amino acids and pairs of amino acids to DNA
+protein-coding or to aminoacid sequences. As results, DNA protein-coding or
+the aminoacid sequences are represented as numerical vectors which can be
+subject of further downstream statistical analysis and digital signal
+processing.
 }
+\details{
+If a DNA sequence is given, then it is assumed that it is a DNA base-triplet
+sequence, i.e., the base sequence must be multiple of 3.
 
-\subsection{The stop condon 'TAA' yields NA}{
+Errors can be originated if the given sequences carry letter which are not
+from the DNA or aminoacid alphabet.
+}
+\examples{
+## Let's create DNAStringSet-class object
+base <- DNAStringSet(x = c( seq1 ='ACGTCATAAAGT',
+                            seq2 = 'GTGTAATACAGT',
+                            seq3 = 'TCCTCATAAGGT'))
 
+## The stop condon 'TAA' yields NA
 aa <- peptide_phychem_index(base, acc = "EISD840101")
 aa
-}
 
-\subsection{Description of the physicochemical index}{
-
+## Description of the physicochemical index
 aa@phychem
-}
 
-\subsection{The aminoacid sequences. The stop codon 'TAA' is replaced by '*'.}{
-
+## Getthe aminoacid sequences. The stop codon 'TAA' is replaced by '*'.
 aa@seqs
 
-aa <- peptide_phychem_index(base, acc = "MIYS850103", aaindex = "aaindex3"
+
+aa <- peptide_phychem_index(base, acc = "MIYS850103", aaindex = "aaindex3")
 aa
-}
 
-\subsection{Description of the physicochemical index}{
-
+## Description of the physicochemical index
 aa@phychem
-}
+
 }
 \author{
 Robersy Sanchez \url{https://genomaths.com}
