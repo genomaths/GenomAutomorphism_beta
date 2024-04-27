@@ -295,8 +295,8 @@ setMethod("get_mutscore", signature(aa1 = "BaseSeq", aa2 = "missing"),
             ## ---------------------------------------------------------- ##
         
             k <- j <- NULL
-            y <- foreach(k = 1:(n - 1), .combine = "c")  %:% 
-                    foreach(j = (k + 1):n, .combine = "c") %dopar% {
+            y <- foreach(k = seq(n - 1), .combine = "c")  %:% 
+                    foreach(j = seq((k + 1), n), .combine = "c") %dopar% {
                         sum(get_mutscore(
                                     aa1 = paste(x[, k], collapse = ""), 
                                     aa2 = paste(x[, j], collapse = ""),
@@ -308,8 +308,8 @@ setMethod("get_mutscore", signature(aa1 = "BaseSeq", aa2 = "missing"),
             stopCluster(cl)
         }
         else {
-            y <- foreach(k = 1:(n - 1), .combine = "c")  %:% 
-                    foreach(j = (k + 1):n, .combine = "c") %do% {
+            y <- foreach(k = seq(n - 1), .combine = "c")  %:% 
+                    foreach(j = seq((k + 1), n), .combine = "c") %do% {
                         stat(get_mutscore(
                                     aa1 = paste(x[, k], collapse = ""), 
                                     aa2 = paste(x[, j], collapse = ""),

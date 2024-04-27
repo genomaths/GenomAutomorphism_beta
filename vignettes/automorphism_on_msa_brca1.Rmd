@@ -123,7 +123,7 @@ Wolfram Player, freely available (for Windows and Linux OS) at,
 # Automorphisms on $\mathbb{Z}_{64}$
 
 First, we proceed to load the R package required for our analysis
-```{r library, message=FALSE}
+```{r library, results="hide", warning=FALSE, message=FALSE}
 library(GenomAutomorphism)
 library(Biostrings)
 library(ggseqlogo)

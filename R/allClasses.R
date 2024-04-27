@@ -481,7 +481,7 @@ valid.ListCodonMatrix <- function(x) {
     
     t1 <- t2 <- t3 <- t4 <- FALSE
     
-    t1 <- !all(sapply(x@DataList, inherits, what = "CodonMatrix"))
+    t1 <- !all(slapply(x@DataList, inherits, what = "CodonMatrix"))
     t2 <- !is.element(group, c("Z5", "Z4"))
     t3 <- !is.element(cube, c(
         "ACGT", "AGCT", "TCGA", "TGCA", "CATG",
@@ -777,8 +777,9 @@ setClassUnion(
 #' or a \code{\link[S4Vectors]{DataFrame-class}} object \eqn{"x"} requires for
 #' the creation of an additional \code{\link[GenomicRanges]{GRanges-class}}
 #' object, which by default will have the argument seqnames = "1", strand =
-#' "+", start/end = 1:nrow(x), length = nrow(x). These details must be keep in
-#' mind to prevent fundamental errors in the downstream analyses.
+#' "+", start/end = seq(row(x)), length = nrow(x). These details must be keep
+#' in mind to prevent fundamental errors in the downstream analyses.
+#' 
 #' @section Automorphism-class methods:
 #' ## as(from, "Automorphism"):
 #' Permits the transformation of a \code{\link[base]{data.frame}} or a
@@ -952,7 +953,7 @@ setValidity2("Automorphism", valid.Automorphism)
 #' as.AutomorphismList(lista)
 #' 
 #' ## Alternatively we can set
-#' aut <- as.list(brca1_autm[1:2])
+#' aut <- as.list(brca1_autm[seq(2)])
 #' class(aut)
 #' 
 #' ## And reverse it
@@ -973,7 +974,7 @@ setValidity2("Automorphism", valid.Automorphism)
 #'
 #' ## Transform a AutomorphismList-class object into an Automorphism-class
 #' ## object 
-#' unlist(brca1_autm[1:2])
+#' unlist(brca1_autm[seq(2)])
 #' @seealso \code{\link{Automorphism-class}} and 
 #' \code{\link{AutomorphismByCoefList-class}}.
 setClass("AutomorphismList",
@@ -1055,7 +1056,7 @@ setMethod("names",
 #' @examples 
 #' ## Load a DNA sequence alignment
 #' data("brca1_autm", package = "GenomAutomorphism")
-#' x1 <- brca1_autm[1:2]
+#' x1 <- brca1_autm[seq(2)]
 #' names(x1)
 #' 
 #' ## Let's assign a new names
@@ -1076,7 +1077,7 @@ setReplaceMethod(
 #' data("brca1_autm", package = "GenomAutomorphism")
 #' 
 #' ## The list of the first three elements
-#' autm_list <- as.list(brca1_autm[1:3])
+#' autm_list <- as.list(brca1_autm[seq(3)])
 #' autm_list
 setMethod("as.list",
     signature = "AutomorphismList",

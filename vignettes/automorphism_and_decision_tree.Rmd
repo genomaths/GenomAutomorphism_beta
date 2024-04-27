@@ -158,7 +158,7 @@ devtools::install_git("https://github.com/genomaths/GenomAutomorphism.git")
 
 If all the required libraries all installed, then we proceed to load the 
 libraries
-```{r library,warning=FALSE,message=FALSE}
+```{r library,results="hide",warning=FALSE,message=FALSE}
 library(GenomAutomorphism)
 library(Biostrings)
 library(party)
@@ -686,7 +686,7 @@ interval <- function(x, a, b) {
 
 datos <- dt
 datos$mut_cost <- get_mutscore(aa1 = datos$aa1, aa2 = datos$aa2, 
-            acc = "MIYS960102", aaindex = aaindex3, alphabet = "AA",
+            acc = "MIYS960102", aaindex = "aaindex3", alphabet = "AA",
             num.cores = 20)
 
 hist(datos$mut_cost,12)

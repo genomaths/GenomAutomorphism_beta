@@ -58,7 +58,7 @@ any downstream analysis.
 ## distance between codons given in the coordinate name. 
 x <- codon_dist_matrix(genetic_code = "5", cube = "TGCA", group = "Z5",
                     output = "vector")
-x[61:63]
+x[seq(61, 63)]
 
 }
 \seealso{

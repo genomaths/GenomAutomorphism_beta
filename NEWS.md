@@ -1,3 +1,9 @@
+# GenomAutomorphism 1.5.1
+
+* Introducing new function for DNA and aminoacid sequence representation
+  with physicochemical properties of DNA and aminoacids, which would be 
+  useful for further downstream statistical analysis in R.
+
 # GenomAutomorphism 1.0.2
 
 * Fix error of parallel computation on Windows (12/08/2022)

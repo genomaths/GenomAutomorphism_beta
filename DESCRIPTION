@@ -22,7 +22,7 @@ Description:
             prime-power order.
 Depends: 
     R (>= 4.2),
-License: file LICENSE
+License: Artistic-2.0
 Encoding: UTF-8
 biocViews: 
     MathematicalBiology,

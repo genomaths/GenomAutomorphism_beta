@@ -157,7 +157,7 @@
 #' str_set
 #' 
 #' ## Recovering the original MSA
-#' \dontrun{
+#' \donttest{
 #' require(Biostrings, quietly = TRUE)
 #' DNAMultipleAlignment(as.character(str_set))
 #' } 

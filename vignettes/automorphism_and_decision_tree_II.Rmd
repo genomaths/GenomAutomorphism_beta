@@ -212,7 +212,6 @@ reference (1). The mutational effect is measured in terms of the average of
 two aminoacid distance functions, which are based on the codon distance.
 
 ```{r datos1}
-data("aaindex3", package = "GenomAutomorphism")
 interval <- function(x, a, b) {
     x >= a & x <= b
 }

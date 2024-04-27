@@ -59,7 +59,7 @@ data("aaindex1","aaindex2", package = "GenomAutomorphism" )
 
 ## Get the available mutation matrices
 mat <- aa_mutmat(aaindex = "aaindex2", acc_list = TRUE)
-mat[1:10]
+mat[seq(10)]
 
 ## Return the 'Base-substitution-protein-stability matrix 
 ## (Miyazawa-Jernigan, 1993)'
