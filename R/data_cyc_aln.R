@@ -20,9 +20,11 @@
 #' downloaded from GitHub at: <https://bit.ly/3kdEAzs>
 #' @author Robersy Sanchez <https://genomaths.com>
 #' @seealso  [brca1_aln], [brca1_aln2], [covid_aln], and [covid_aln].
-#' @format \code{\link[Biostrings]{DNAMultipleAlignment}} class object.
+#' @usage 
+#' data("cyc_aln", package = "GenomAutomorphism")
+#' @format [DNAMultipleAlignment] class object.
 #' @examples
-#' data(cyc_aln, package = "GenomAutomorphism")
+#' data("cyc_aln", package = "GenomAutomorphism")
 #' cyc_aln
 #' 
 "cyc_aln"

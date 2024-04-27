@@ -129,7 +129,7 @@ setMethod(
         stat <- match.arg(stat)
         
         if (genetic_code == "1" && group == "Z4") {
-            data(cdm_z64, package = "GenomAutomorphism", 
+            data("cdm_z64", package = "GenomAutomorphism", 
                 envir = environment(), overwrite = TRUE)
             cdm <- cdm_z64[[ cube ]]
         }

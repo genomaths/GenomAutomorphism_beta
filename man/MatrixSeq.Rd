@@ -13,7 +13,7 @@ MatrixSeq(seqs, matrix, names, aaindex, phychem, accession)
 \S4method{show}{MatrixSeq}(object)
 }
 \arguments{
-\item{seqs, matrix, names, aaindex, physchem, accession}{See detail section}
+\item{seqs, matrix, names, aaindex, phychem, accession}{See detail section}
 
 \item{object}{An object from 'MatrixSeq' class}
 }
@@ -31,7 +31,7 @@ That is, a place where each aminoacid or codon from the sequence is
 represented by numerical value from a physicochemical index.
 }
 \details{
-\itemize{
+\describe{
 \item{\strong{seqs}: }{A string character vector of DNA or aminoacid
 sequences.}
 \item{\strong{matrix}: }{A numerical matrix carrying the specified

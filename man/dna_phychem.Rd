@@ -21,19 +21,17 @@ dna_phychem(seqs, ...)
 )
 }
 \arguments{
+\item{seqs}{A character string, a \code{\link[Biostrings]{DNAStringSet}}
+or a \code{\link[Biostrings]{DNAMultipleAlignment}} class object carrying
+the DNA pairwise alignment of two sequences.}
+
 \item{...}{Not in use.}
+
+\item{phychem}{A list of DNA bases physicochemical properties, e.g., like
+those provided in \link{dna_phyche}.}
 
 \item{index_name}{Optional. Name of breve description of the base
 physicochemical property applied to represent the DNA sequence.}
-
-\item{base}{A character vector, string , or a dataframe of letters from the
-DNA/RNA alphabet.}
-
-\item{num.cores, tasks}{Parameters for parallel computation using package
-\code{\link[BiocParallel]{BiocParallel-package}}: the number of cores to
-use, i.e. at most how many child processes will be run simultaneously
-(see \code{\link[BiocParallel]{bplapply}} and the number of tasks per job
-(only for Linux OS).}
 }
 \description{
 This function applies the numerical indices representing various

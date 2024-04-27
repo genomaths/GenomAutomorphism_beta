@@ -8,7 +8,7 @@
 \code{\link[Biostrings]{DNAMultipleAlignment}} class object.
 }
 \usage{
-brca1_aln2
+data("brca1_aln2", package = "GenomAutomorphism")
 }
 \description{
 This is a \code{\link[Biostrings]{DNAMultipleAlignment}} carrying a MSA of
@@ -21,7 +21,7 @@ sequence NM_007298 transcript variant 4. The location of each SMV is given
 in the heading from each sequence.
 }
 \examples{
-data(brca1_aln2, package = "GenomAutomorphism")
+data("brca1_aln2", package = "GenomAutomorphism")
 brca1_aln2
 
 }

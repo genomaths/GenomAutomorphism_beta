@@ -19,14 +19,20 @@
 #' is a database of numerical indices representing various physicochemical and
 #' biochemical properties of amino acids and pairs of amino acids.
 #' 
-#' @examples 
-#' ## Load the mutation matrices from database from the packages
-#' data(aaindex1, package = "GenomAutomorphism")
-#' 
-#' ## Get the available mutation matrices
-#' mat <- aa_mutmat(aaindex = aaindex1, acc_list = TRUE)
-#' mat[1:10]
 #' @seealso [aaindex2] and [aaindex3].
 #' @author Robersy Sanchez <https://genomaths.com>
-#' @format \code{\link{AutomorphismList}} class object.
+#' @format A list carrying the the description 566 Amino Acid Indices in 
+#' AAindex ver.9.2 and the text file with the matrices imported from
+#' \url{https://www.genome.jp/aaindex/}.
+#' @docType data
+#' @usage 
+#' data("aaindex1", package = "GenomAutomorphism")
+#' @examples 
+#' ## Load the mutation matrices from database from the packages
+#' data("aaindex1", package = "GenomAutomorphism", envir = environment())
+#' 
+#' ## Get the available aminoacid indices.
+#' mat <- aa_phychem_index(aaindex = "aaindex1", acc_list = TRUE)
+#' mat[1:10]
+#' 
 "aaindex1"

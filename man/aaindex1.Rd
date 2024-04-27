@@ -5,10 +5,12 @@
 \alias{aaindex1}
 \title{List of 571 Amino Acid Physicochemical Indexes from AAindex Database}
 \format{
-\code{\link{AutomorphismList}} class object.
+A list carrying the the description 566 Amino Acid Indices in
+AAindex ver.9.2 and the text file with the matrices imported from
+\url{https://www.genome.jp/aaindex/}.
 }
 \usage{
-aaindex1
+data("aaindex1", package = "GenomAutomorphism")
 }
 \description{
 The aminoacid indexes from Amino Acid Index Database
@@ -18,11 +20,12 @@ biochemical properties of amino acids and pairs of amino acids.
 }
 \examples{
 ## Load the mutation matrices from database from the packages
-data(aaindex1, package = "GenomAutomorphism")
+data("aaindex1", package = "GenomAutomorphism", envir = environment())
 
-## Get the available mutation matrices
-mat <- aa_mutmat(aaindex = aaindex1, acc_list = TRUE)
+## Get the available aminoacid indices.
+mat <- aa_phychem_index(aaindex = "aaindex1", acc_list = TRUE)
 mat[1:10]
+
 }
 \seealso{
 \link{aaindex2} and \link{aaindex3}.

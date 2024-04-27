@@ -3,19 +3,18 @@
 #' @aliases mod
 #' @aliases '%%'
 #' @aliases modulo
-#' @param n A matrix where each element can be reduced to integers or the
-#' same as in \code{\link[mod]{numbers}}.
-#' @param m As in \code{\link[mod]{numbers}}.
-#' @description Integer remainder of the division of the integer n by m:
-#' n mod m. This function extend the application of function 
-#' \code{\link[mod]{numbers}} to matrices where the operation on each row is 
-#' with is accomplish with a different values of \eqn{m}, i.e, where \eqn{m}
-#' is a vector. 
+#' @param n A numeric vector (preferably of integers), a matrix where each 
+#' element can be reduced to integers.
+#' @param m An integer vector (positive, zero, or negative).
+#' @description 
+#' Integer remainder of the division of the integer n by m:
+#' n mod m. 
+#' @param ... Not in use.
 #' @return An element of x, an \code{\link{Automorphism-class}} object.
-#' @importFrom numbers mod
 #' @export
 #' @author Robersy Sanchez (\url{https://genomaths.com}).
 #' @examples 
+#' ## Example 1
 #' ## Build a matrix 'n' and set a vector of integers 'm'
 #' n <- diag(x=1, nrow = 4, ncol = 4) * c(43,125,2,112)
 #' m <- c(64,4,4,64)
@@ -25,6 +24,13 @@
 #' 
 #' ## Or simply:
 #' n %% m
+#' 
+#' ## Example 2
+#' m <- matrix(c(8,2,3, 11,12,13), nrow = 2)
+#' m
+#' 
+#' m %% 4
+#' 
 setGeneric(
     "mod",
     function(n, m, ...) {

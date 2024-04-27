@@ -8,12 +8,12 @@
 A data frame object.
 }
 \usage{
-dna_phyche
+data("dna_phyche", package = "GenomAutomorphism")
 }
 \description{
 This data set carries some relevant physicochemical properties of the
 DNA bases. Available properties are:
-\itemize{
+\describe{
 \item{"proton_affinity: "}{It is an indicatio of the thermodynamic
 gradient between a molecule and the anionic form of that molecule upon
 removal of a proton from it

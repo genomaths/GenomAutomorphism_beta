@@ -34,13 +34,29 @@
 #' metacolumns.
 #' @seealso [codon_coord], [base_coord] and [base2int].
 #' @export
+#' @references
+#' \enumerate{
+#'  \item Lorenzo-Ginori, Juan V., Aníbal Rodríguez-Fuentes, Ricardo Grau 
+#'  Ábalo, and Robersy Sánchez Rodríguez. "Digital signal processing in the
+#'  analysis of genomic sequences." Current Bioinformatics 4, no. 1 (2009):
+#'  28-40.
+#'  \item Sanchez, Robersy. "Evolutionary analysis of DNA-protein-coding
+#'  regions based on a genetic code cube metric." Current Topics in Medicinal
+#'  Chemistry 14, no. 3 (2014): 407-417.
+#'  \item Robersy Sanchez, Jesus Barreto (2021) Genomic Abelian Finite
+#'   Groups.
+#'  [doi: 10.1101/2021.06.01.446543](https://doi.org/10.1101/2021.06.01.446543)
+#'  \item M. V Jose, E.R. Morgado, R. Sanchez, T. Govezensky, The 24 possible
+#'  algebraic representations of the standard genetic code in six or in three
+#'  dimensions, Adv. Stud. Biol. 4 (2012) 119-152.[PDF](https://is.gd/na9eap).
+#'  \item R. Sanchez. Symmetric Group of the Genetic-Code Cubes. Effect of the
+#'  Genetic-Code Architecture on the Evolutionary Process MATCH Commun. Math.
+#'  Comput. Chem. 79 (2018) 527-560.
+#' }
+
 #' @references 
-#' 1. Lorenzo-Ginori, Juan V., Aníbal Rodríguez-Fuentes, Ricardo Grau Ábalo, 
-#' and Robersy Sánchez Rodríguez. "Digital signal processing in the analysis 
-#' of genomic sequences." Current Bioinformatics 4, no. 1 (2009): 28-40.
-#' 2. Sanchez, Robersy. "Evolutionary analysis of DNA-protein-coding regions
-#' based on a genetic code cube metric." Current topics in medicinal chemistry
-#'  14, no. 3 (2014): 407-417.
+#' 1. 
+#' 2. 
 #' @examples
 #' ## Load the MSA of Primate BRCA1 DNA repair genes
 #' data("brca1_aln")
@@ -72,8 +88,9 @@ setGeneric(
 #' \code{\link[BiocParallel]{bplapply}} and the number of tasks per job (only
 #' for Linux OS).
 #' @param verbose If TRUE, prints the function log to stdout
+#' @param ... Not in use yet.
 #' @import Biostrings
-#' @importFrom BiocParallel MulticoreParam bplapply SnowParam
+#' @importFrom BiocParallel MulticoreParam bplapply SnowParam multicoreWorkers
 #' @export
 setMethod(
     "codon_matrix", signature(base = "BaseSeqMatrix"),
@@ -81,7 +98,8 @@ setMethod(
         base, 
         num.cores = 1L, 
         tasks = 0L,
-        verbose = TRUE) {
+        verbose = TRUE,
+        ...) {
     
         group <- base@group
         cube <- base@cube
@@ -197,6 +215,10 @@ setMethod(
 
 #' @rdname codon_matrix
 #' @aliases codon_matrix
+#' @param cube A character string denoting one of the 24 Genetic-code cubes,
+#' as given in references (3-4).
+#' @param group A character string denoting the group representation for the
+#' given base or codon as shown in reference (3-4).
 #' @export
 setMethod(
     "codon_matrix", signature(base = "DNAMultipleAlignment"),

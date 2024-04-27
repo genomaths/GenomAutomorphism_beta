@@ -82,7 +82,7 @@ object.
 
 \examples{
 ## Load datasets
-data(autm, brca1_autm)
+data("autm", "brca1_autm")
 
 ## Transforming a list of Automorphisms into an AutomorphismList object
 lista <- list(human = brca1_autm[[1]], gorilla = brca1_autm[[2]])

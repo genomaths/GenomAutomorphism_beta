@@ -39,6 +39,7 @@
 #' \code{\link[parallel]{makeCluster}}.
 #' @importFrom doParallel registerDoParallel
 #' @importFrom parallel makeCluster 
+#' @importFrom stats as.dist
 #' @import foreach
 #' @export
 #' @seealso \code{\link{codon_dist}}.

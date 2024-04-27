@@ -9,7 +9,7 @@
 \usage{
 codon_matrix(base, ...)
 
-\S4method{codon_matrix}{BaseSeqMatrix}(base, num.cores = 1L, tasks = 0L, verbose = TRUE)
+\S4method{codon_matrix}{BaseSeqMatrix}(base, num.cores = 1L, tasks = 0L, verbose = TRUE, ...)
 
 \S4method{codon_matrix}{DNAStringSet}(
   base,
@@ -37,6 +37,8 @@ codon_matrix(base, ...)
 \item{base}{A \code{\link[Biostrings]{DNAMultipleAlignment}}, a
 \code{\link[Biostrings]{DNAStringSet}}, or a \link{BaseSeqMatrix}.}
 
+\item{...}{Not in use yet.}
+
 \item{num.cores, tasks}{Parameters for parallel computation using package
 \code{\link[BiocParallel]{BiocParallel-package}}: the number of cores to
 use, i.e. at most how many child processes will be run simultaneously (see
@@ -44,6 +46,12 @@ use, i.e. at most how many child processes will be run simultaneously (see
 for Linux OS).}
 
 \item{verbose}{If TRUE, prints the function log to stdout}
+
+\item{cube}{A character string denoting one of the 24 Genetic-code cubes,
+as given in references (3-4).}
+
+\item{group}{A character string denoting the group representation for the
+given base or codon as shown in reference (3-4).}
 }
 \value{
 A \link{ListCodonMatrix} class object with the codon coordinate on its
@@ -75,12 +83,27 @@ codon_matrix(brca1)
 }
 \references{
 \enumerate{
-\item Lorenzo-Ginori, Juan V., Aníbal Rodríguez-Fuentes, Ricardo Grau Ábalo,
-and Robersy Sánchez Rodríguez. "Digital signal processing in the analysis
-of genomic sequences." Current Bioinformatics 4, no. 1 (2009): 28-40.
-\item Sanchez, Robersy. "Evolutionary analysis of DNA-protein-coding regions
-based on a genetic code cube metric." Current topics in medicinal chemistry
-14, no. 3 (2014): 407-417.
+\item Lorenzo-Ginori, Juan V., Aníbal Rodríguez-Fuentes, Ricardo Grau
+Ábalo, and Robersy Sánchez Rodríguez. "Digital signal processing in the
+analysis of genomic sequences." Current Bioinformatics 4, no. 1 (2009):
+28-40.
+\item Sanchez, Robersy. "Evolutionary analysis of DNA-protein-coding
+regions based on a genetic code cube metric." Current Topics in Medicinal
+Chemistry 14, no. 3 (2014): 407-417.
+\item Robersy Sanchez, Jesus Barreto (2021) Genomic Abelian Finite
+Groups.
+\href{https://doi.org/10.1101/2021.06.01.446543}{doi: 10.1101/2021.06.01.446543}
+\item M. V Jose, E.R. Morgado, R. Sanchez, T. Govezensky, The 24 possible
+algebraic representations of the standard genetic code in six or in three
+dimensions, Adv. Stud. Biol. 4 (2012) 119-152.\href{https://is.gd/na9eap}{PDF}.
+\item R. Sanchez. Symmetric Group of the Genetic-Code Cubes. Effect of the
+Genetic-Code Architecture on the Evolutionary Process MATCH Commun. Math.
+Comput. Chem. 79 (2018) 527-560.
+}
+
+\enumerate{
+\item 
+\item 
 }
 }
 \seealso{

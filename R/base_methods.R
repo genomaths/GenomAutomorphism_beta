@@ -43,12 +43,10 @@
 #' ## Function 'base_coord'
 #' 
 #' Function \strong{\emph{base_coord}} is defined only for pairwise 
-#' aligned sequences:\n", "'base' strings are not equal-width.
-#' 
-#' Symbols "-" and "N" usually found in DNA sequence alignments to
-#' denote gaps and missing/unknown bases are represented by the number: '-1'
-#' on Z4 and '0' on Z5. In Z64 the symbol 'NA' will be returned for codons
-#' including symbols "-" and "N".
+#' aligned sequences. Symbols "-" and "N" usually found in DNA sequence
+#' alignments to denote gaps and missing/unknown bases are represented by the
+#' number: '-1' on Z4 and '0' on Z5. In Z64 the symbol 'NA' will be returned
+#' for codons including symbols "-" and "N".
 #' 
 #' ## Functions 'seq2granges' and 'base_seq2string_set'
 #' 
@@ -127,7 +125,7 @@
 #' base_coord(x1, cube = "ACGT", group = "Z4")
 #' 
 #' ## Example 2. Load a pairwise alignment
-#' data(aln, package = "GenomAutomorphism")
+#' data("aln", package = "GenomAutomorphism")
 #' aln
 #'
 #' ## DNA base representation in the Abelian group Z4
@@ -144,6 +142,29 @@
 #'     group = "Z5"
 #' )
 #' bs_cor
+#' 
+#' ## Example 4. Load a multiple sequence alignment (MSA) of primate BRCA1 DNA  
+#' ## repair genes 
+#' data("brca1_aln2", package = "GenomAutomorphism")
+#' brca1_aln2
+#' 
+#' ## Get BaseSeq-class object
+#' gr <- seq2granges(brca1_aln2)
+#' gr
+#' 
+#' ## Transform the BaseSeq-class object into a DNAStringSet-class object
+#' str_set <- base_seq2string_set(gr)
+#' str_set
+#' 
+#' ## Recovering the original MSA
+#' \dontrun{
+#' require(Biostrings, quietly = TRUE)
+#' DNAMultipleAlignment(as.character(str_set))
+#' } 
+#' 
+#' ## Example 5. 
+#' base_matrix(base = aln, cube = "CGTA", group = "Z5")
+#' 
 #' @aliases base_coord
 #' @export
 #' @return A BaseGroup-class object.
@@ -296,26 +317,6 @@ setMethod(
 #' @author Robersy Sanchez <https://genomaths.com>
 #' @seealso [base_coord] and [codon_coord].
 #' @export
-#' @examples
-#' ## Example 4. Load a multiple sequence alignment (MSA) of primate BRCA1 DNA  
-#' ## repair genes 
-#' data(brca1_aln2, package = "GenomAutomorphism")
-#' brca1_aln2
-#' 
-#' ## Get BaseSeq-class object
-#' gr <- seq2granges(brca1_aln2)
-#' gr
-#' 
-#' ## Transform the BaseSeq-class object into a DNAStringSet-class object
-#' str_set <- base_seq2string_set(gr)
-#' str_set
-#' 
-#' ## Recovering the original MSA
-#' \dontrun{
-#' require(Biostrings, quietly = TRUE)
-#' DNAMultipleAlignment(as.character(str_set))
-#' } 
-#' 
 setGeneric(
     "seq2granges",
     function(
@@ -329,6 +330,8 @@ setGeneric(
 
 #' @aliases seq2granges
 #' @rdname base_methods
+#' @param seq_alias DNA sequence alias/ID and description.
+#' @param ... Not in use yet.
 #' @import GenomicRanges
 #' @importFrom methods new
 #' @import Biostrings
@@ -342,7 +345,8 @@ setMethod(
         end = NA,
         chr = 1L,
         strand = "+",
-        seq_alias = NULL) {
+        seq_alias = NULL,
+        ...) {
 
     if (is.null(base) && is.null(filepath)) {
         stop(
@@ -492,9 +496,6 @@ setGeneric(
 #' @import GenomicRanges
 #' @import Biostrings
 #' @export
-#' @examples
-#' ## Example 5. 
-#' base_matrix(base = aln, cube = "CGTA", group = "Z5")
 setMethod(
     "base_matrix", signature(base = "DNAStringSet_OR_NULL"),
     function(

@@ -15,16 +15,34 @@
 #' @rdname dna_phychem
 #' @aliases dna_phychem
 #' @title DNA numerical matrix
+#' @param seqs A character string, a \code{\link[Biostrings]{DNAStringSet}}
+#' or a \code{\link[Biostrings]{DNAMultipleAlignment}} class object carrying
+#' the DNA pairwise alignment of two sequences.
+#' @param phychem A list of DNA bases physicochemical properties, e.g., like
+#' those provided in [dna_phyche].
+#' @param index_name Optional. Name of breve description of the base
+#' physicochemical property applied to represent the DNA sequence.
+#' @param ... Not in use.
 #' @description 
 #' This function applies the numerical indices representing various
 #' physicochemical and biochemical properties of DNA bases. As results, DNA
 #' sequences are represented as numerical vectors which can be subject of
 #' further downstream statistical analysis and digital signal processing.
-#' @param base A character vector, string , or a dataframe of letters from the 
-#' DNA/RNA alphabet.
 #' @author Robersy Sanchez <https://genomaths.com>
 #' @seealso [peptide_phychem_index]
 #' @export
+#' @examples
+#' ## Let's create DNAStringSet-class object 
+#' base <- DNAStringSet(x = c( seq1 ='ACGTGATCAAGT', 
+#'                             seq2 = 'GTGTGATCCAGT', 
+#'                             seq3 = 'TCCTGATCAGGT'))
+#' 
+#' 
+#' dna_phychem(seqs = base,
+#'             phychem <- list('A' = 0.87, 'C' = 0.88, 'T' = 0.82,
+#'                             'G' = 0.89, 'N' = NA),
+#'             index_name = "Proton-Affinity")
+#' 
 setGeneric("dna_phychem",
            function(
         seqs,  
@@ -51,27 +69,7 @@ setMethod("dna_phychem", signature(seqs = "character"),
 
 #' @aliases dna_phychem
 #' @rdname dna_phychem
-#' @param num.cores,tasks Parameters for parallel computation using package
-#' \code{\link[BiocParallel]{BiocParallel-package}}: the number of cores to
-#' use, i.e. at most how many child processes will be run simultaneously
-#' (see \code{\link[BiocParallel]{bplapply}} and the number of tasks per job
-#' (only for Linux OS).
-#' @param index_name Optional. Name of breve description of the base
-#' physicochemical property applied to represent the DNA sequence.
-#' @param ... Not in use.
 #' @export
-#' @examples
-#' ## Let's create DNAStringSet-class object 
-#' base <- DNAStringSet(x = c( seq1 ='ACGTGATCAAGT', 
-#'                             seq2 = 'GTGTGATCCAGT', 
-#'                             seq3 = 'TCCTGATCAGGT'))
-#' 
-#' 
-#' dna_phychem(seqs = base,
-#'             phychem <- list('A' = 0.87, 'C' = 0.88, 'T' = 0.82,
-#'                             'G' = 0.89, 'N' = NA),
-#'             index_name = "Proton-Affinity")
-#' 
 setMethod("dna_phychem", 
     signature(seqs = "DNAStringSet_OR_DNAMultipleAlignment"),
     function(

@@ -8,7 +8,7 @@
 \code{\link[Biostrings]{DNAMultipleAlignment}} class object.
 }
 \usage{
-covid_aln
+data("covid_aln", package = "GenomAutomorphism")
 }
 \description{
 This is a \code{\link[Biostrings]{DNAMultipleAlignment}} carrying the
@@ -19,7 +19,7 @@ is available at GitHub:
 \url{https://github.com/genomaths/seqalignments/tree/master/COVID-19}
 }
 \examples{
-data(covid_aln, package = "GenomAutomorphism")
+data("covid_aln", package = "GenomAutomorphism")
 covid_aln
 
 }

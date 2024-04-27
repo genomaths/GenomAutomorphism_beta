@@ -30,7 +30,7 @@ in this case}
 \item{seqnames, start, end, ranges, strand, elementMetadata, seqinfo}{The same as
 in \code{\link[GenomicRanges]{GRanges}}}
 
-\item{seqs, matrix, names, aaindex, physchem, accession}{The same as in
+\item{seqs, names, aaindex, phychem, accession}{The same as in
 \link{MatrixSeq}.}
 }
 \value{

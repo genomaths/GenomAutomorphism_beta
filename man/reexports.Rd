@@ -23,7 +23,6 @@
 \alias{strand}
 \alias{strand<-}
 \alias{GRangesList}
-\alias{mod}
 \alias{modq}
 \alias{modlin}
 \alias{rowSums2}
@@ -57,7 +56,7 @@ below to see their documentation.
 
   \item{matrixStats}{\code{\link[matrixStats:rowMeans2]{colMeans2}}, \code{\link[matrixStats:rowSds]{colSds}}, \code{\link[matrixStats:rowSums2]{colSums2}}, \code{\link[matrixStats:rowVars]{colVars}}, \code{\link[matrixStats]{rowMeans2}}, \code{\link[matrixStats]{rowSds}}, \code{\link[matrixStats]{rowSums2}}, \code{\link[matrixStats]{rowVars}}}
 
-  \item{numbers}{\code{\link[numbers]{mod}}, \code{\link[numbers]{modlin}}, \code{\link[numbers:mod]{modq}}}
+  \item{numbers}{\code{\link[numbers]{modlin}}, \code{\link[numbers:mod]{modq}}}
 
   \item{S4Vectors}{\code{\link[S4Vectors:Vector-class]{mcols}}, \code{\link[S4Vectors:Vector-class]{mcols<-}}, \code{\link[S4Vectors:S4Vectors-internals]{setValidity2}}}
 

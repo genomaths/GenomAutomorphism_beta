@@ -34,7 +34,7 @@ be stored in the slot named 'SeqRanges'.
 }
 \examples{
 ## Load a DNA sequence alignment 
-data(aln, package = "GenomAutomorphism")
+data("aln", package = "GenomAutomorphism")
 
 ## Get base coordinates on 'Z5'
 coord <- get_coord(
@@ -44,7 +44,7 @@ coord <- get_coord(
 )
 coordList(coord)
 ## Load a DNA sequence alignment
-data(aln, package = "GenomAutomorphism")
+data("aln", package = "GenomAutomorphism")
 
 ## Get base coordinates on 'Z5'
 coord <- get_coord(

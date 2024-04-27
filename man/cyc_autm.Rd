@@ -8,7 +8,7 @@
 \code{\link{AutomorphismList}} class object.
 }
 \usage{
-cyc_autm
+data("cyc_autm", package = "GenomAutomorphism")
 }
 \description{
 This is a \code{\link{AutomorphismList}} object carrying a list of pairwise
@@ -19,7 +19,7 @@ estimated from the \code{\link{cyc_aln}} MSA with function
 \code{\link{autZ64}}.
 }
 \examples{
-data(cyc_autm, package = "GenomAutomorphism")
+data("cyc_autm", package = "GenomAutomorphism")
 cyc_autm
 
 }

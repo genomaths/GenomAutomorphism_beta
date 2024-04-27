@@ -70,6 +70,9 @@ setGeneric("peptide_phychem_index",
 
 #' @aliases peptide_phychem_index
 #' @rdname peptide_phychem_index
+#' @param aa A character string, a \code{\link[Biostrings]{DNAStringSet}}
+#' or a \code{\link[Biostrings]{DNAMultipleAlignment}} class object carrying
+#' the DNA pairwise alignment of two sequences.
 #' @param acc Accession id for a specified mutation or contact potential 
 #' matrix.
 #' @param aaindex Database where the requested accession id is locate and from
@@ -88,7 +91,7 @@ setGeneric("peptide_phychem_index",
 #' potential matrix, a list of available matrices (indices) ids or index 
 #' names can be returned. More specifically:
 #' 
-#' \itemize{
+#' \describe{
 #'  \item{\strong{aa_mutmat}: }{Returns an aminoacid mutation matrix or
 #'    a statistical protein contact potentials matrix.}
 #'  \item{\strong{aa_index}: }{Returns the specified aminoacid physicochemical 

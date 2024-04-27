@@ -78,7 +78,7 @@ Subsetting of 'x' by element name.
 }
 \examples{
 ## Load automorphisms found BRCA1 primate genes
-data(brca1_autm, package = "GenomAutomorphism")
+data("brca1_autm", package = "GenomAutomorphism")
 
 ## Extract AutomorphismList object with only one element
 brca1_autm[1]

@@ -64,24 +64,21 @@
 #' 3. A whole score matrix.
 #' 
 #' @examples 
-#' ## Load the mutation matrices from database from the packages
-#' data("aaindex2", package = "GenomAutomorphism" )
-#' 
 #' ## A single amino acids substitution mutation
-#' get_mutscore("A", "C", acc = "MIYS930101", aaindex = aaindex2)
+#' get_mutscore("A", "C", acc = "MIYS930101", aaindex = "aaindex2")
 #' 
 #' ## A tri-peptide mutation
 #' get_mutscore(aa1 = "ACG", aa2 = "ATG", acc = "MIYS930101",
-#'             aaindex = aaindex2, alphabet = "AA")
+#'             aaindex = "aaindex2", alphabet = "AA")
 #' 
 #' ## A single base-triple mutation, i.e., a single amino acid substitution 
 #' ## mutation
 #' get_mutscore(aa1 = "ACG", aa2 = "CTA", acc = "MIYS930101",
-#'             aaindex = aaindex2, alphabet = "DNA")
+#'             aaindex = "aaindex2", alphabet = "DNA")
 #' 
 #' ## Peptides can be also written as:
 #' get_mutscore(aa1 = c("A","C","G"), aa2 = c("C","T","A"), 
-#'             acc = "MIYS930101", aaindex = aaindex2, alphabet = "AA")
+#'             acc = "MIYS930101", aaindex = "aaindex2", alphabet = "AA")
 
 setGeneric("get_mutscore",
     function(
@@ -258,6 +255,7 @@ setMethod("get_mutscore", signature(aa1 = "character", aa2 = "character"),
 #' @param verbose Optional. Only if num.cores > 1. If TRUE, prints the 
 #' function log to stdout.
 #' @importFrom BiocParallel MulticoreParam bplapply SnowParam
+#' @importFrom stats as.dist
 #' @import foreach
 #' @export
 setMethod("get_mutscore", signature(aa1 = "BaseSeq", aa2 = "missing"),
@@ -282,6 +280,9 @@ setMethod("get_mutscore", signature(aa1 = "BaseSeq", aa2 = "missing"),
         
         x <- mcols(aa1)
         n <- ncol(x)
+        aaindex2 <- NULL
+        data("aaindex2", package = "GenomAutomorphism",
+            envir = environment())
         
         if (numcores > 1) {
             ## ---------------- Setting parallel computation ------------ ##
@@ -293,6 +294,7 @@ setMethod("get_mutscore", signature(aa1 = "BaseSeq", aa2 = "missing"),
             registerDoParallel(cl)
             ## ---------------------------------------------------------- ##
         
+            k <- j <- NULL
             y <- foreach(k = 1:(n - 1), .combine = "c")  %:% 
                     foreach(j = (k + 1):n, .combine = "c") %dopar% {
                         sum(get_mutscore(

@@ -36,7 +36,8 @@ seq2granges(base = NULL, filepath = NULL, ...)
   end = NA,
   chr = 1L,
   strand = "+",
-  seq_alias = NULL
+  seq_alias = NULL,
+  ...
 )
 
 base_seq2string_set(x, ...)
@@ -69,9 +70,13 @@ as given in references (2 2 3).}
 \item{group}{A character string denoting the group representation for the
 given base or codon as shown in reference (1).}
 
+\item{...}{Not in use yet.}
+
 \item{start, end, chr, strand}{Optional parameters required to build a
 \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default
 values given for the function definition will be used.}
+
+\item{seq_alias}{DNA sequence alias/ID and description.}
 
 \item{x}{A 'BaseSeq' class object.}
 }
@@ -127,12 +132,10 @@ Function \strong{\emph{base_seq2string_set}} transforms an object from
 \subsection{Function 'base_coord'}{
 
 Function \strong{\emph{base_coord}} is defined only for pairwise
-aligned sequences:\n", "'base' strings are not equal-width.
-
-Symbols "-" and "N" usually found in DNA sequence alignments to
-denote gaps and missing/unknown bases are represented by the number: '-1'
-on Z4 and '0' on Z5. In Z64 the symbol 'NA' will be returned for codons
-including symbols "-" and "N".
+aligned sequences. Symbols "-" and "N" usually found in DNA sequence
+alignments to denote gaps and missing/unknown bases are represented by the
+number: '-1' on Z4 and '0' on Z5. In Z64 the symbol 'NA' will be returned
+for codons including symbols "-" and "N".
 }
 
 \subsection{Functions 'seq2granges' and 'base_seq2string_set'}{
@@ -154,7 +157,7 @@ x1
 base_coord(x1, cube = "ACGT", group = "Z4")
 
 ## Example 2. Load a pairwise alignment
-data(aln, package = "GenomAutomorphism")
+data("aln", package = "GenomAutomorphism")
 aln
 
 ## DNA base representation in the Abelian group Z4
@@ -171,9 +174,10 @@ bs_cor <- base_coord(
     group = "Z5"
 )
 bs_cor
+
 ## Example 4. Load a multiple sequence alignment (MSA) of primate BRCA1 DNA  
 ## repair genes 
-data(brca1_aln2, package = "GenomAutomorphism")
+data("brca1_aln2", package = "GenomAutomorphism")
 brca1_aln2
 
 ## Get BaseSeq-class object
@@ -191,9 +195,10 @@ DNAMultipleAlignment(as.character(str_set))
 } 
 
 ## Example 5. 
+base_matrix(base = aln, cube = "CGTA", group = "Z5")
 
 ## Example 5. 
-base_matrix(base = aln, cube = "CGTA", group = "Z5")
+
 }
 \references{
 \enumerate{

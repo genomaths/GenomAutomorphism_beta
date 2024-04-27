@@ -36,6 +36,10 @@ peptide_phychem_index(aa, ...)
 )
 }
 \arguments{
+\item{aa}{A character string, a \code{\link[Biostrings]{DNAStringSet}}
+or a \code{\link[Biostrings]{DNAMultipleAlignment}} class object carrying
+the DNA pairwise alignment of two sequences.}
+
 \item{...}{Not in use.}
 
 \item{acc}{Accession id for a specified mutation or contact potential
@@ -70,7 +74,7 @@ Depending on the user specifications, a mutation or contact
 potential matrix, a list of available matrices (indices) ids or index
 names can be returned. More specifically:
 
-\itemize{
+\describe{
 \item{\strong{aa_mutmat}: }{Returns an aminoacid mutation matrix or
 a statistical protein contact potentials matrix.}
 \item{\strong{aa_index}: }{Returns the specified aminoacid physicochemical

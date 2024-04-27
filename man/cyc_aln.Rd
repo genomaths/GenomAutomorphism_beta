@@ -5,10 +5,10 @@
 \alias{cyc_aln}
 \title{Multiple Sequence Alignment (MSA) of Primate Somatic Cytochrome C}
 \format{
-\code{\link[Biostrings]{DNAMultipleAlignment}} class object.
+\link{DNAMultipleAlignment} class object.
 }
 \usage{
-cyc_aln
+data("cyc_aln", package = "GenomAutomorphism")
 }
 \description{
 This is a \code{\link[Biostrings]{DNAMultipleAlignment}} carrying a MSA of
@@ -17,7 +17,7 @@ examples provided for the package functions. The original file can be
 downloaded from GitHub at: \url{https://bit.ly/3kdEAzs}
 }
 \examples{
-data(cyc_aln, package = "GenomAutomorphism")
+data("cyc_aln", package = "GenomAutomorphism")
 cyc_aln
 
 }

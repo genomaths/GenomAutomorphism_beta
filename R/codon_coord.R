@@ -67,7 +67,7 @@
 #' }
 #' @examples
 #' ## Load a pairwise alignment
-#' data(aln, package = "GenomAutomorphism")
+#' data("aln", package = "GenomAutomorphism")
 #' aln
 #'
 #' ## DNA base representation in the Abelian group Z5

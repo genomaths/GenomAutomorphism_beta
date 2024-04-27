@@ -42,7 +42,7 @@
 #' potential matrix, a list of available matrices (indices) ids or index 
 #' names can be returned. More specifically:
 #' 
-#' \itemize{
+#' \describe{
 #'  \item{\strong{aa_mutmat}: }{Returns an aminoacid mutation matrix or
 #'    a statistical protein contact potentials matrix.}
 #'  \item{\strong{aa_index}: }{Returns the specified aminoacid physicochemical 
@@ -100,6 +100,7 @@ aa_phychem_index <- function(
 
 ## ===================== aa_mutmat ====================
 
+
 #' @rdname aa_phychem_index
 #' @aliases aa_mutmat
 #' @export
@@ -111,8 +112,10 @@ aa_mutmat <- function(
     aaindex <- match.arg(aaindex)
     switch(
         aaindex,
-        "aaindex2" = data("aaindex2", package = "GenomAutomorphism"),
-        "aaindex3" = data("aaindex3", package = "GenomAutomorphism")
+        "aaindex2" = data("aaindex2", package = "GenomAutomorphism",
+                        envir = environment()),
+        "aaindex3" = data("aaindex3", package = "GenomAutomorphism",
+                        envir = environment())
     )
     
     aaindex <- get(aaindex)
@@ -158,7 +161,7 @@ aa_mutmat <- function(
 ## ===================== aa_index ====================
 
 #' @rdname aa_phychem_index
-#' @aliases aa_mutmat
+#' @aliases aa_index
 #' @param info Logical. if TRUE, then whole information for the 
 #' physicochemical index will be returned.
 #' @export
@@ -167,7 +170,9 @@ aa_index <- function(
         acc_list = FALSE,
         info = FALSE) {
     
-    data(aaindex1, package = "GenomAutomorphism")
+    data("aaindex1", package = "GenomAutomorphism",
+        envir = environment())
+    aaindex1 <- get("aaindex1")
     
     if (acc_list)
         return(aaindex1$acc_num)

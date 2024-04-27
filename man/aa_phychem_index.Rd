@@ -30,7 +30,7 @@ Depending on the user specifications, a mutation or contact
 potential matrix, a list of available matrices (indices) ids or index
 names can be returned. More specifically:
 
-\itemize{
+\describe{
 \item{\strong{aa_mutmat}: }{Returns an aminoacid mutation matrix or
 a statistical protein contact potentials matrix.}
 \item{\strong{aa_index}: }{Returns the specified aminoacid physicochemical

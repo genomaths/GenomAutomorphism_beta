@@ -1,6 +1,6 @@
 Package: GenomAutomorphism
 Title: Compute the automorphisms between DNA's Abelian group representations 
-Version: 1.0.2.3
+Version: 1.0.2.4
 Authors@R: 
     person( given = "Robersy",
             family = "Sanchez",
@@ -22,7 +22,7 @@ Description:
             prime-power order.
 Depends: 
     R (>= 4.2),
-License: Artistic-2.0
+License: file LICENSE
 Encoding: UTF-8
 biocViews: 
     MathematicalBiology,
@@ -36,6 +36,8 @@ Imports:
     GenomeInfoDb,
     GenomicRanges,
     IRanges,
+    matrixStats,
+    XVector,
     dplyr,
     data.table,
     parallel,

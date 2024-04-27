@@ -147,24 +147,21 @@ If a score matrix is provided by the user, then it must be a
 symmetric matrix 20x20.
 }
 \examples{
-## Load the mutation matrices from database from the packages
-data("aaindex2", package = "GenomAutomorphism" )
-
 ## A single amino acids substitution mutation
-get_mutscore("A", "C", acc = "MIYS930101", aaindex = aaindex2)
+get_mutscore("A", "C", acc = "MIYS930101", aaindex = "aaindex2")
 
 ## A tri-peptide mutation
 get_mutscore(aa1 = "ACG", aa2 = "ATG", acc = "MIYS930101",
-            aaindex = aaindex2, alphabet = "AA")
+            aaindex = "aaindex2", alphabet = "AA")
 
 ## A single base-triple mutation, i.e., a single amino acid substitution 
 ## mutation
 get_mutscore(aa1 = "ACG", aa2 = "CTA", acc = "MIYS930101",
-            aaindex = aaindex2, alphabet = "DNA")
+            aaindex = "aaindex2", alphabet = "DNA")
 
 ## Peptides can be also written as:
 get_mutscore(aa1 = c("A","C","G"), aa2 = c("C","T","A"), 
-            acc = "MIYS930101", aaindex = aaindex2, alphabet = "AA")
+            acc = "MIYS930101", aaindex = "aaindex2", alphabet = "AA")
 }
 \seealso{
 \link{aa_mutmat}, \link{aaindex2} and \link{aaindex3}.

@@ -24,9 +24,11 @@
 #' in the heading from each sequence.
 #' @author Robersy Sanchez <https://genomaths.com>
 #' @seealso [brca1_aln], [brca1_autm2], [cyc_aln], and [covid_autm].
+#' @usage 
+#' data("brca1_aln2", package = "GenomAutomorphism")
 #' @format \code{\link[Biostrings]{DNAMultipleAlignment}} class object.
 #' @examples
-#' data(brca1_aln2, package = "GenomAutomorphism")
+#' data("brca1_aln2", package = "GenomAutomorphism")
 #' brca1_aln2
 #' 
 "brca1_aln2"

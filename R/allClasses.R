@@ -345,7 +345,7 @@ setGeneric(
 #' @export
 #' @examples 
 #' ## Load a DNA sequence alignment 
-#' data(aln, package = "GenomAutomorphism")
+#' data("aln", package = "GenomAutomorphism")
 #' 
 #' ## Get base coordinates on 'Z5'
 #' coord <- get_coord(
@@ -374,7 +374,7 @@ setGeneric(
 #' @export
 #' @examples 
 #' ## Load a DNA sequence alignment
-#' data(aln, package = "GenomAutomorphism")
+#' data("aln", package = "GenomAutomorphism")
 #' 
 #' ## Get base coordinates on 'Z5'
 #' coord <- get_coord(
@@ -517,7 +517,7 @@ setValidity2("ListCodonMatrix", valid.ListCodonMatrix)
 #' represented by numerical value from a physicochemical index.
 #' @details
 #' 
-#' \itemize{
+#' \describe{
 #'  \item{\strong{seqs}: }{A string character vector of DNA or aminoacid 
 #'  sequences.}
 #'  \item{\strong{matrix}: }{A numerical matrix carrying the specified 
@@ -549,7 +549,7 @@ setClass("MatrixSeq",
 
 #' MatrixSeq Constructor
 #' @rdname MatrixSeq
-#' @param seqs,matrix,names,aaindex,physchem,accession See detail section 
+#' @param seqs,matrix,names,aaindex,phychem,accession See detail section 
 #' @export
 #' @returns A MatrixSeq-class object
 #' @examples 
@@ -652,7 +652,7 @@ setAs("MatrixSeq", "GRangesMatrixSeq",
 #' in this case
 #' @param seqnames,start,end,ranges,strand,elementMetadata,seqinfo The same as
 #' in \code{\link[GenomicRanges]{GRanges}}
-#' @param seqs,matrix,names,aaindex,physchem,accession The same as in 
+#' @param seqs,names,aaindex,phychem,accession The same as in 
 #' [MatrixSeq].
 #' @export
 #' @examples
@@ -945,7 +945,7 @@ setValidity2("Automorphism", valid.Automorphism)
 #' object.
 #' @examples
 #' ## Load datasets
-#' data(autm, brca1_autm)
+#' data("autm", "brca1_autm")
 #' 
 #' ## Transforming a list of Automorphisms into an AutomorphismList object
 #' lista <- list(human = brca1_autm[[1]], gorilla = brca1_autm[[2]])
