@@ -11,7 +11,8 @@ orcid.org/0000-0002-5246-1453](https://orcid.org/0000-0002-5246-1453)
 
 ## Overview
 
-This repository contains a 'beta' version of the 'GenomAutomorphism' R package.
+This repository contains a 'beta' version of the 
+[GenomAutomorphism](https://github.com/genomaths/GenomAutomorphism/) R package.
 
 This is a R package to compute the automorphisms between pairwise
 aligned DNA sequences represented as elements from a Genomic Abelian
