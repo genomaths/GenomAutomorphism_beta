@@ -41,7 +41,7 @@
 #' @param start,end,chr,strand Optional parameters required to build a
 #' \code{\link[GenomicRanges]{GRanges-class}}. If not provided the default
 #' values given for the function definition will be used.
-#' @param output  See [Value](@return) section.
+#' @param output  See 'Value' section.
 #' @param ... Not in use.
 #' @details Symbols '-' and 'N' usually found in DNA sequence alignments to
 #' denote gaps and missing/unknown bases are represented by the number: '-1'

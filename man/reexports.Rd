@@ -15,6 +15,7 @@
 \alias{translate}
 \alias{GENETIC_CODE_TABLE}
 \alias{getGeneticCode}
+\alias{unmasked}
 \alias{width}
 \alias{start}
 \alias{start<-}
@@ -23,6 +24,7 @@
 \alias{strand}
 \alias{strand<-}
 \alias{GRangesList}
+\alias{makeGRangesFromDataFrame}
 \alias{modq}
 \alias{modlin}
 \alias{rowSums2}
@@ -34,10 +36,78 @@
 \alias{colSds}
 \alias{rowSds}
 \title{Reexport useful functions to be available to users}
+\value{
+The same as in \code{\link[S4Vectors]{mcols}}.
+
+The same as in \code{\link[S4Vectors]{mcols}}.
+
+The same as in \code{\link[S4Vectors]{setValidity2}}.
+
+The same as in \code{\link[Biostrings]{DNAStringSet}}.
+
+The same as in \code{\link[Biostrings]{AAStringSet}}.
+
+The same as in \code{\link[Biostrings]{readDNAMultipleAlignment}}.
+
+The same as in \code{\link[Biostrings]{DNAMultipleAlignment}}.
+
+The same as in \code{\link[Biostrings]{AAMultipleAlignment}}.
+
+The same as in \code{\link[XVector]{subseq}}.
+
+The same as in \code{\link[Biostrings]{translate}}.
+
+The same as in \code{\link[Biostrings]{GENETIC_CODE_TABLE}}.
+
+The same as in \code{\link[Biostrings]{getGeneticCode}}.
+
+The same as in \code{\link[Biostrings]{unmasked}}.
+
+The same as in \code{\link[BiocGenerics]{width}}.
+
+The same as in \code{\link[BiocGenerics]{start}}.
+
+The same as in \code{\link[BiocGenerics]{start}}.
+
+The same as in \code{\link[BiocGenerics]{end}}.
+
+The same as in \code{\link[BiocGenerics]{end}}.
+
+The same as in \code{\link[BiocGenerics]{strand}}.
+
+The same as in \code{\link[BiocGenerics]{strand}}.
+
+The same as in \code{\link[GenomicRanges]{GRangesList}}.
+
+The same as in
+\code{\link[GenomicRanges]{makeGRangesFromDataFrame}}.
+
+The same as in \code{\link[numbers]{modq}}.
+
+The same as in \code{\link[numbers]{modlin}}.
+
+The same as in \code{\link[matrixStats]{rowSums2}}.
+
+The same as in \code{\link[matrixStats]{colSums2}}.
+
+The same as in \code{\link[matrixStats]{colMeans2}}.
+
+The same as in \code{\link[matrixStats]{rowMeans2}}.
+
+The same as in \code{\link[matrixStats]{rowVars}}.
+
+The same as in \code{\link[matrixStats]{colVars}}.
+
+The same as in \code{\link[matrixStats]{colSds}}.
+
+The same as in \code{\link[matrixStats]{rowSds}}.
+}
 \examples{
 ## Load an Automorphism object and take its metacolumns
 data("autm", package = "GenomAutomorphism")
 mcols(autm)
+## See \code{\link[BiocGenerics]{start}}.
+
 ## Load an Automorphism object and get some 'end' coordinates
 data("autm", package = "GenomAutomorphism")
 end(autm[20:50])
@@ -50,9 +120,9 @@ below to see their documentation.
 \describe{
   \item{BiocGenerics}{\code{\link[BiocGenerics:start]{end}}, \code{\link[BiocGenerics:start]{end<-}}, \code{\link[BiocGenerics]{start}}, \code{\link[BiocGenerics:start]{start<-}}, \code{\link[BiocGenerics]{strand}}, \code{\link[BiocGenerics:strand]{strand<-}}, \code{\link[BiocGenerics:start]{width}}}
 
-  \item{Biostrings}{\code{\link[Biostrings:MultipleAlignment-class]{AAMultipleAlignment}}, \code{\link[Biostrings:XStringSet-class]{AAStringSet}}, \code{\link[Biostrings:MultipleAlignment-class]{DNAMultipleAlignment}}, \code{\link[Biostrings:XStringSet-class]{DNAStringSet}}, \code{\link[Biostrings:GENETIC_CODE]{GENETIC_CODE_TABLE}}, \code{\link[Biostrings:GENETIC_CODE]{getGeneticCode}}, \code{\link[Biostrings:MultipleAlignment-class]{readDNAMultipleAlignment}}, \code{\link[Biostrings]{translate}}}
+  \item{Biostrings}{\code{\link[Biostrings:MultipleAlignment-class]{AAMultipleAlignment}}, \code{\link[Biostrings:XStringSet-class]{AAStringSet}}, \code{\link[Biostrings:MultipleAlignment-class]{DNAMultipleAlignment}}, \code{\link[Biostrings:XStringSet-class]{DNAStringSet}}, \code{\link[Biostrings:GENETIC_CODE]{GENETIC_CODE_TABLE}}, \code{\link[Biostrings:GENETIC_CODE]{getGeneticCode}}, \code{\link[Biostrings:MultipleAlignment-class]{readDNAMultipleAlignment}}, \code{\link[Biostrings]{translate}}, \code{\link[Biostrings:MaskedXString-class]{unmasked}}}
 
-  \item{GenomicRanges}{\code{\link[GenomicRanges:GRangesList-class]{GRangesList}}}
+  \item{GenomicRanges}{\code{\link[GenomicRanges:GRangesList-class]{GRangesList}}, \code{\link[GenomicRanges]{makeGRangesFromDataFrame}}}
 
   \item{matrixStats}{\code{\link[matrixStats:rowMeans2]{colMeans2}}, \code{\link[matrixStats:rowSds]{colSds}}, \code{\link[matrixStats:rowSums2]{colSums2}}, \code{\link[matrixStats:rowVars]{colVars}}, \code{\link[matrixStats]{rowMeans2}}, \code{\link[matrixStats]{rowSds}}, \code{\link[matrixStats]{rowSums2}}, \code{\link[matrixStats]{rowVars}}}
 

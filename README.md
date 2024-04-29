@@ -5,17 +5,15 @@
 Robersy Sanchez  
 Department of Biology. Eberly College of Science.  
 Pennsylvania State University, University Park, PA 16802  
-<rus547@psu.edu>  
+<genomicmath@gmail.com>  
 [ORCID:
 orcid.org/0000-0002-5246-1453](https://orcid.org/0000-0002-5246-1453)
 
 ## Overview
 
-This repository contains a 'beta' version of the
-[GenomAutomorphism](https://github.com/genomaths/GenomAutomorphism) 
-R package.
+This repository contains a 'beta' version of the 'GenomAutomorphism' R package.
 
-GenomAutomorphism R package is addressed to computing the automorphisms between pairwise
+This is a R package to compute the automorphisms between pairwise
 aligned DNA sequences represented as elements from a Genomic Abelian
 group as described in the paper [Genomic Abelian Finite
 Groups](https://www.biorxiv.org/content/10.1101/2021.06.01.446543v2). In
@@ -85,7 +83,7 @@ This package depends, so far, from: *Biostrings*, *GenomicRanges*,
 
 ## You can install **GenomAutomorphism** package from GitHub
 
-       BiocManager::install('genomaths/GenomAutomorphism_beta')
+       BiocManager::install('genomaths/GenomAutomorphism')
 
 ------------------------------------------------------------------------
 

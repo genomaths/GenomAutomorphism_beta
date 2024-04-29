@@ -337,8 +337,8 @@ setMethod("get_mutscore", signature(aa1 = "BaseSeq", aa2 = "missing"),
         return(m)
     }
 )
-          
-          
+
+
 ## =============== DNAStringSet =====================
 
 #' @aliases get_mutscore
@@ -359,7 +359,7 @@ setMethod("get_mutscore", signature(aa1 = "DNAStringSet", aa2 = "missing"),
         output = c("dist", "matrix", "vector"),
         na.rm = TRUE,
         ...) {
-              
+        
         aa1 <- seq2granges(aa1)
         get_mutscore(
             aa1 = aa1, 
@@ -399,7 +399,7 @@ setMethod("get_mutscore", signature(aa1 = "DNAMultipleAlignment",
         output = c("dist", "matrix", "vector"),
         na.rm = TRUE,
         ...) {
-              
+        
         aa1 <- aa1@unmasked
         get_mutscore(
             aa1 = aa1, 

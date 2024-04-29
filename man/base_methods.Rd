@@ -81,6 +81,8 @@ values given for the function definition will be used.}
 \item{x}{A 'BaseSeq' class object.}
 }
 \value{
+Depending on the function called, different object will be
+returned:
 \subsection{Function 'base_coord'}{
 
 This function returns a \code{\link{BaseGroup}} object
@@ -189,10 +191,7 @@ str_set <- base_seq2string_set(gr)
 str_set
 
 ## Recovering the original MSA
-\donttest{
-require(Biostrings, quietly = TRUE)
 DNAMultipleAlignment(as.character(str_set))
-} 
 
 ## Example 5. 
 base_matrix(base = aln, cube = "CGTA", group = "Z5")

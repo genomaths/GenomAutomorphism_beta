@@ -2,79 +2,60 @@
 % Please edit documentation in R/extract-methods.R
 \name{[,AutomorphismList,ANY-method}
 \alias{[,AutomorphismList,ANY-method}
-\alias{[}
-\alias{AutomorphismList-methods}
+\alias{'['}
+\alias{extract}
+\alias{extract-methods}
+\alias{[,ListCodonMatrix,ANY-method}
+\alias{[,MatrixSeq,ANY-method}
 \alias{[[,AutomorphismList-method}
-\alias{[[}
+\alias{'[['}
+\alias{[[,ListCodonMatrix-method}
 \alias{$,AutomorphismList-method}
 \alias{$}
-\alias{[,ListCodonMatrix,ANY-method}
-\alias{ListCodonMatrix-methods}
-\alias{[[,ListCodonMatrix-method}
+\alias{names,ListCodonMatrix-method}
 \alias{$,ListCodonMatrix-method}
-\alias{[,MatrixSeq,ANY-method}
-\alias{MatrixSeq-methods}
-\title{An S4 class to extract elements from AutomorphismList-class object.}
+\alias{$,MatrixSeq-method}
+\alias{names<-,MatrixSeq-method}
+\title{An S4 class to extract elements for objects created with
+GenomAutomorphism package}
 \usage{
 \S4method{[}{AutomorphismList,ANY}(x, i, j, ..., drop = TRUE)
 
-\S4method{[[}{AutomorphismList}(x, i, j, ...)
-
-\S4method{$}{AutomorphismList}(x, name)
-
 \S4method{[}{ListCodonMatrix,ANY}(x, i, j, ..., drop = TRUE)
-
-\S4method{[[}{ListCodonMatrix}(x, i, j, ...)
-
-\S4method{$}{ListCodonMatrix}(x, name)
 
 \S4method{[}{MatrixSeq,ANY}(x, i, j, ..., drop = TRUE)
 
+\S4method{[[}{AutomorphismList}(x, i, j, ...)
+
+\S4method{[[}{ListCodonMatrix}(x, i, j, ...)
+
+\S4method{$}{AutomorphismList}(x, name)
+
+\S4method{names}{ListCodonMatrix}(x)
+
 \S4method{$}{ListCodonMatrix}(x, name)
+
+\S4method{$}{MatrixSeq}(x, name)
+
+\S4method{names}{MatrixSeq}(x) <- value
 }
 \arguments{
-\item{x}{An \code{\link{ListCodonMatrix-class}} object}
+\item{x}{An object from \link{AutomorphismList}, \link{ListCodonMatrix}, or
+\link{MatrixSeq}.}
 
-\item{i, ...}{As in \code{\link[base]{Extract}}.}
+\item{i, j, ...}{As in \code{\link[base]{Extract}}.}
 
-\item{name}{A literal character string naming an element from 'x'.}
+\item{name}{Element name in the list 'x'.}
+
+\item{value}{A character vector of up to the same length as x, or NULL.}
 }
 \value{
-An element of x, an \code{\link{AutomorphismList-class}} object.
-
-An element of x, an \code{\link{Automorphism-class}} object.
-
-An element of x, an \code{\link{Automorphism-class}} object.
-
-An element of x, an \code{\link{ListCodonMatrix-class}} object.
-
-An element of x, an \code{\link{ListCodonMatrix-class}} object.
-
-An element of x, an \code{\link{ListCodonMatrix-class}} object.
-
-An element of x, an \code{\link{MatrixSeq-class}} object.
-
-An element of x, an \code{\link{ListCodonMatrix-class}} object.
+An object from \link{AutomorphismList}, \link{ListCodonMatrix}, or
+\link{MatrixSeq} class.
 }
 \description{
 First and second level subsetting of 'x'. Extraction using
 names can be done as x$name.
-
-Second level subsetting of 'x'.
-
-Subsetting of 'x' by element name.
-
-First and second level subsetting of 'x'. Extraction using
-names can be done as x$name.
-
-Second level subsetting of 'x'.
-
-Subsetting of 'x' by element name.
-
-First and second level subsetting of 'x'. Extraction using
-names can be done as x$name.
-
-Subsetting of 'x' by element name.
 }
 \examples{
 ## Load automorphisms found BRCA1 primate genes

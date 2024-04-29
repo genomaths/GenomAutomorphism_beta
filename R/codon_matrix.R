@@ -62,7 +62,7 @@
 #' data("brca1_aln")
 #' 
 #' ## Get the DNAStringSet for the first 33 codons and apply 'codon_matrix'
-#' brca1 <- brca1_aln@unmasked
+#' brca1 <- unmasked(brca1_aln)
 #' brca1 <- subseq(brca1, start = 1, end = 33)
 #' codon_matrix(brca1)
 #' 
@@ -116,9 +116,12 @@ setMethod(
         strands <- unique(as.character(strand(base)))
         
         base <- mcols(base)
-        idx_coord <- grep("S", colnames(base))
+        sqnms <- colnames(base)
+        idx_coord <- grep("S", sqnms)
         
         base <- data.frame(base[, idx_coord])
+        colnames(base) <- sqnms
+            
         f <- factor(as.vector(slapply(seq_len(nrow(base)/3), rep, times = 3)))
         base <- split(base, f)
         nms <- paste0("codon.", names(base))
@@ -175,7 +178,7 @@ setMethod(
         names(base) <- nms
         
         base <- ListCodonMatrix(object = base, cube = cube, group = group,
-                        seq_alias = alias)
+                        seq_alias = alias, names = nms)
         
         return(base)
     }
@@ -198,11 +201,7 @@ setMethod(
         num.cores = 1L, 
         tasks = 0L,
         verbose = TRUE) {
-        
-        if (length(base) < 2)
-            stop("*** At least two codon sequences are expecte.",
-                " If length(base) < 2, apply function 'codon_coord'.")
-        
+
         base <- base_matrix(base = base, cube = cube, group = group)
         
         codon_matrix(base = base, num.cores = num.cores, tasks = tasks)
@@ -225,9 +224,9 @@ setMethod(
     function(
         base, 
         cube = c("ACGT", "AGCT", "TCGA", "TGCA", "CATG", "GTAC", 
-                 "CTAG", "GATC", "ACTG", "ATCG", "GTCA", "GCTA", 
-                 "CAGT", "TAGC", "TGAC", "CGAT", "AGTC", "ATGC", 
-                 "CGTA", "CTGA", "GACT", "GCAT", "TACG", "TCAG"),
+                "CTAG", "GATC", "ACTG", "ATCG", "GTCA", "GCTA", 
+                "CAGT", "TAGC", "TGAC", "CGAT", "AGTC", "ATGC", 
+                "CGTA", "CTGA", "GACT", "GCAT", "TACG", "TCAG"),
         group = c("Z4", "Z5"),
         num.cores = 1L, 
         tasks = 0L,

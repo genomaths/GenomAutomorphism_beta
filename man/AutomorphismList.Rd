@@ -5,8 +5,8 @@
 \alias{AutomorphismList-class}
 \alias{AutomorphismList}
 \alias{names,AutomorphismList-method}
-\alias{names}
 \alias{names<-,AutomorphismList-method}
+\alias{'names<-'}
 \alias{as.list,AutomorphismList-method}
 \alias{show,AutomorphismList-method}
 \alias{show-AutomorphismList}

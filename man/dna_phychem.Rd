@@ -33,6 +33,9 @@ those provided in \link{dna_phyche}.}
 \item{index_name}{Optional. Name of breve description of the base
 physicochemical property applied to represent the DNA sequence.}
 }
+\value{
+A \link{MatrixSeq}-class object.
+}
 \description{
 This function applies the numerical indices representing various
 physicochemical and biochemical properties of DNA bases. As results, DNA
@@ -47,7 +50,7 @@ base <- DNAStringSet(x = c( seq1 ='ACGTGATCAAGT',
 
 
 dna_phychem(seqs = base,
-            phychem <- list('A' = 0.87, 'C' = 0.88, 'T' = 0.82,
+            phychem = list('A' = 0.87, 'C' = 0.88, 'T' = 0.82,
                             'G' = 0.89, 'N' = NA),
             index_name = "Proton-Affinity")
 

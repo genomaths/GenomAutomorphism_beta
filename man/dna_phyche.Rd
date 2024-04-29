@@ -70,6 +70,18 @@ measurement approaches.
 \examples{
 data("dna_phyche", package = "GenomAutomorphism")
 dna_phyche
+
+## Select DNA base tautomerization energy
+te <- as.list(dna_phyche$tautomerization_energy)
+names(te) <- rownames(dna_phyche)
+
+## Let's create DNAStringSet-class object
+base <- DNAStringSet(x = c( seq1 ='ACGTGATCAAGT',
+                            seq2 = 'GTGTGATCCAGT'))
+
+dna_phychem(seqs = base, phychem = te,
+            index_name = "Tautomerization-Energy")
+
 }
 \references{
 \enumerate{

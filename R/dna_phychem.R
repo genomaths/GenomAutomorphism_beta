@@ -30,6 +30,7 @@
 #' further downstream statistical analysis and digital signal processing.
 #' @author Robersy Sanchez <https://genomaths.com>
 #' @seealso [peptide_phychem_index]
+#' @returns A [MatrixSeq]-class object.
 #' @export
 #' @examples
 #' ## Let's create DNAStringSet-class object 
@@ -39,12 +40,12 @@
 #' 
 #' 
 #' dna_phychem(seqs = base,
-#'             phychem <- list('A' = 0.87, 'C' = 0.88, 'T' = 0.82,
+#'             phychem = list('A' = 0.87, 'C' = 0.88, 'T' = 0.82,
 #'                             'G' = 0.89, 'N' = NA),
 #'             index_name = "Proton-Affinity")
 #' 
 setGeneric("dna_phychem",
-           function(
+    function(
         seqs,  
         ...) standardGeneric("dna_phychem"))
 
@@ -57,7 +58,7 @@ setMethod("dna_phychem", signature(seqs = "character"),
     function(
         seqs,
         phychem = list('A' = NULL, 'T' = NULL, 'C' = NULL,
-                       'G' = NULL, 'N' = NULL)) {
+                        'G' = NULL, 'N' = NULL)) {
         
         base2int(base = seqs, phychem = phychem)
     }
@@ -75,10 +76,10 @@ setMethod("dna_phychem",
     function(
         seqs, 
         phychem = list('A' = NULL, 'T' = NULL, 'C' = NULL,
-                       'G' = NULL, 'N' = NULL),
+                        'G' = NULL, 'N' = NULL),
         index_name = NULL,
         ...) {
-          
+        
         if (inherits(seqs, "DNAMultipleAlignment"))
             seqs <- seqs@unmasked
         

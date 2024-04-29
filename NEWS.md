@@ -1,6 +1,6 @@
 # GenomAutomorphism 1.5.1
 
-* Introducing new function for DNA and aminoacid sequence representation
+* Introducing new functions for DNA and aminoacid sequence representations
   with physicochemical properties of DNA and aminoacids, which would be 
   useful for further downstream statistical analysis in R.
 

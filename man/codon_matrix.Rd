@@ -71,7 +71,7 @@ analyses, like those reported in references (1) and (2).
 data("brca1_aln")
 
 ## Get the DNAStringSet for the first 33 codons and apply 'codon_matrix'
-brca1 <- brca1_aln@unmasked
+brca1 <- unmasked(brca1_aln)
 brca1 <- subseq(brca1, start = 1, end = 33)
 codon_matrix(brca1)
 

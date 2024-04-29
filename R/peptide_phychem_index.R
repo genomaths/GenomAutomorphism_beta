@@ -45,17 +45,17 @@
 #' aa
 #' 
 #' ## Description of the physicochemical index
-#' aa@phychem
+#' slot(aa, 'phychem')
 #' 
-#' ## Getthe aminoacid sequences. The stop codon 'TAA' is replaced by '*'.
-#' aa@seqs
+#' ## Get the aminoacid sequences. The stop codon 'TAA' is replaced by '*'.
+#' slot(aa, 'seqs')
 #' 
 #' 
 #' aa <- peptide_phychem_index(base, acc = "MIYS850103", aaindex = "aaindex3")
 #' aa
 #' 
 #' ## Description of the physicochemical index
-#' aa@phychem
+#' slot(aa, 'phychem')
 #' 
 #' @author Robersy Sanchez <https://genomaths.com>
 #' @export
