@@ -3,7 +3,7 @@
 \name{peptide_phychem_index}
 \alias{peptide_phychem_index}
 \alias{peptide_phychem_index,character-method}
-\alias{peptide_phychem_index,DNAStringSet_OR_DNAMultipleAlignment-method}
+\alias{peptide_phychem_index,XStringSet_OR_XMultipleAlignment-method}
 \title{Amino acid numerical matrix}
 \usage{
 peptide_phychem_index(aa, ...)
@@ -20,7 +20,7 @@ peptide_phychem_index(aa, ...)
   ...
 )
 
-\S4method{peptide_phychem_index}{DNAStringSet_OR_DNAMultipleAlignment}(
+\S4method{peptide_phychem_index}{XStringSet_OR_XMultipleAlignment}(
   aa,
   acc = NULL,
   aaindex = NA,
@@ -36,9 +36,11 @@ peptide_phychem_index(aa, ...)
 )
 }
 \arguments{
-\item{aa}{A character string, a \code{\link[Biostrings]{DNAStringSet}}
-or a \code{\link[Biostrings]{DNAMultipleAlignment}} class object carrying
-the DNA pairwise alignment of two sequences.}
+\item{aa}{A character string, a \code{\link[Biostrings]{DNAStringSet}},
+an \code{\link[Biostrings]{AAStringSet}}, a
+\code{\link[Biostrings]{DNAMultipleAlignment}} or
+\code{\link[Biostrings]{AAMultipleAlignment}} or class object carrying the
+DNA pairwise or multiple sequence alignment of two or more sequences.}
 
 \item{...}{Not in use.}
 

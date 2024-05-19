@@ -70,9 +70,11 @@ setGeneric("peptide_phychem_index",
 
 #' @aliases peptide_phychem_index
 #' @rdname peptide_phychem_index
-#' @param aa A character string, a \code{\link[Biostrings]{DNAStringSet}}
-#' or a \code{\link[Biostrings]{DNAMultipleAlignment}} class object carrying
-#' the DNA pairwise alignment of two sequences.
+#' @param aa A character string, a \code{\link[Biostrings]{DNAStringSet}},
+#' an \code{\link[Biostrings]{AAStringSet}}, a
+#' \code{\link[Biostrings]{DNAMultipleAlignment}} or 
+#' \code{\link[Biostrings]{AAMultipleAlignment}} or class object carrying the
+#' DNA pairwise or multiple sequence alignment of two or more sequences.
 #' @param acc Accession id for a specified mutation or contact potential 
 #' matrix.
 #' @param aaindex Database where the requested accession id is locate and from
@@ -158,8 +160,7 @@ setMethod("peptide_phychem_index", signature(aa = "character"),
 )
 
 
-## ========================== DNAStringSet ========================
-
+## ============== XStringSet_OR_XMultipleAlignment ===================
 
 #' @aliases peptide_phychem_index
 #' @rdname peptide_phychem_index
@@ -173,7 +174,7 @@ setMethod("peptide_phychem_index", signature(aa = "character"),
 #' 
 #' @export
 setMethod("peptide_phychem_index", 
-        signature(aa = "DNAStringSet_OR_DNAMultipleAlignment"),
+        signature(aa = "XStringSet_OR_XMultipleAlignment"),
     function(
         aa, 
         acc = NULL,
@@ -188,10 +189,11 @@ setMethod("peptide_phychem_index",
         verbose = FALSE,
         ...) {
         
-        if (inherits(aa, "DNAMultipleAlignment"))
+        if (inherits(aa, c("DNAMultipleAlignment", "AAMultipleAlignment")))
             aa <- aa@unmasked
         
-        aa <- translation(
+        if (inherits(aa, c("DNAStringSet", "RNAStringSet"))) 
+            aa <- translation(
                         x = aa,
                         genetic.code = genetic.code,
                         no.init.codon = no.init.codon,

@@ -4,6 +4,7 @@
 \name{GRangesMatrixSeq-class}
 \alias{GRangesMatrixSeq-class}
 \alias{GRangesMatrixSeq}
+\alias{XStringSet_OR_XMultipleAlignment-class}
 \alias{DNAStringSet_OR_DNAMultipleAlignment-class}
 \title{Definition of GRangesMatrixSeq-class}
 \usage{
@@ -35,6 +36,8 @@ in \code{\link[GenomicRanges]{GRanges}}}
 }
 \value{
 Given the slot values, it defines a MatrixList-class.
+
+Only used to specify signature in the S4 setMethod.
 
 Only used to specify signature in the S4 setMethod.
 }

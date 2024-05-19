@@ -786,9 +786,21 @@ GRangesMatrixSeq <- function(
 #' @export
 #' @return Only used to specify signature in the S4 setMethod.
 setClassUnion(
-    "DNAStringSet_OR_DNAMultipleAlignment",
-    c("DNAStringSet", "DNAMultipleAlignment")
+    "XStringSet_OR_XMultipleAlignment",
+    c("DNAStringSet", "RNAStringSet", "AAStringSet", 
+        "DNAMultipleAlignment", "AAMultipleAlignment")
 )
+
+#' @rdname GRangesMatrixSeq
+#' @keywords internal
+#' @import Biostrings
+#' @export
+#' @return Only used to specify signature in the S4 setMethod.
+setClassUnion(
+    "DNAStringSet_OR_DNAMultipleAlignment",
+    c("DNAStringSet", "RNAStringSet", "DNAMultipleAlignment")
+)
+
 
 ## ======================== MatrixList class ==========================
 

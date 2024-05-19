@@ -146,6 +146,10 @@ setMethod(
                 }
                 else {
                     x[11, ] <- "..."
+                    rn <- rn[c(seq(11), seq(d[1] - 10, d[1]))] 
+                    rn[11] <- "..."
+                    rownames(x) <- rn
+                    colnames(x) <- cn
                 }
             }
             print(x)
