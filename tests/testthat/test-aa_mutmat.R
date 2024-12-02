@@ -3,6 +3,6 @@ test_that("aa_mutmat works", {
     mat <- aa_mutmat(aaindex = "aaindex2", acc_list = TRUE)
     mat <- grepl("MIYS930101", mat[37])
     aa <- aa_mutmat(acc = "MIYS930101", aaindex = "aaindex2")
-    aa <- sum(aa[1,]) == -2.96
+    aa <- round(sum(aa[1,]),2) == -2.96
     expect_true(mat && aa)
 })

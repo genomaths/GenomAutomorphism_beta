@@ -320,6 +320,7 @@ alignment are labeled as “---”.
 ```{r barplot_2, fig.height = 12, fig.width = 12}
 cts <- unlist(autby_coef)
 counts <- table(cts$mut_type[ cts$autm != 1 & cts$autm != -1 ])
+counts <- counts[-1] ## remove indel mutations
 counts <- sort(counts, decreasing = TRUE)
 
 par(family = "serif", cex.axis = 1.4, font = 2, las = 1, 
