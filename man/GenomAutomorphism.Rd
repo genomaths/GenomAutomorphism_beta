@@ -20,7 +20,7 @@ group of \emph{prime-power order}.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/genomaths/GenomAutomorphism}
+  \item \url{https://genomaths.github.io/genomautomorphism https://github.com/genomaths/GenomAutomorphism}
   \item Report bugs at \url{https://github.com/genomaths/GenomAutomorphism/issues}
 }
 

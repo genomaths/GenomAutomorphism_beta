@@ -1,13 +1,15 @@
 Package: GenomAutomorphism
 Title: Compute the automorphisms between DNA's Abelian group representations
-Version: 1.5.1
+Version: 1.8.1
 Authors@R: 
     person( given = "Robersy",
             family = "Sanchez",
             role = c("aut", "cre"),
             email = "genomicmath@gmail.com",
             comment = c(ORCID = "0000-0002-5246-1453"))
-URL: https://github.com/genomaths/GenomAutomorphism
+URL: 
+    https://genomaths.github.io/genomautomorphism
+    https://github.com/genomaths/GenomAutomorphism
 BugReports: https://github.com/genomaths/GenomAutomorphism/issues
 Description: 
             This is a R package to compute the automorphisms between pairwise 

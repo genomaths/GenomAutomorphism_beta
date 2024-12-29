@@ -10,13 +10,16 @@ automorphism_prob(x, ...)
 
 \S4method{automorphism_prob}{AutomorphismByCoef}(
   x,
+  initial_alpha = NULL,
   method = c("L-BFGS-B", "Nelder-Mead", "BFGS", "CG", "SANN", "Brent"),
   maxit = 500,
-  abstol = 10^-8
+  abstol = 10^-8,
+  ...
 )
 
 \S4method{automorphism_prob}{AutomorphismByCoefList}(
   x,
+  initial_alpha = NULL,
   method = c("L-BFGS-B", "Nelder-Mead", "BFGS", "CG", "SANN", "Brent"),
   maxit = 500,
   abstol = 10^-8
@@ -26,8 +29,14 @@ automorphism_prob(x, ...)
 \item{x}{An AutomorphismByCoefList-class object returned by function
 \link{automorphism_bycoef}.}
 
+\item{...}{Not in use yet.}
+
+\item{initial_alpha}{A vector of initial guess values for pseudo counts
+\eqn{\alpha_i} (see Description). Default is: \eqn{\alpha_i = 1 / (n_i + 1)},
+which corresponds to \eqn{initial_alpha = NULL}.}
+
 \item{method, maxit, abstol}{Parameter values to pass into
-\code{\link[stats]{optim }}.}
+\code{\link[stats]{optim}}.}
 }
 \value{
 A data frame with the posterior probabilities.
@@ -69,13 +78,13 @@ where \eqn{N = \sum_{i=1}^{k}n_i}.
 \subsection{Optimization}{
 
 To perform MLE, we maximize the log of this likelihood:
-\eqn{log(P\left(n\middle|\alpha\right))}. That is, We aim to maximize this
+\eqn{log(P\left(n\middle|\alpha\right))}. That is, we aim to maximize this
 log-likelihood with respect to \eqn{\alpha}. This is done numerically
 because there's no closed-form solution. Here, we use:
 
 \deqn{Arg\max_{\alpha} {\{log\left(P\left(n\middle|\alpha\right)\right\}}}
 
-with initial guess set as \eqn{\alpha_i = n_i + 1}.
+with initial guess set as \eqn{\alpha_i = 1 / (n_i + 1)}.
 }
 
 \subsection{Posterior Distribution}{

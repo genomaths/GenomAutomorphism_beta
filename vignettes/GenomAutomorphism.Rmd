@@ -425,13 +425,15 @@ autby_coef <- autby_coef[ autby_coef$autm != 1 & autby_coef$autm != -1  ]
 
 Barplot of  frequency of mutation types greater than 2.
 ```{r barplot_2, fig.height = 12, fig.width = 14}
-counts <- table(autby_coef$mut_type)
-counts <- sort(counts, decreasing = TRUE)
-count. <- counts[ counts > 2 ]
+post_prob <- automorphism_prob(autby_coef)
+counts <-  post_prob$frequency
+names(counts) <- post_prob$Codon
+counts <- counts[counts > 2]
+
 
 par(family = "serif", cex.axis = 2, font = 2, las = 1, 
-    cex.main = 1.4, mar = c(6,2,4,4))
-barplot(count., main="Automorphism distribution per Mutation type",
+    cex.main = 2.2, mar = c(6,2,4,4))
+barplot(counts, main="Automorphism distribution per Mutation type",
         col = colorRampPalette(c("red", "yellow", "blue"))(36), 
         border = NA, axes = FALSE,las=2)
 axis(side = 2,  cex.axis = 2, line = -1.8 )
@@ -444,15 +446,27 @@ IUPAC nomenclature: 1) According to the number of hydrogen bonds (on DNA/RNA
 double helix): strong S={C, G} (three hydrogen bonds) and weak W={A, U} (two
 hydrogen bonds). According to the chemical type: purines R={A, G} and
 pyrimidines Y={C, U}. 3). According to the presence of amino or keto groups on
-the base rings: amino M={C, A} and keto K={G, T}.  Constant (hold) base
+the base rings: amino M={C, A} and keto K={G, T}. Insertion-deletion mutational events are represented by symbol '---'. Constant (hold) base
 positions were labeled with letter H. So, codon positions labeled as HKH means
 that the first and third bases remains constant and mutational events between
-bases G and T were found in the MSA.
+bases G and T were found in the MSA.   
 
+We applied a Dirichlet-Multinomial Modelling (in a Bayesian framework) to
+compute the posterior probability of each type of mutational event, where the 
+posterior Dirichlet distribution is:
 
-```{r ct}
-counts
+$$
+E\left[\theta_i\right]=\frac{\alpha_i^*+n_i}
+{\sum_{j=1}^{k}\left(\alpha_j^*+n_j\right)}
+$$
+
+where the \eqn{\alpha_i} are known as initial concentration parameters, which represents our initial belief or assumption about the distribution of the mutation types and $n_i$ stands for the observed frequencies:
+```{r freq-table}
+post_prob <- post_prob[post_prob$Posterior_Probability > 0.003,]
+post_prob
 ```
+
+
 
 The analysis of the frequency of mutational events (automorphisms, COVID: 
 human SARS coronavirus GZ02 vs Bat SARS-like coronavirus isolate 
@@ -461,6 +475,21 @@ consistent with the well-known observation highlighted by Crick: the highest
 mutational rate is found in the third base of the codon (HHY: 425, HHR: 189,
 HHW: 88), followed by YHH: 34 in the first base, and the lowest rate is found
 in the second one ([5](#5)).
+
+
+
+```{r prob, fig.height = 12, fig.width = 14, warning=FALSE}
+probs <- post_prob$Posterior_Probability
+names(probs) <- post_prob$Codon
+
+par(family = "serif", cex.axis = 2, font = 2, las = 1, 
+    cex.main = 2.1, mar = c(7,2,4,2))
+barplot(probs, main="Automorphism Probaility per Mutation type",
+        col = colorRampPalette(c("red", "yellow", "blue"))(36), 
+        border = NA, axes = FALSE,las = 2, hadj = 0.8)
+axis(side = 2,  cex.axis = 2.1, line = -1.8, hadj = 0.9 )
+```
+
 
 
 ## Conserved and non-conserved regions

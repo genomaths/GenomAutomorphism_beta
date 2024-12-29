@@ -49,13 +49,13 @@
 #' 
 #' ## Optimization
 #' To perform MLE, we maximize the log of this likelihood: 
-#' \eqn{log(P\left(n\middle|\alpha\right))}. That is, We aim to maximize this 
+#' \eqn{log(P\left(n\middle|\alpha\right))}. That is, we aim to maximize this 
 #' log-likelihood with respect to \eqn{\alpha}. This is done numerically 
 #' because there's no closed-form solution. Here, we use:
 #' 
 #' \deqn{Arg\max_{\alpha} {\{log\left(P\left(n\middle|\alpha\right)\right\}}}
 #' 
-#' with initial guess set as \eqn{\alpha_i = n_i + 1}.
+#' with initial guess set as \eqn{\alpha_i = 1 / (n_i + 1)}.
 #' 
 #' ## Posterior Distribution
 #' 
@@ -105,8 +105,13 @@
 #' @param x An AutomorphismByCoef or anAutomorphismByCoefList-class object 
 #' returned by function [automorphism_bycoef].
 #' 
+#' @param initial_alpha A vector of initial guess values for pseudo counts 
+#' \eqn{\alpha_i} (see Description). Default is: \eqn{\alpha_i = 1 / (n_i + 1)},
+#' which corresponds to \eqn{initial_alpha = NULL}.
+#' 
 #' @param method,maxit,abstol Parameter values to pass into 
-#' \code{\link[stats]{optim }}.
+#' \code{\link[stats]{optim}}.
+#' @param ... Not in use yet.
 #' @returns A data frame with the posterior probabilities.
 #' 
 #' @examples
@@ -135,9 +140,13 @@ setMethod(
     "automorphism_prob", signature(x = "AutomorphismByCoef"),
     function(
         x, 
+        initial_alpha = NULL,
         method = c("L-BFGS-B", "Nelder-Mead", "BFGS", "CG", "SANN", "Brent"),
         maxit = 500,
-        abstol = 10^-8) {
+        abstol = 10^-8,
+        ...) {
+        
+        method <- match.arg(method)
         
         x <- table(x$mut_type[ x$autm != 1 & x$autm != -1 ])
         x <- x[-1] ## remove indel mutations
@@ -180,14 +189,17 @@ setMethod(
         }
         
         # Initial guess for alpha (using n_i + 1)
-        initial_alpha <- full_data$Freq + 1
+        if (is.null(initial_alpha))
+            initial_alpha <- 1/(full_data$Freq + 1)
         
         # Optimization
         if (method == "L-BFGS-B") {
+            l = length(initial_alpha)
             optim_result <- optim(initial_alpha, 
                                 log_likelihood, 
                                 method = method, 
-                                lower = rep(0.1, length(initial_alpha)),
+                                lower = rep(0.1, l),
+                                upper = rep(mean(full_data$Freq + 1), l),
                                 control = list(
                                     fnscale = -1,
                                     maxit = maxit,
@@ -203,15 +215,22 @@ setMethod(
                                     abstol = abstol))            
         }
         
+        if (optim_result$convergence > abstol) {
+            warning("Optimization did not converge.")
+        }
+        
         # Optimized alpha parameters
         alpha_mle <- optim_result$par
         
         # Compute posterior probabilities with the MLE alpha
-        posterior_probs <- alpha_mle / sum(alpha_mle)
+        N_posterior = sum(full_data$Freq + alpha_mle)
+        posterior_probs <- (full_data$Freq + alpha_mle) / N_posterior
         
         # Combine with Codon data for clarity
         results <- data.frame(
             Codon = full_data$Codon,
+            frequency = full_data$Freq, 
+            alpha = alpha_mle,
             Posterior_Probability = posterior_probs
         )
         
@@ -235,7 +254,8 @@ setMethod(
 setMethod(
     "automorphism_prob", signature(x = "AutomorphismByCoefList"),
     function(
-        x, 
+        x,
+        initial_alpha = NULL,
         method = c("L-BFGS-B", "Nelder-Mead", "BFGS", "CG", "SANN", "Brent"),
         maxit = 500,
         abstol = 10^-8) {
@@ -245,7 +265,8 @@ setMethod(
         data <- unlist(x)
         
         return(automorphism_prob(
-            x = data, 
+            x = data,
+            initial_alpha = initial_alpha,
             method = method,
             maxit = maxit,
             abstol = abstol))
