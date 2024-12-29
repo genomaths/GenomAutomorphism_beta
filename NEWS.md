@@ -1,3 +1,9 @@
+# GenomAutomorphism 1.8.1
+
+* Add new a new function: 'automorphism_prob', which applies a 
+  Dirichlet-Multinomial Modelling (in a Bayesian framework) to compute the 
+  posterior probability of each type of mutational event.
+
 # GenomAutomorphism 1.5.1
 
 * Introducing new functions for DNA and aminoacid sequence representations
